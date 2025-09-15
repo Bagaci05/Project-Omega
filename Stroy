@@ -1,1 +1,14 @@
 Doofhensmirtz Evil INC
+
+A Doofhensmirtz Evil INC-ben egy baleset miatt megsemmisült a teljes hálózat minden telephelyükön. 
+A cég túszul ejtette kiskedvencünket, és követelik tőlünk, hogy tervezzük meg a fejlesztett hálózatukat a szabadonengedéséért cserébe.
+
+A cég 3 telephelyen működik. 
+
+Van egy legális internetkávézójuk amivel fedezni tudják a cég ördögi oldalát. 
+A kávézóban van kiépített hálózat vezetékes és mint vezeték nélküli csatlakozásra is.
+Amennyiben valaki vezeték nélküli hálózatot szeretné használni, a tagsági regisztrációkor kapott RADIUS loginját kell használni a biztonság érdekében.
+A kávézóban szintén van lehetőség hasznlni a helyi gépeket. Ehez a kávézó személyzete regisztál neked fiókot a rendszerbe, a bérlet megváltása után.
+A kapott Active directoryval való authentikáció után elérhető lesz a belépés bármelyik gépen
+
+A 
