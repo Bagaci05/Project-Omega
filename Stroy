@@ -11,4 +11,12 @@ Amennyiben valaki vezeték nélküli hálózatot szeretné használni, a tagság
 A kávézóban szintén van lehetőség hasznlni a helyi gépeket. Ehez a kávézó személyzete regisztál neked fiókot a rendszerbe, a bérlet megváltása után.
 A kapott Active directoryval való authentikáció után elérhető lesz a belépés bármelyik gépen
 
-A 
+A legfontosabb telephely amit telepítenünk kellet az a Szupertitkos Iroda volt.
+Az irodában biztonsági okok miatt több alhálózatra kell osztanunk a hálózatot.
+Biztonsgági okokból az irodába saját eszközt használni nem lehet használni így wifi kapcsolat sincs kiépítve.
+Van egy külön alhálózat a vállalat alkalmazottainak. Ezen gépek elérik az internetet és a helyi SzuperSzervert.
+Van egy alhálózat a vezérlőnek. Itt csak a SzuperSzerver és egy kliens gép van annak közvetlen kezelésére.
+Ez a Linux szerver futtatja a cég titkos könyvelését, így el kell rejteni az internet felől. A többi alhálózaton lévő kliens gép is csak a rajta található webszervert éri el a többi szolgáltatást nem. Ezért található ebben az alhálózatban még egy kliensgép amiről a szervert lehet kezelni.
+A telephelyen található még egy vlan a hálózati eszközök vezérlésére.
+
+A 3. telephely nem más mint a Raktár
