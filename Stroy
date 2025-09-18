@@ -24,3 +24,5 @@ A Raktárban Szuperbiztonságos beléptető és biztonsági rendszer működik.
 Minden biztonsági szint külön VLAN-ba van osztva.
 Elsőnek vannak a kamerák amik folyamatos megfigyelést biztosítanak a portás számára.
 A második a taposócsempék. Ezen csodás eszközök óránként jelentést küldenek a SzuperSzerverre egy biztonságos titkosított vpn csatornán.
+
+teszt szöveg
