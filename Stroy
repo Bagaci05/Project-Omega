@@ -19,6 +19,7 @@ Van egy alhálózat a vezérlőnek. Itt csak a SzuperSzerver és egy kliens gép
 Ez a Linux szerver futtatja a cég titkos könyvelését, így el kell rejteni az internet felől. A többi alhálózaton lévő kliens gép is csak a rajta található webszervert éri el a többi szolgáltatást nem. Ezért található ebben az alhálózatban még egy kliensgép amiről a szervert lehet kezelni.
 A telephelyen található még egy vlan a hálózati eszközök vezérlésére.
 
+
 A 3. telephely nem más mint a Raktár.
 A Raktárban Szuperbiztonságos beléptető és biztonsági rendszer működik.
 Minden biztonsági szint külön VLAN-ba van osztva
