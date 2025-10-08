@@ -16,3 +16,4 @@ no sh
 
 router ospf 1
 network 9.6.11.0 0.0.0.31 area 0
+network 172.16.0.0 0.0.0.7 area 1
