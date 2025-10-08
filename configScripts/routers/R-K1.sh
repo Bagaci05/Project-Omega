@@ -13,6 +13,7 @@ exit
 
 router ospf 1
 network 172.16.0.0 0.0.0.7 area 1
+network 10.0.10.0 0.0.0.7 area 1
 exit
 
 ip route 0.0.0.0 0.0.0.0 172.16.0.6
