@@ -24,12 +24,5 @@ network 9.6.11.0 0.0.0.31 area 0
 default-information originate   
 exit
 
-ip dhcp excl 9.6.11.1 9.6.11.10
-ip dhcp pool temp
-network 9.6.11.0 255.255.255.224
-default-router 9.6.11.1
-dns-server 1.1.1.1
-exit
-
 
 end
