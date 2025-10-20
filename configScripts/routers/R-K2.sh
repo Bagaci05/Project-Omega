@@ -1,6 +1,13 @@
 en
 conf t
 hostname R-K2
+no ip domain-lookup
+ip domain-name evil-inc.com
+
+line con 0
+logging synchronous
+exit
+
 
 int g6/0
 ip address 9.6.11.21 255.255.255.224
