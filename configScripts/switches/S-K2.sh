@@ -11,24 +11,49 @@ transport input ssh
 login local
 exit
 
+vlan 51
 vlan 80
 vlan 333
-vlan 51
-vlan 888
 vlan 369
+vlan 420
+vlan 444
+vlan 666
+vlan 888
+
 exit
 
 ip dhcp snooping
-ip dhcp snooping vlan 80,333,51,888
-ip arp inspection vlan 80,333,51,888
+ip dhcp snooping vlan 51,80,333,420,444,666,888
+ip arp inspection vlan 51,80,333,420,444,666,888
 
 line con 0
 logging synchronous
 exit
 
 int g0/0
+switchport trunk encapsulation dot1q
 switchport mode trunk
-switchport trunk allowed vlan 80,333,51
+switchport trunk allowed vlan 51,80,333,420,444,666
+switchport trunk native vlan 888
+switchport nonegotiate
+ip dhcp snooping trust
+ip arp inspection trust
+exit
+
+int g0/1
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport trunk allowed vlan 420
+switchport trunk native vlan 888
+switchport nonegotiate
+ip dhcp snooping trust
+ip arp inspection trust
+exit
+
+int g0/2
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport trunk allowed vlan 666,444
 switchport trunk native vlan 888
 switchport nonegotiate
 ip dhcp snooping trust

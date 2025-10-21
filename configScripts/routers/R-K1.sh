@@ -20,11 +20,6 @@ ip address 172.16.0.1 255.255.255.248
 no sh
 exit
 
-int g3/0
-ip address 10.0.0.249 255.255.255.248
-no sh
-exit
-
 int g4/0
 no sh
 int g4/0.80
@@ -36,14 +31,14 @@ ip address 10.0.0.193 255.255.255.224
 int g4/0.51
 encapsulation dot1Q 51
 ip address 10.0.0.129 255.255.255.192
-exit
-
-int g5/0
+int g4/0.420
+encapsulation dot1Q 420
+ip address 10.0.0.249 255.255.255.248
 no sh
-int g5/0.666
+int g4/0.666
 encapsulation dot1Q 666
 ip address 10.0.0.241 255.255.255.248
-int g5/0.444
+int g4/0.444
 encapsulation dot1Q 444
 ip address 10.0.0.225 255.255.255.240
 exit

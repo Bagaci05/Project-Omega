@@ -16,16 +16,16 @@ vlan 420
 vlan 888
 exit
 
-ip dhcp snooping
-ip dhcp snooping vlan 420, 888
-ip arp inspection vlan 420, 888
-
 line con 0
 logging synchronous
 exit
 
+ip dhcp snooping
+ip dhcp snooping vlan 420,888
+ip arp inspection vlan 420,888
+
 int range g0/1-2
-ip verify source
+#ip verify source
 switchport mode access
 switchport access vlan 420
 switchport port-security
@@ -41,6 +41,7 @@ ip dhcp snooping trust
 ip arp inspection trust
 
 int g0/0
+switchport trunk encapsulation dot1q
 switchport mode trunk
 switchport trunk allowed vlan 420
 switchport trunk native vlan 888

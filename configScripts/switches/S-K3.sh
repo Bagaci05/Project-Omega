@@ -26,6 +26,7 @@ logging synchronous
 exit
 
 int g0/0
+switchport trunk encapsulation dot1q
 switchport mode trunk
 switchport trunk allowed vlan 444,666
 switchport trunk native vlan 888
