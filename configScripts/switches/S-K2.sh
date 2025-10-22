@@ -82,7 +82,7 @@ ip arp inspection trust
 channel-group 2 mode desirable
 exit
 
-int range g0/1-3,g3/0-3
+int range g0/3,g3/0-3
 sh
 switchport mode access
 switchport access vlan 369

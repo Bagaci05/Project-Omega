@@ -24,5 +24,4 @@ network 9.6.11.0 0.0.0.31 area 0
 default-information originate   
 exit
 
-
 end
