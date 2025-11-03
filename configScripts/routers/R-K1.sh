@@ -25,22 +25,26 @@ no sh
 int g4/0.80
 encapsulation dot1Q 80
 ip address 10.0.0.1 255.255.255.128
+ip helper-address 10.0.0.250
 int g4/0.333
 encapsulation dot1Q 333
 ip address 10.0.0.193 255.255.255.224
+ip helper-address 10.0.0.250
 int g4/0.51
 encapsulation dot1Q 51
 ip address 10.0.0.129 255.255.255.192
+ip helper-address 10.0.0.250
 int g4/0.420
 encapsulation dot1Q 420
 ip address 10.0.0.249 255.255.255.248
-no sh
 int g4/0.666
 encapsulation dot1Q 666
 ip address 10.0.0.241 255.255.255.248
+ip helper-address 10.0.0.250
 int g4/0.444
 encapsulation dot1Q 444
 ip address 10.0.0.225 255.255.255.240
+ip helper-address 10.0.0.250
 exit
 
 router ospf 1
