@@ -27,7 +27,7 @@ exit
 int range g2/0-3
 switchport trunk encapsulation dot1q
 switchport mode trunk
-switchport trunk allowed vlan 51
+switchport trunk allowed vlan 51,888
 switchport trunk native vlan 888
 switchport nonegotiate
 ip dhcp snooping trust
@@ -36,7 +36,7 @@ channel-group 2 mode auto
 exit
 
 int g0/0
-ip verify source
+#ip verify source
 switchport mode access
 switchport access vlan 51
 switchport port-security

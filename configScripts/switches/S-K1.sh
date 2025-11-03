@@ -43,7 +43,7 @@ ip arp inspection trust
 int g0/0
 switchport trunk encapsulation dot1q
 switchport mode trunk
-switchport trunk allowed vlan 420
+switchport trunk allowed vlan 420,888
 switchport trunk native vlan 888
 switchport nonegotiate
 ip dhcp snooping trust
@@ -57,5 +57,5 @@ switchport access vlan 369
 exit
 
 #csak addig amíg nincs DHCP szerver
-ip arp inspection filter static-entry
-ip source binding 0c4f.66b3.0000 vlan 420 10.0.0.251 interface Gi0/2
+#ip arp inspection filter static-entry
+#ip source binding 0c4f.66b3.0000 vlan 420 10.0.0.251 interface Gi0/2

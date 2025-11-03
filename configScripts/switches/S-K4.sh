@@ -28,7 +28,7 @@ exit
 int range g1/0-3
 switchport trunk encapsulation dot1q
 switchport mode trunk
-switchport trunk allowed vlan 80,333
+switchport trunk allowed vlan 80,333,888
 switchport trunk native vlan 888
 switchport nonegotiate
 ip dhcp snooping trust
@@ -37,7 +37,7 @@ channel-group 1 mode auto
 exit
 
 int g0/0
-ip verify source
+#ip verify source
 switchport mode access
 switchport access vlan 80
 switchport port-security
@@ -49,7 +49,7 @@ spanning-tree bpduguard enable
 exit
 
 int g0/1
-ip verify source
+#ip verify source
 switchport mode access
 switchport access vlan 333
 switchport port-security

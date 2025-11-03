@@ -33,7 +33,7 @@ exit
 int g0/0
 switchport trunk encapsulation dot1q
 switchport mode trunk
-switchport trunk allowed vlan 51,80,333,420,444,666
+switchport trunk allowed vlan 51,80,333,420,444,666,888
 switchport trunk native vlan 888
 switchport nonegotiate
 ip dhcp snooping trust
@@ -43,7 +43,7 @@ exit
 int g0/1
 switchport trunk encapsulation dot1q
 switchport mode trunk
-switchport trunk allowed vlan 420
+switchport trunk allowed vlan 420,888
 switchport trunk native vlan 888
 switchport nonegotiate
 ip dhcp snooping trust
@@ -53,7 +53,7 @@ exit
 int g0/2
 switchport trunk encapsulation dot1q
 switchport mode trunk
-switchport trunk allowed vlan 666,444
+switchport trunk allowed vlan 666,444,888
 switchport trunk native vlan 888
 switchport nonegotiate
 ip dhcp snooping trust
@@ -63,7 +63,7 @@ exit
 int range g1/0-3
 switchport trunk encapsulation dot1q
 switchport mode trunk
-switchport trunk allowed vlan 80,333
+switchport trunk allowed vlan 80,333,888
 switchport trunk native vlan 888
 switchport nonegotiate
 ip dhcp snooping trust
@@ -74,7 +74,7 @@ exit
 int range g2/0-3
 switchport trunk encapsulation dot1q
 switchport mode trunk
-switchport trunk allowed vlan 51
+switchport trunk allowed vlan 51,888
 switchport trunk native vlan 888
 switchport nonegotiate
 ip dhcp snooping trust

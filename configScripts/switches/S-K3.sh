@@ -28,7 +28,7 @@ exit
 int g0/0
 switchport trunk encapsulation dot1q
 switchport mode trunk
-switchport trunk allowed vlan 444,666
+switchport trunk allowed vlan 444,666,888
 switchport trunk native vlan 888
 switchport nonegotiate
 ip dhcp snooping trust
@@ -36,7 +36,7 @@ ip arp inspection trust
 exit
 
 int g0/1
-ip verify source
+#ip verify source
 switchport mode access
 switchport access vlan 666
 switchport port-security
@@ -48,7 +48,7 @@ spanning-tree bpduguard enable
 exit
 
 int g0/2
-ip verify source
+#ip verify source
 switchport mode access
 switchport access vlan 444
 switchport port-security
