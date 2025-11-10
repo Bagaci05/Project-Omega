@@ -5,6 +5,11 @@ no ip domain-lookup
 ip domain-name evil-inc.com
 username admin secret 3v1lD3vil!
 banner motd "Unauthorized access will result in sacrificing you! :)"
+ip default-gateway 10.0.0.1
+snmp-server community public RO
+snmp-server location SzerverSzoba
+snmp-server enable traps
+
 
 line vty 0 15
 transport input ssh
@@ -20,6 +25,10 @@ exit
 line con 0
 logging synchronous
 exit
+
+int vlan 80
+ip address 10.0.0.125 255.255.255.128
+no sh
 
 # ip dhcp snooping
 # ip dhcp snooping vlan 80,333,888

@@ -3,6 +3,16 @@ conf t
 hostname R-K3
 no ip domain-lookup
 ip domain-name evil-inc.com
+username admin secret 3v1lD3vil!
+banner motd "Unauthorized access will result in sacrificing you! :)"
+snmp-server community public RO
+snmp-server location SzerverSzoba
+snmp-server enable traps
+
+line vty 0 15
+transport input ssh
+login local
+exit
 
 line con 0
 logging synchronous
