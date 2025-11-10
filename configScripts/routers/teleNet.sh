@@ -18,7 +18,7 @@ exit
 access-list 1 permit any
 ip nat inside source list 1 int g6/0 overload
 
-ip route 0.0.0.0 0.0.0.0 192.168.122.1
+ip route 0.0.0.0 0.0.0.0 192.168.1.1
 router ospf 1
 network 9.6.11.0 0.0.0.31 area 0
 default-information originate   
