@@ -31,7 +31,7 @@ exit
 # ip arp inspection vlan 444,666,888
 
 int vlan 444
-ip address 10.0.0.238
+ip address dhcp
 no sh
 
 int g0/0

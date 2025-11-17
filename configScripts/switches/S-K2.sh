@@ -35,7 +35,7 @@ exit
 # ip arp inspection vlan 51,80,333,420,444,666,888
 
 int vlan 80
-ip address 10.0.0.126 255.255.255.128
+ip address dhcp
 no sh
 
 int g0/0

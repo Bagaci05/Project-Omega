@@ -27,7 +27,7 @@ logging synchronous
 exit
 
 int vlan 80
-ip address 10.0.0.125 255.255.255.128
+ip address dhcp
 no sh
 
 # ip dhcp snooping

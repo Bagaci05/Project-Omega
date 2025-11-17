@@ -30,7 +30,7 @@ exit
 # ip arp inspection vlan 420,888
 
 int vlan 420
-ip address 10.0.0.252 255.255.255.248
+ip address dhcp
 no sh
 
 int range g0/1-2
