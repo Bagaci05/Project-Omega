@@ -7,7 +7,7 @@ crypto key generate rsa
 enable secret Abcd1234
 
 int g2/0
-ip address 10.0.0.254  255.255.255.0
+ip address 10.1.0.254  255.255.255.0
 no sh
 exit
 
@@ -17,6 +17,6 @@ no sh
 exit
 
 router ospf 1
-network 10.0.0.0 0.0.0.255 area 2
+network 10.1.0.0 0.0.0.255 area 2
 network 9.6.11.0 0.0.0.31 area 0
 exit
