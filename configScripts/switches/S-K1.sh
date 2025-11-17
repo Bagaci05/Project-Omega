@@ -37,12 +37,12 @@ int range g0/1-2
 #ip verify source
 switchport mode access
 switchport access vlan 420
-# switchport port-security
-# switchport port-security maximum 2
-# switchport port-security mac-address sticky
-# switchport port-security aging time 10
-# spanning-tree portfast
-# spanning-tree bpduguard enable
+switchport port-security
+switchport port-security maximum 2
+switchport port-security mac-address sticky
+switchport port-security aging time 10
+spanning-tree portfast
+spanning-tree bpduguard enable
 exit
 
 # int g0/1
