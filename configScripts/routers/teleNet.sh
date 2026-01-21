@@ -3,14 +3,19 @@ conf t
 hostname teleRouter
 ip domain name tele.net
 
+ipv6 unicast-routing
+
 int g6/0
 ip address dhcp
 ip nat outside
+ipv6 address autoconfig
 no shutdown
 exit
 
 int g1/0
 ip address 9.6.11.1 255.255.255.224
+ipv6 address 2001:db8:a::1/64
+ipv6 address fe80::1 link-local
 ip nat inside
 no sh
 exit
@@ -28,5 +33,8 @@ router ospf 1
 network 9.6.11.0 0.0.0.31 area 0
 default-information originate   
 exit
+
+ipv6 router ospf 1
+
 
 end
