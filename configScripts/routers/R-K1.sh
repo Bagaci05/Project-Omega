@@ -12,6 +12,8 @@ snmp-server community public RO
 snmp-server location SzerverSzoba
 snmp-server enable traps
 
+ipv6 unicast-routing
+
 line vty 0 15
 transport input ssh
 login local
@@ -23,6 +25,7 @@ exit
 
 int g1/0
 ip address 172.16.0.1 255.255.255.248
+ipv6 address 2001:db8:1000:15::1/64
 no sh
 exit
 
@@ -32,25 +35,37 @@ int g4/0.80
 encapsulation dot1Q 80
 ip address 10.0.0.1 255.255.255.128
 ip helper-address 10.0.0.250
+ipv6 address 2001:db8:1000:80::1/64
+ipv6 address fe80::1 link.local
 int g4/0.333
 encapsulation dot1Q 333
 ip address 10.0.0.193 255.255.255.224
 ip helper-address 10.0.0.250
+ipv6 address 2001:db8:1000:333::1/64
+ipv6 address fe80::1 link.local
 int g4/0.51
 encapsulation dot1Q 51
 ip address 10.0.0.129 255.255.255.192
 ip helper-address 10.0.0.250
+ipv6 address 2001:db8:1000:51::1/64
+ipv6 address fe80::1 link.local
 int g4/0.420
 encapsulation dot1Q 420
 ip address 10.0.0.249 255.255.255.248
+ipv6 address 2001:db8:1000:420::1/64
+ipv6 address fe80::1 link.local
 int g4/0.666
 encapsulation dot1Q 666
 ip address 10.0.0.241 255.255.255.248
 ip helper-address 10.0.0.250
+ipv6 address 2001:db8:1000:666::1/64
+ipv6 address fe80::1 link.local
 int g4/0.444
 encapsulation dot1Q 444
 ip address 10.0.0.225 255.255.255.240
 ip helper-address 10.0.0.250
+ipv6 address 2001:db8:1000:444::1/64
+ipv6 address fe80::1 link.local
 exit
 
 router ospf 1

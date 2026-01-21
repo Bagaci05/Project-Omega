@@ -29,13 +29,12 @@ vlan 666
 vlan 888
 exit
 
+ip dhcp snooping
+ip dhcp snooping vlan 80,51,420,333,444,666
+
 line con 0
 logging synchronous
 exit
-
-# ip dhcp snooping
-# ip dhcp snooping vlan 51,80,333,420,444,666,888
-# ip arp inspection vlan 51,80,333,420,444,666,888
 
 int vlan 80
 ip address dhcp
@@ -47,7 +46,7 @@ switchport mode trunk
 switchport trunk allowed vlan 51,80,333,420,444,666,888
 switchport trunk native vlan 888
 switchport nonegotiate
-# ip dhcp snooping trust
+ip dhcp snooping trust
 # ip arp inspection trust
 exit
 
@@ -57,7 +56,7 @@ switchport mode trunk
 switchport trunk allowed vlan 420,888
 switchport trunk native vlan 888
 switchport nonegotiate
-# ip dhcp snooping trust
+ip dhcp snooping trust
 # ip arp inspection trust
 exit
 
@@ -67,7 +66,7 @@ switchport mode trunk
 switchport trunk allowed vlan 666,444,888
 switchport trunk native vlan 888
 switchport nonegotiate
-# ip dhcp snooping trust
+ip dhcp snooping trust
 # ip arp inspection trust
 exit
 
@@ -78,7 +77,7 @@ switchport trunk allowed vlan 80,333,888
 switchport trunk native vlan 888
 switchport nonegotiate
 channel-group 1 mode desirable
-# ip dhcp snooping trust
+ip dhcp snooping trust
 # ip arp inspection trust
 exit
 
@@ -89,7 +88,7 @@ switchport trunk allowed vlan 51,888
 switchport trunk native vlan 888
 switchport nonegotiate
 channel-group 2 mode desirable
-# ip dhcp snooping trust
+ip dhcp snooping trust
 # ip arp inspection trust
 exit
 

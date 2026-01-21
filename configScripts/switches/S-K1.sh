@@ -24,13 +24,12 @@ vlan 420
 vlan 888
 exit
 
+ip dhcp snooping
+ip dhcp snooping vlan 80,51,420,333,444,666
+
 line con 0
 logging synchronous
 exit
-
-# ip dhcp snooping
-# ip dhcp snooping vlan 420,888
-# ip arp inspection vlan 420,888
 
 int vlan 420
 ip address dhcp
@@ -48,9 +47,11 @@ spanning-tree portfast
 spanning-tree bpduguard enable
 exit
 
-# int g0/1
-# ip dhcp snooping trust
-# ip arp inspection trust
+int g0/1
+ip dhcp snooping trust
+
+int g0/2
+ip dhcp snooping limit rate 10
 
 int g0/0
 switchport trunk encapsulation dot1q
@@ -58,8 +59,7 @@ switchport mode trunk
 switchport trunk allowed vlan 420,888
 switchport trunk native vlan 888
 switchport nonegotiate
-# ip dhcp snooping trust
-# ip arp inspection trust
+ip dhcp snooping trust
 exit
 
 int range g0/3,g1/0-3,g2/0-3,g3/0-3

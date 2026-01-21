@@ -12,6 +12,8 @@ snmp-server community public RO
 snmp-server location SzerverSzoba
 snmp-server enable traps
 
+ipv6 unicast-routing
+
 line vty 0 15
 transport input ssh
 login local
@@ -32,6 +34,11 @@ ip address 172.16.0.2 255.255.255.248
 standby 1 ip 172.16.0.6
 standby 1 priority 110
 standby 1 preempt
+ipv6 address 2001:db8:1000:15::2/64
+standby version 2
+standby 2 ipv6 2001:db8:1000:15::FE/64
+standby 2 priority 110
+standby 2 preempt
 no sh
 
 router ospf 1
