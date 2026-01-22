@@ -34,6 +34,13 @@ network 9.6.11.0 0.0.0.31 area 0
 default-information originate   
 exit
 
+ip nat pool NAT64_POOL 192.168.1.153 192.168.1.153 prefix-length 24
+ipv6 access-list NAT64_ACL
+permit ipv6 ::/0 any
+exit
+
+ipv6 nat v6v4 source list NAT64_ACL pool NAT64_POOL overload
+
 ipv6 router ospf 1
 
 
