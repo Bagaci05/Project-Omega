@@ -43,5 +43,11 @@ ipv6 nat v6v4 source list NAT64_ACL pool NAT64_POOL overload
 
 ipv6 router ospf 1
 
+#DNS config
+ip name-server 1.1.1.1
+ip dns server
+ip dns view default
+ dns forwarding
+exit
 
 end
