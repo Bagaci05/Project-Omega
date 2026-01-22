@@ -9,6 +9,8 @@ banner motd "Unauthorized access will result in sacrificing you! :)"
 crypto key generate rsa
 1024
 
+ipv6 unicast-routing
+
 line vty 0 15
 transport input ssh
 login local
@@ -24,10 +26,16 @@ no sh
 
 int g1/0
 ip address 10.2.0.1 255.255.255.128
+ipv6 address 2001:db8:3000:1::1/64
+ipv6 address fe80::1 link.local
+ipv6 enable
 no sh
 
 int g2/0
 ip address 10.2.0.129 255.255.255.248
+ipv6 address 2001:db8:3000:2::1/64
+ipv6 address fe80::1 link.local
+ipv6 enable
 no sh
 exit
 
