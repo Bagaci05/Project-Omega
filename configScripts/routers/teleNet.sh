@@ -54,4 +54,36 @@ ip dns view default
  dns forwarding
 exit
 
+# #PPPoE
+# #Local user accounts
+# aaa new-model
+# service password-encryption
+# username iroda@evil.inc password EvilIroda888
+# username kavezo@evil.inc password EvilKavezo888
+# username raktar@evil.inc password EvilRaktar888
+
+# #IP pool for PPPoE clients
+# ip local pool CustomersPool 9.6.11.2 9.6.11.30
+
+# #BBA group
+# bba-group pppoe PPPoEvils
+#  virtual-template 1
+# exit
+
+# #Virtual Template 1
+# interface virtual-template 1
+#  mtu 1492
+#  ip unnumbered G1/0
+#  peer default ip address pool CustomersPool
+#  ppp ipcp dns 9.6.11.1 1.1.1.1
+#  ppp authentication chap
+#  no shutdown
+# exit
+
+# #Enable PPPoE on LAN interface
+# interface g1/0
+#  pppoe enable group PPPoEvils
+#  no shutdown
+# exit
+
 end
