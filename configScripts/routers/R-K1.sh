@@ -38,6 +38,7 @@ ip helper-address 10.0.0.250
 ipv6 address 2001:db8:1000:80::1/64
 ipv6 address fe80::1 link.local
 ipv6 enable
+ipv6 ospf 1 area 1
 int g4/0.333
 encapsulation dot1Q 333
 ip address 10.0.0.193 255.255.255.224
@@ -45,6 +46,7 @@ ip helper-address 10.0.0.250
 ipv6 address 2001:db8:1000:333::1/64
 ipv6 address fe80::1 link.local
 ipv6 enable
+ipv6 ospf 1 area 1
 int g4/0.51
 encapsulation dot1Q 51
 ip address 10.0.0.129 255.255.255.192
@@ -52,12 +54,14 @@ ip helper-address 10.0.0.250
 ipv6 address 2001:db8:1000:51::1/64
 ipv6 address fe80::1 link.local
 ipv6 enable
+ipv6 ospf 1 area 1
 int g4/0.420
 encapsulation dot1Q 420
 ip address 10.0.0.249 255.255.255.248
 ipv6 address 2001:db8:1000:420::1/64
 ipv6 address fe80::1 link.local
 ipv6 enable
+ipv6 ospf 1 area 1
 int g4/0.666
 encapsulation dot1Q 666
 ip address 10.0.0.241 255.255.255.248
@@ -65,6 +69,7 @@ ip helper-address 10.0.0.250
 ipv6 address 2001:db8:1000:666::1/64
 ipv6 address fe80::1 link.local
 ipv6 enable
+ipv6 ospf 1 area 1
 int g4/0.444
 encapsulation dot1Q 444
 ip address 10.0.0.225 255.255.255.240
@@ -72,6 +77,7 @@ ip helper-address 10.0.0.250
 ipv6 address 2001:db8:1000:444::1/64
 ipv6 address fe80::1 link.local
 ipv6 enable
+ipv6 ospf 1 area 1
 exit
 
 router ospf 1
@@ -83,6 +89,11 @@ network 10.0.0.224 0.0.0.15 area 1
 network 10.0.0.240 0.0.0.7 area 1
 network 10.0.0.248 0.0.0.7 area 1
 exit
+
+ipv6 router ospf 1
+exit
+int g1/0
+ipv6 ospf 1 area 0
 
 ip route 0.0.0.0 0.0.0.0 172.16.0.6
 

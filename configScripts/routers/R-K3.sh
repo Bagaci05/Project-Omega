@@ -26,6 +26,7 @@ exit
 
 int g6/0
 ip address 9.6.11.22 255.255.255.224
+ipv6 address 2001:db8:a::3/64
 no sh
 exit
 
@@ -36,7 +37,7 @@ standby 1 priority 100
 standby 1 preempt
 ipv6 address 2001:db8:1000:15::3/64
 standby version 2
-standby 2 ipv6 2001:db8:1000:15::FE/64
+standby 2 ipv6 autoconfig
 standby 2 priority 100
 no sh
 
@@ -44,5 +45,12 @@ router ospf 1
 network 9.6.11.0 0.0.0.31 area 0
 network 172.16.0.0 0.0.0.7 area 1
 exit
+
+ipv6 router ospf 1
+exit
+int g6/0
+ipv6 ospf 1 area 0
+int g0/0
+ipv6 ospf 1 area 1
 
 end
