@@ -42,6 +42,11 @@ exit
 ipv6 nat v6v4 source list NAT64_ACL pool NAT64_POOL overload
 
 ipv6 router ospf 1
+exit
+
+int g1/0
+ipv6 ospf 1 area 0
+exit
 
 #DNS config
 ip name-server 1.1.1.1
