@@ -45,7 +45,7 @@ ipv6 router ospf 1
 exit
 
 int g1/0
-ipv6 ospf 1
+ipv6 ospf 1 area 0
 exit
 
 #DNS config
