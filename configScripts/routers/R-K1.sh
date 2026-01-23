@@ -21,7 +21,12 @@ exit
 
 line con 0
 logging synchronous
+#password C0N3MA50N
+#login
 exit
+
+#enable secret 5@T@N666
+#service password-encryption
 
 int g1/0
 ip address 172.16.0.1 255.255.255.248

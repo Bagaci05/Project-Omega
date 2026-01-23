@@ -29,7 +29,12 @@ ip dhcp snooping vlan 80,51,420,333,444,666
 
 line con 0
 logging synchronous
+#password C0N3MA50N
+#login
 exit
+
+#enable secret 5@T@N666
+#service password-encryption
 
 int vlan 420
 ip address dhcp

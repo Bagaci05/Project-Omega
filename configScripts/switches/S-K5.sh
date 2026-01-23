@@ -26,7 +26,12 @@ exit
 
 line con 0
 logging synchronous
+#password C0N3MA50N
+#login
 exit
+
+#enable secret 5@T@N666
+#service password-encryption
 
 int vlan 51
 ip address dhcp

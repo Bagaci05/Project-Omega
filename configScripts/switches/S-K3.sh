@@ -27,7 +27,12 @@ exit
 
 line con 0
 logging synchronous
+#password C0N3MA50N
+#login
 exit
+
+#enable secret 5@T@N666
+#service password-encryption
 
 # ip dhcp snooping
 # ip dhcp snooping vlan 444,666,888
