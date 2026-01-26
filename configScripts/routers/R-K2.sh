@@ -28,12 +28,37 @@ exit
 #enable secret 5@T@N666
 #service password-encryption
 
-
 int g6/0
 ip address 9.6.11.21 255.255.255.224
 ipv6 address 2001:db8:a::2/64
 no sh
 exit
+
+# aaa new-model
+# interface Dialer1
+#  mtu 1492
+#  ip address negotiated
+#  encapsulation ppp
+#  dialer pool 1
+
+#  ipv6 enable
+#  ipv6 address autoconfig default
+
+#  ppp authentication chap
+#  ppp chap hostname iroda@evil.inc
+#  ppp chap password EvilIroda888
+#  no shutdown
+#  exit
+
+# interface GigabitEthernet6/0
+#  no ip address
+#  pppoe enable
+#  pppoe-client dial-pool-number 1
+#  no shutdown
+#  exit
+
+#  ip route 0.0.0.0 0.0.0.0 Dialer1
+#  ipv6 route ::/0 Dialer1
 
 int g0/0
 ip address 172.16.0.2 255.255.255.248

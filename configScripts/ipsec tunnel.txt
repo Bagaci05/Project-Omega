@@ -1,0 +1,87 @@
+------------------------------------------------------------------------------------------
+
+R-K1
+
+------------------------------------------------------------------------------------------
+ip access-list extended VPN-IPv4
+ permit ip 10.0.0.0 0.0.0.255 10.2.0.0 0.0.0.255
+exit
+
+ipv6 access-list VPN-IPv6
+ permit ipv6 2001:db8:1000::/64 2001:db8:3000::/64
+exit
+
+crypto isakmp policy 10
+ encr aes 256
+ hash sha
+ authentication pre-share
+ group 2
+ lifetime 86400
+exit
+
+crypto isakmp key CR1T1CALP3SS! address 9.6.11.30
+crypto ipsec transform-set VPN-TS esp-aes 256 esp-sha-hmac
+
+crypto map VPN-MAP 10 ipsec-isakmp
+ set peer 9.6.11.30
+ set transform-set VPN-TS
+ match address VPN-IPv4
+exit
+
+crypto map VPN6-MAP 10 ipsec-isakmp
+ set peer 9.6.11.30
+ set transform-set VPN-TS
+ match address VPN-IPv6
+exit
+
+interface G1/0
+ crypto map VPN-MAP
+ crypto map VPN6-MAP
+exit
+
+ip route 10.2.0.0 255.255.255.0 9.6.11.30
+ipv6 route 2001:db8:3000::/64 2001:db8:a::4
+
+------------------------------------------------------------------------------------------
+
+R-R1
+
+------------------------------------------------------------------------------------------
+ip access-list extended VPN-VPN-IPv4
+ permit ip 10.2.0.0 0.0.0.255 10.0.0.0 0.0.0.255
+exit
+
+ipv6 access-list VPN-IPv6
+ permit ipv6 2001:db8:3000::/64 2001:db8:1000::/64
+exit
+
+crypto isakmp policy 10
+ encr aes 256
+ hash sha
+ authentication pre-share
+ group 2
+ lifetime 86400
+exit
+
+crypto isakmp key CR1T1CALP3SS! address 172.16.0.1
+crypto ipsec transform-set VPN-TS esp-aes 256 esp-sha-hmac
+
+crypto map VPN-MAP 10 ipsec-isakmp
+ set peer 172.16.0.1
+ set transform-set VPN-TS
+ match address VPN-IPv4
+exit
+
+crypto map VPN6-MAP 10 ipsec-isakmp
+ set peer 172.16.0.1
+ set transform-set VPN-TS
+ match address VPN-IPv6
+exit
+
+interface Gig0/0
+ crypto map VPN-MAP
+ crypto map VPN6-MAP
+exit
+
+ip route 10.0.0.0 255.255.255.0 172.16.0.1
+ipv6 route 2001:db8:1000::/64 2001:db8:1000:15::1
