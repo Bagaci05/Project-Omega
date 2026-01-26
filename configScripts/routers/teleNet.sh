@@ -26,6 +26,7 @@ ip nat inside source static tcp 10.1.0.253 80 192.168.1.153 8080
 
 ip route 0.0.0.0 0.0.0.0 192.168.1.1
 router ospf 1
+router-id 1.1.1.1
 network 9.6.11.0 0.0.0.31 area 0
 default-information originate   
 exit
