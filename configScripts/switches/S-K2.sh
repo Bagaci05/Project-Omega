@@ -20,13 +20,21 @@ login local
 exit
 
 vlan 51
+name Experimental
 vlan 80
+name Production
 vlan 333
+name Financial
 vlan 369
+name NONE
 vlan 420
+name Management
 vlan 444
+name HR
 vlan 666
+name Leadership
 vlan 888
+name Native
 exit
 
 ip dhcp snooping

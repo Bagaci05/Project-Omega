@@ -20,8 +20,11 @@ login local
 exit
 
 vlan 51
+name Experimental
 vlan 888
+name Native
 vlan 369
+name NONE
 exit
 
 line con 0

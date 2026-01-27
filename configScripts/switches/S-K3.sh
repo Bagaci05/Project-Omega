@@ -20,9 +20,13 @@ login local
 exit
 
 vlan 666
+name Leadership
 vlan 444
+name HR
 vlan 888
+name Native
 vlan 369
+name NONE
 exit
 
 line con 0
