@@ -30,6 +30,34 @@ ip address 9.6.11.30 255.255.255.224
 ipv6 address 2001:db8:a::4/64
 no sh
 
+# aaa new-model
+# interface Dialer1
+#  mtu 1492
+#  ip address negotiated
+#  encapsulation ppp
+#  dialer pool 1
+
+#  ipv6 enable
+#  ipv6 address autoconfig default
+#  ipv6 dhcp client pd CUSTOMER_PREFIX
+
+#  ppp authentication chap
+#  ppp chap hostname raktar@evil.inc
+#  ppp chap password EvilRaktar888
+#  no shutdown
+#  exit
+
+# interface GigabitEthernet6/0
+#  no ip address
+#  pppoe enable
+#  pppoe-client dial-pool-number 1
+#  no shutdown
+#  exit
+
+#  ip route 0.0.0.0 0.0.0.0 Dialer1
+#  ipv6 route ::/0 Dialer1
+
+
 int g1/0
 ip address 10.2.0.1 255.255.255.128
 ipv6 address 2001:db8:3000:1::1/64

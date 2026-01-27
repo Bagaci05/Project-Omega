@@ -61,8 +61,8 @@ exit
 
 # #IP pool for PPPoE clients
 # ip local pool CustomersPool 9.6.11.2 9.6.11.30
-# ipv6 local pool CustomersPoolv6_PD
-# 2001:db8:a::/48 64
+# ipv6 local pool CustomersPoolv6_PD 2001:db8:a::/48 64
+
 # ipv6 dhcp pool CustomersPoolv6_DHCP
 #   prefix-delegation pool CustomersPoolv6_PD
 
@@ -71,10 +71,11 @@ exit
 #  virtual-template 1
 # exit
 
-# #Virtual Template 1
+# #Virtual Template1
 # interface virtual-template 1
 #  mtu 1492
 #  ipv6 enable
+
 #  ipv6 nd managed-config-flag
 #  ipv6 nd other-config-flag
 #  no ipv6 nd ra suppress
@@ -83,8 +84,9 @@ exit
 
 #  ip unnumbered G1/0
 #  peer default ip address pool CustomersPool
+
 #  ppp ipcp dns 9.6.11.1 1.1.1.1
-#  ipv6 dhcp server CUSTOMER1_IPV6_POOL
+#  ipv6 dhcp server CustomersPoolv6_DHCP
 
 #  ppp authentication chap
 #  no shutdown

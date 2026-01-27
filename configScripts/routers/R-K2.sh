@@ -43,6 +43,7 @@ exit
 
 #  ipv6 enable
 #  ipv6 address autoconfig default
+#  ipv6 dhcp client pd CUSTOMER_PREFIX
 
 #  ppp authentication chap
 #  ppp chap hostname iroda@evil.inc
