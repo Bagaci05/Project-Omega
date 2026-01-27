@@ -5,9 +5,9 @@ ip domain name tele.net
 
 ipv6 unicast-routing
 
+#Ifconfig
 int g6/0
 ip address dhcp
-ip nat outside
 ipv6 address autoconfig
 no shutdown
 exit
@@ -16,21 +16,30 @@ int g1/0
 ip address 9.6.11.1 255.255.255.224
 ipv6 address 2001:db8:a::1/64
 ipv6 address fe80::1 link-local
-ip nat inside
 no sh
 exit
 
+#Pat v4
 access-list 1 permit any
 ip nat inside source list 1 int g6/0 overload
 ip nat inside source static tcp 10.1.20.253 80 192.168.1.153 8080
+int g6/0
+ ip nat outside
+int g1/0
+ ip nat inside
+exit
 
+#DG
 ip route 0.0.0.0 0.0.0.0 192.168.1.1
+
+#OSPF
 router ospf 1
 router-id 1.1.1.1
 network 9.6.11.0 0.0.0.31 area 0
 default-information originate   
 exit
 
+#Natv6v4
 ip nat pool NAT64_POOL 192.168.1.153 192.168.1.153 prefix-length 24
 ipv6 access-list NAT64_ACL
 permit ipv6 ::/0 any
@@ -38,10 +47,12 @@ exit
 
 ipv6 nat v6v4 source list NAT64_ACL pool NAT64_POOL overload
 
+#OSPFv3
+
 ipv6 router ospf 1
 exit
 int g1/0
-ipv6 ospf 1 area 0
+ ipv6 ospf 1 area 0
 exit
 
 #DNS config
