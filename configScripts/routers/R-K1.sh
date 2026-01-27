@@ -21,11 +21,11 @@ exit
 
 line con 0
 logging synchronous
-#password C0N3MA50N
+#password C0N3MA50N%
 #login
 exit
 
-#enable secret 5@T@N666
+#enable secret 5@T@N666?
 #service password-encryption
 
 int g1/0
