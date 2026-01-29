@@ -20,9 +20,13 @@ login local
 exit
 
 vlan 80
+name Production
 vlan 333
+name Financial
 vlan 888
+name Native
 vlan 369
+name NONE
 exit
 
 line con 0

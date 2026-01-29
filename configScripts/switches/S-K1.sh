@@ -20,8 +20,11 @@ login local
 exit
 
 vlan 369
+name NONE
 vlan 420
+name Management
 vlan 888
+name Native
 exit
 
 ip dhcp snooping
