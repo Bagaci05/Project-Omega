@@ -28,7 +28,6 @@ switchport access vlan 10
 exit
 
 int g3/3
-switchport trun encapsulation dot1q
-switchport mode trun
-switchport trunk allowed vlan 10,20,30
+switchport mode access
+switchport access vlan 30
 exit
