@@ -23,7 +23,6 @@ exit
 access-list 1 permit any
 ip nat inside source list 1 int g6/0 overload
 ip nat inside source static tcp 10.1.20.253 80 192.168.1.153 8080
-ip nat inside source static tcp 9.6.11.12 80 192.168.1.153 8081
 int g6/0
  ip nat outside
 int g1/0
