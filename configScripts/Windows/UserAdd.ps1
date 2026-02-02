@@ -18,12 +18,12 @@ $TypeChoice = Read-Host "Enter 1 or 2"
  
 switch ($TypeChoice) {
     "1" {
-        $OUPath = "OU=Guests,OU=evils,DC=Evilcaffee,DC=hu"
+        $OUPath = "OU=EvilGuests,OU=evils,DC=EvilInc,DC=hu"
         $RoleGroup = "EvilGuests"
         $UserType = "Guest"
     }
     "2" {
-        $OUPath = "OU=Workers,OU=evils,DC=Evilcaffee,DC=hu"
+        $OUPath = "OU=EvilWorkers,OU=evils,DC=EvilInc,DC=hu"
         $RoleGroup = "EvilWorkers"
         $UserType = "Worker"
     }
