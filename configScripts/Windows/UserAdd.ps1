@@ -64,3 +64,33 @@ Write-Host "Groups:"
 Write-Host " - WIFI Users"
 Write-Host " - $RoleGroup"
 Write-Host "Home folder: $HomePath"
+
+Start-Sleep -Seconds 2
+
+if (!(Test-Path $HomePath)) {
+    New-Item -ItemType Directory -Path $HomePath | Out-Null
+}
+
+$Acl = Get-Acl $HomePath
+$Acl.SetAccessRuleProtection($true, $false)
+
+$UserRule = New-Object System.Security.AccessControl.FileSystemAccessRule(
+    "$Username",
+    "FullControl",
+    "ContainerInherit,ObjectInherit",
+    "None",
+    "Allow"
+)
+
+$AdminRule = New-Object System.Security.AccessControl.FileSystemAccessRule(
+    "Administrators",
+    "FullControl",
+    "ContainerInherit,ObjectInherit",
+    "None",
+    "Allow"
+)
+
+$Acl.SetAccessRule($UserRule)
+$Acl.AddAccessRule($AdminRule)
+
+Set-Acl -Path $HomePath -AclObject $Acl
