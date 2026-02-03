@@ -6,8 +6,8 @@ ip domain-name evil-inc.com
 ip ssh version 2
 username admin secret 3v1lD3vil!
 banner motd "Unauthorized access will result in sacrificing you! :)"
-crypto key generate rsa
-1024
+#crypto key generate rsa
+#1024
 snmp-server community public RO
 snmp-server location SzerverSzoba
 snmp-server enable traps
@@ -28,40 +28,20 @@ exit
 #enable secret 5@T@N666
 #service password-encryption
 
-
-int g6/0
-ip address 9.6.11.22 255.255.255.224
-ipv6 address 2001:db8:a::3/64
-no sh
+ipv6 router ospf 1
 exit
 
-# aaa new-model
-# interface Dialer1
-#  mtu 1492
-#  ip address negotiated
-#  encapsulation ppp
-#  dialer pool 1
+aaa new-model
 
-#  ipv6 enable
-#  ipv6 address autoconfig default
-#  ipv6 dhcp client pd CUSTOMER_PREFIX
-
-#  ppp authentication chap
-#  ppp chap hostname iroda@evil.inc
-#  ppp chap password EvilIroda888
-#  no shutdown
-#  exit
-
-# interface GigabitEthernet6/0
-#  no ip address
-#  pppoe enable
-#  pppoe-client dial-pool-number 1
-#  no shutdown
-#  exit
-
-#  ip route 0.0.0.0 0.0.0.0 Dialer1
-#  ipv6 route ::/0 Dialer1
-
+interface s2/0
+ip address 9.6.11.6 255.255.255.252
+ipv6 address 2001:db8:a:2::2/64 
+ipv6 ospf 10 area 0
+encapsulation ppp
+ppp chap hostname iroda@evil.inc 
+ppp chap password 0 EvilIroda888
+no shutdown
+exit
 
 int g0/0
 ip address 172.16.0.3 255.255.255.248
@@ -72,18 +52,17 @@ ipv6 address 2001:db8:1000:15::3/64
 standby version 2
 standby 2 ipv6 autoconfig
 standby 2 priority 100
+ipv6 ospf 10 area 0
 no sh
+exit
+
 
 router ospf 1
-network 9.6.11.0 0.0.0.31 area 0
+router-id 3.3.3.3
+network 9.6.11.0 0.0.0.255 area 0
 network 172.16.0.0 0.0.0.7 area 1
-exit
 
-ipv6 router ospf 1
-exit
-int g6/0
-ipv6 ospf 1 area 0
-int g0/0
-ipv6 ospf 1 area 1
-
+# debug ppp negotiation
+# debug ppp authentication
+# debug pppoe events
 end
