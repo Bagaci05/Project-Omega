@@ -99,6 +99,7 @@ int s2/0
 ip address 9.6.11.1 255.255.255.252
 ipv6 address 2001:db8:a:1::1/64 
 ipv6 ospf 10 area 0
+ip nat inside
 encapsulation ppp
 ppp authentication chap
 no sh
@@ -107,6 +108,7 @@ int s2/1
 ip address 9.6.11.5 255.255.255.252
 ipv6 address 2001:db8:a:2::1/64
 ipv6 ospf 10 area 0
+ip nat inside
 encapsulation ppp
 ppp authentication chap
 no sh
@@ -115,6 +117,7 @@ int s2/2
 ip address 9.6.11.9 255.255.255.252
 ipv6 address 2001:db8:a:3::1/64
 ipv6 ospf 10 area 0
+ip nat inside
 encapsulation ppp
 ppp authentication chap
 no sh
