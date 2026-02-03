@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EvilInc Caffee</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background-color: #f6f3ef;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #5a3e2b;
+            color: #fff;
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 3rem;
+        }
+
+        header p {
+            margin-top: 10px;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        nav {
+            background-color: #3f2b1d;
+            padding: 12px;
+            text-align: center;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 600;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            padding: 40px 20px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section h2 {
+            color: #5a3e2b;
+            margin-bottom: 15px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        footer {
+            background-color: #3f2b1d;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>EvilInc Caffee</h1>
+    <p>Good coffee. Fast internet. Comfy vibes.</p>
+</header>
+
+<nav>
+    <a href="#about">About</a>
+    <a href="#menu">Menu</a>
+    <a href="#internet">Internet</a>
+    <a href="#contact">Contact</a>
+</nav>
+
+<div class="container">
+
+    <section id="about" class="section">
+        <h2>About Us</h2>
+        <p>
+            EvilInc Caffee is a welcoming internet café where great coffee meets
+            reliable Wi-Fi. Whether you’re working, studying, gaming casually,
+            or catching up with friends, our space is designed to feel relaxed,
+            warm, and comfortable.
+        </p>
+    </section>
+
+    <section id="menu" class="section">
+        <h2>Coffee & Snacks</h2>
+        <div class="cards">
+            <div class="card">
+                ☕ Freshly brewed coffee
+            </div>
+            <div class="card">
+                🥐 Pastries & snacks
+            </div>
+            <div class="card">
+                🧊 Iced drinks & teas
+            </div>
+            <div class="card">
+                🍪 Sweet treats
+            </div>
+        </div>
+    </section>
+
+    <section id="internet" class="section">
+        <h2>Internet & Workspace</h2>
+        <div class="cards">
+            <div class="card">
+                💻 High-speed internet
+            </div>
+            <div class="card">
+                🪑 Comfortable seating
+            </div>
+            <div class="card">
+                🔌 Power outlets at every table
+            </div>
+            <div class="card">
+                🖨 Printing & scanning available
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <h2>Visit Us</h2>
+        <p>
+            📍 Location: Your City Here<br>
+            ⏰ Open: Daily 8:00 AM – 10:00 PM<br>
+            📧 Email: hello@evilinc-caffee.com
+        </p>
+    </section>
+
+</div>
+
+<footer>
+    © 2026 EvilInc Caffee — Stay caffeinated ☕
+</footer>
+
+</body>
+</html>
