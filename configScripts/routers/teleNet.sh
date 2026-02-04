@@ -69,7 +69,7 @@ username iroda@evil.inc password 0 EvilIroda888
 username kavezo@evil.inc password 0 EvilKavezo888
 username raktar@evil.inc password 0 EvilRaktar888
 
-ip local pool CustomerPool 9.6.11.14
+ip local pool CustomerPool 9.6.11.13 9.6.11.14
 ipv6 local pool CustomersPoolv6_PD 2001:db8:a:4::/48 64
 ipv6 dhcp pool CustomersPoolv6_DHCP
 prefix-delegation pool CustomersPoolv6_PD
@@ -91,7 +91,7 @@ ip ospf network point-to-point
 ip ospf 1 area 0
 ipv6 ospf 10 area 0
 
-peer default ip address pool CustomersPool
+peer default ip address pool CustomerPool
 ppp ipcp dns 9.6.11.13 1.1.1.1
 ipv6 dhcp server CustomersPoolv6_DHCP
 ppp authentication chap
