@@ -55,6 +55,12 @@ ip dns view default
 dns forwarding
 exit
 
+
+
+
+
+
+
 #PPPoE
 #Local user accounts
 aaa new-model
