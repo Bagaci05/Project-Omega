@@ -79,7 +79,7 @@ virtual-template 1
 
 interface Virtual-Template1
 ip address 9.6.11.13 255.255.255.252
-
+ip nat inside
 mtu 1492
 ipv6 enable
 ipv6 nd managed-config-flag
