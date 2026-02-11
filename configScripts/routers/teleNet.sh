@@ -31,7 +31,10 @@ ip route 0.0.0.0 0.0.0.0 192.168.1.1
 #OSPF
 router ospf 1
 router-id 1.1.1.1
-network 9.6.11.0 0.0.0.255 area 0
+network 9.6.11.0 0.0.0.3 area 0
+network 9.6.11.4 0.0.0.3 area 0
+network 9.6.11.8 0.0.0.3 area 0
+network 9.6.11.12 0.0.0.3 area 0
 default-information originate   
 exit
 
@@ -85,7 +88,7 @@ ip ospf network point-to-point
 ip ospf 1 area 0
 ipv6 ospf 10 area 0
 
-peer default ip address pool CustomersPool
+peer default ip address pool CustomerPool
 ppp ipcp dns 9.6.11.13 1.1.1.1
 ipv6 dhcp server CustomersPoolv6_DHCP
 ppp authentication chap

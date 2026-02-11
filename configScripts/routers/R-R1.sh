@@ -37,7 +37,7 @@ ipv6 ospf 10 area 0
 encapsulation ppp
 ppp chap hostname raktar@evil.inc
 ppp chap password 0 EvilRaktar888
-no shutdown
+no sh
 exit
 
 int g1/0

@@ -59,7 +59,7 @@ exit
 
 router ospf 1
 router-id 3.3.3.3
-network 9.6.11.0 0.0.0.255 area 0
+network 9.6.11.4 0.0.0.3 area 0
 network 172.16.0.0 0.0.0.7 area 1
 
 # debug ppp negotiation
