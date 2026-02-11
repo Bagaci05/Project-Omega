@@ -58,6 +58,12 @@ ip dns view default
 dns forwarding
 exit
 
+
+
+
+
+
+
 #PPPoE
 #Local user accounts
 aaa new-model
@@ -66,8 +72,8 @@ username iroda@evil.inc password 0 EvilIroda888
 username kavezo@evil.inc password 0 EvilKavezo888
 username raktar@evil.inc password 0 EvilRaktar888
 
-ip local pool CustomerPool 9.6.11.14
-ipv6 local pool CustomersPoolv6_PD 2001:db8:a:4::/48 64
+ip local pool CustomerPool 9.6.11.13 9.6.11.14
+ipv6 local pool CustomersPoolv6_PD 2001:db8:a:4::/48 56
 ipv6 dhcp pool CustomersPoolv6_DHCP
 prefix-delegation pool CustomersPoolv6_PD
 
@@ -76,7 +82,7 @@ virtual-template 1
 
 interface Virtual-Template1
 ip address 9.6.11.13 255.255.255.252
-
+ip nat inside
 mtu 1492
 ipv6 enable
 ipv6 nd managed-config-flag
