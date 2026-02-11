@@ -45,6 +45,7 @@ ip address 10.2.0.1 255.255.255.128
 ipv6 address 2001:db8:3000:1::1/64
 ipv6 address fe80::1 link-local
 ipv6 enable
+ipv6 ospf 10 area 3
 no sh
 
 int g2/0
@@ -52,6 +53,7 @@ ip address 10.2.0.129 255.255.255.248
 ipv6 address 2001:db8:3000:2::1/64
 ipv6 address fe80::1 link-local
 ipv6 enable
+ipv6 ospf 10 area 3
 no sh
 exit
 
@@ -61,11 +63,6 @@ network 9.6.11.0 0.0.0.255 area 0
 network 10.2.0.0 0.0.0.127 area 3
 network 10.2.0.128 0.0.0.7 are 3
 exit
-
-int g1/0
-ipv6 ospf 10 area 3
-int g2/0
-ipv6 ospf 10 area 3
 
 # debug ppp negotiation
 # debug ppp authentication

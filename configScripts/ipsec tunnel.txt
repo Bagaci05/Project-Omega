@@ -19,17 +19,17 @@ crypto isakmp policy 10
  lifetime 86400
 exit
 
-crypto isakmp key CR1T1CALP3SS! address 9.6.11.30
+crypto isakmp key CR1T1CALP3SS! address 9.6.11.10
 crypto ipsec transform-set VPN-TS esp-aes 256 esp-sha-hmac
 
 crypto map VPN-MAP 10 ipsec-isakmp
- set peer 9.6.11.30
+ set peer 9.6.11.10
  set transform-set VPN-TS
  match address VPN-IPv4
 exit
 
 crypto map VPN6-MAP 10 ipsec-isakmp
- set peer 9.6.11.30
+ set peer 9.6.11.10
  set transform-set VPN-TS
  match address VPN-IPv6
 exit
@@ -39,8 +39,8 @@ interface G1/0
  crypto map VPN6-MAP
 exit
 
-ip route 10.2.0.0 255.255.255.0 9.6.11.30
-ipv6 route 2001:db8:3000::/64 2001:db8:a::4
+ip route 10.2.0.0 255.255.255.0 9.6.11.10
+ipv6 route 2001:db8:3000::/64 2001:db8:a:3::2
 
 ------------------------------------------------------------------------------------------
 
@@ -78,7 +78,7 @@ crypto map VPN6-MAP 10 ipsec-isakmp
  match address VPN-IPv6
 exit
 
-interface Gig0/0
+interface s3/0
  crypto map VPN-MAP
  crypto map VPN6-MAP
 exit

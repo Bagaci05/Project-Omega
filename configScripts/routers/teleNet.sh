@@ -73,7 +73,7 @@ username kavezo@evil.inc password 0 EvilKavezo888
 username raktar@evil.inc password 0 EvilRaktar888
 
 ip local pool CustomerPool 9.6.11.13 9.6.11.14
-ipv6 local pool CustomersPoolv6_PD 2001:db8:a:4::/48 56
+ipv6 local pool CustomersPoolv6_PD 2001:db8:b::/48 56
 ipv6 dhcp pool CustomersPoolv6_DHCP
 prefix-delegation pool CustomersPoolv6_PD
 
