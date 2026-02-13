@@ -10,15 +10,15 @@ logging synchronous
 
 #Ifconfig
 int g6/0
-ip address dhcp
-ipv6 address autoconfig
-no shutdown
+ ip address dhcp
+ ipv6 address autoconfig
+ no shutdown
 exit
 
 #Pat v4
 access-list 1 permit any
 ip nat inside source list 1 int g6/0 overload
-ip nat inside source static tcp 10.1.20.253 80 192.168.1.153 8080
+
 int g6/0
  ip nat outside
 int g1/0
@@ -39,29 +39,60 @@ default-information originate
 exit
 
 #Natv6v4
-ip nat pool NAT64_POOL 192.168.1.153 192.168.1.153 prefix-length 24
-ipv6 access-list NAT64_ACL
-permit ipv6 ::/0 any
+no ipv6 cef
+
+int loopback 64
+ ip address 172.16.1.1 255.255.255.255
+ ipv6 nat
 exit
 
+interface GigabitEthernet6/0
+ no ip virtual-reassembly
+ ipv6 nat
+interface GigabitEthernet3/0
+ no ip virtual-reassembly
+interface FastEthernet0/0
+  ipv6 nat
+ no ip virtual-reassembly
+interface GigabitEthernet1/0
+  ipv6 nat
+ no ip virtual-reassembly
+int s2/0
+ no ip virtual-reassembly
+ ipv6 nat
+int s2/1
+ no ip virtual-reassembly
+ ipv6 nat
+int s2/2
+ no ip virtual-reassembly
+ ipv6 nat
+interface Virtual-Template1
+ no ip virtual-reassembly
+ ipv6 nat
+exit
+
+
+ipv6 nat prefix 2001:db8:ffff::/96
+ipv6 access-list NAT64_ACL
+permit ipv6 any any
+exit
+
+ip nat pool NAT64_POOL 192.168.1.153 192.168.1.153 prefix-length 24
 ipv6 nat v6v4 source list NAT64_ACL pool NAT64_POOL overload
 
-#OSPFv3
 
+#ipv6 nat v6v4 source 2001:DB8:FFFF::10.10.10.10 10.10.10.10
+
+int g3/0
+ip address 10.10.10.1 255.255.255.0
+ipv6 nat
+ip nat inside
+exit
+
+
+#OSPFv3
 ipv6 router ospf 1
 exit
-
-#DNS config
-ip name-server 1.1.1.1
-ip dns server
-ip dns view default
-dns forwarding
-exit
-
-
-
-
-
 
 
 #PPPoE
