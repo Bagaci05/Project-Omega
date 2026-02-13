@@ -15,6 +15,15 @@ int g6/0
  no shutdown
 exit
 
+int g3/0
+ ipv6 address 2001:db8:faaa::10/64
+ ipv6 address fe80::10 link
+ no sh
+exit
+
+#Route nat64 packages to Mikrotik
+ipv6 route 2001:DB8:FFFF::/96 2001:DB8:faaa::1
+
 #Pat v4
 access-list 1 permit any
 ip nat inside source list 1 int g6/0 overload
@@ -36,57 +45,6 @@ network 9.6.11.4 0.0.0.3 area 0
 network 9.6.11.8 0.0.0.3 area 0
 network 9.6.11.12 0.0.0.3 area 0
 default-information originate   
-exit
-
-#Natv6v4
-no ipv6 cef
-
-int loopback 64
- ip address 172.16.1.1 255.255.255.255
- ipv6 nat
-exit
-
-interface GigabitEthernet6/0
- no ip virtual-reassembly
- ipv6 nat
-interface GigabitEthernet3/0
- no ip virtual-reassembly
-interface FastEthernet0/0
-  ipv6 nat
- no ip virtual-reassembly
-interface GigabitEthernet1/0
-  ipv6 nat
- no ip virtual-reassembly
-int s2/0
- no ip virtual-reassembly
- ipv6 nat
-int s2/1
- no ip virtual-reassembly
- ipv6 nat
-int s2/2
- no ip virtual-reassembly
- ipv6 nat
-interface Virtual-Template1
- no ip virtual-reassembly
- ipv6 nat
-exit
-
-
-ipv6 nat prefix 2001:db8:ffff::/96
-ipv6 access-list NAT64_ACL
-permit ipv6 any any
-exit
-
-ip nat pool NAT64_POOL 192.168.1.153 192.168.1.153 prefix-length 24
-ipv6 nat v6v4 source list NAT64_ACL pool NAT64_POOL overload
-
-
-#ipv6 nat v6v4 source 2001:DB8:FFFF::10.10.10.10 10.10.10.10
-
-int g3/0
-ip address 10.10.10.1 255.255.255.0
-ipv6 nat
-ip nat inside
 exit
 
 
@@ -165,9 +123,5 @@ no sh
 int g1/0
 pppoe enable group PPPoEvils
 no shutdown
-
-# no debug ppp authentication
-# no debug pppoe events
-# no debug vpdn error
 
 end
