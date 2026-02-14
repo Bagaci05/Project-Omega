@@ -1,0 +1,8 @@
+modprobe jool
+
+jool instance remove "default" 2>/dev/null
+
+jool instance add --netfilter --pool6 2001:db8:ffff::/96
+jool pool4 add 10.10.10.10 1-65535 --tcp
+jool pool4 add 10.10.10.10 1-65535 --udp
+jool pool4 add 10.10.10.10 1-65535 --icmp

@@ -16,17 +16,19 @@ int g6/0
 exit
 
 int g3/0
+ ip address 10.10.10.1 255.255.255.0
+ ip nat inside
  ipv6 address 2001:db8:faaa::10/64
  ipv6 address fe80::10 link
  no sh
 exit
 
-#Route nat64 packages to Mikrotik
+#Route nat64 packages to Nat64 router
 ipv6 route 2001:DB8:FFFF::/96 2001:DB8:faaa::1
 
 #Pat v4
 access-list 1 permit any
-ip nat inside source list 1 int g6/0 overload
+    ip nat inside source list 1 int g6/0 overload
 
 int g6/0
  ip nat outside
