@@ -85,7 +85,7 @@ ip ospf 1 area 0
 ipv6 ospf 10 area 0 
 
 peer default ip address pool CustomerPool
-ppp ipcp dns 9.6.11.13 1.1.1.1
+ppp ipcp dns 10.10.10.10
 ipv6 dhcp server CustomersPoolv6_DHCP
 ppp authentication chap
 
