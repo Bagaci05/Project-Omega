@@ -11,7 +11,6 @@ logging synchronous
 #Ifconfig
 int g6/0
  ip address dhcp
- ipv6 address autoconfig
  no shutdown
 exit
 
@@ -83,7 +82,7 @@ ipv6 nd ra-interval 30
 ipv6 nd ra lifetime 1800
 ip ospf network point-to-point
 ip ospf 1 area 0
-ipv6 ospf 10 area 0
+ipv6 ospf 10 area 0 
 
 peer default ip address pool CustomerPool
 ppp ipcp dns 9.6.11.13 1.1.1.1
