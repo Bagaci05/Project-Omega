@@ -27,7 +27,7 @@ ipv6 route 2001:DB8:FFFF::/96 2001:DB8:faaa::1
 
 #Pat v4
 access-list 1 permit any
-    ip nat inside source list 1 int g6/0 overload
+ip nat inside source list 1 int g6/0 overload
 
 int g6/0
  ip nat outside
@@ -45,6 +45,7 @@ network 9.6.11.0 0.0.0.3 area 0
 network 9.6.11.4 0.0.0.3 area 0
 network 9.6.11.8 0.0.0.3 area 0
 network 9.6.11.12 0.0.0.3 area 0
+network 10.10.10.0 0.0.0.255 area 0
 default-information originate   
 exit
 
@@ -62,7 +63,7 @@ username iroda@evil.inc password 0 EvilIroda888
 username kavezo@evil.inc password 0 EvilKavezo888
 username raktar@evil.inc password 0 EvilRaktar888
 
-ip local pool CustomerPool 9.6.11.13 9.6.11.14
+ip local pool CustomerPool 9.6.11.14 9.6.11.14
 ipv6 local pool CustomersPoolv6_PD 2001:db8:b::/48 56
 ipv6 dhcp pool CustomersPoolv6_DHCP
 prefix-delegation pool CustomersPoolv6_PD
