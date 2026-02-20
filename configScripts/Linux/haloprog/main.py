@@ -1,6 +1,9 @@
 #!/home/debian/haloprog/bin/python
 from netmiko import ConnectHandler
 import re
+import requests  # <--- NEW
+import json      # <--- NEW
+webhook_url = "https://discord.com/api/webhooks/1474349556711030835/g21tZs1FxuxVm4ePxder4fot60ipLnlXixBLTuiHR8kXo6BnOrzhhr_aGe4vuXwgNIpx"
 
 device = {
     'device_type': 'cisco_ios',
@@ -29,8 +32,6 @@ def run_ping():
         print(output)
         print("----------------------")
 
-        # Eredmény elemzése (Regex segítségével)
-        # Keresi a "Success rate is X percent" részt
         match = re.search(r'Success rate is (\d+) percent', output)
         
         if match:
@@ -40,7 +41,14 @@ def run_ping():
             elif percent > 0:
                 print(f">> FIGYELEM: Csomagvesztés történt ({percent}% siker).")
             else:
-                print(">> HIBA: A Ping sikertelen.")
+                error_msg = f"⚠️ **Ping Failed!** Router success rate: {percent}%"
+                print(error_msg)
+                try:
+                    requests.post(webhook_url, json={"content": error_msg})
+                    print(">> Discord alert sent.")
+                except Exception as e:
+                    print(f"Failed to send alert: {e}")
+            # -----------------------
         else:
             print(">> Nem sikerült értelmezni a kimenetet.")
 
