@@ -28,15 +28,15 @@ crypto map VPN-MAP 10 ipsec-isakmp
  match address VPN-IPv4
 exit
 
-crypto map VPN6-MAP 10 ipsec-isakmp
- set peer 9.6.11.10
+crypto map ipv6 VPN6-MAP 10 ipsec-isakmp
+ set peer 2001:db8:a:3::2
  set transform-set VPN-TS
  match address VPN-IPv6
 exit
 
 interface G1/0
  crypto map VPN-MAP
- crypto map VPN6-MAP
+ ipv6 crypto map VPN6-MAP
 exit
 
 ip route 10.2.0.0 255.255.255.0 9.6.11.10
@@ -47,7 +47,7 @@ ipv6 route 2001:db8:3000::/64 2001:db8:a:3::2
 R-R1
 
 ------------------------------------------------------------------------------------------
-ip access-list extended VPN-VPN-IPv4
+ip access-list extended VPN-IPv4
  permit ip 10.2.0.0 0.0.0.255 10.0.0.0 0.0.0.255
 exit
 
@@ -72,15 +72,15 @@ crypto map VPN-MAP 10 ipsec-isakmp
  match address VPN-IPv4
 exit
 
-crypto map VPN6-MAP 10 ipsec-isakmp
- set peer 172.16.0.1
+crypto map ipv6 VPN6-MAP 10 ipsec-isakmp
+ set peer 2001:db8:1000:15::1
  set transform-set VPN-TS
  match address VPN-IPv6
 exit
 
 interface s3/0
  crypto map VPN-MAP
- crypto map VPN6-MAP
+ ipv6 crypto map VPN6-MAP
 exit
 
 ip route 10.0.0.0 255.255.255.0 172.16.0.1
