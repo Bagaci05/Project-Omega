@@ -26,7 +26,7 @@ def run_ping():
         
         # Parancs futtatása
         # A Netmiko megvárja a kimenetet
-        output = net_connect.send_command("ping 8.8.8.8", read_timeout=10)
+        output = net_connect.send_command("ping 8.8.8.8", read_timeout=35)
         
         print("\n--- Router Válasza ---")
         print(output)
@@ -37,17 +37,17 @@ def run_ping():
         if match:
             percent = int(match.group(1))
             if percent == 100:
-                print(">> SIKER: A Ping 100%-os volt.")
+                dc_msg = ">> SIKER: A Ping 100%-os volt."
             elif percent > 0:
-                print(f">> FIGYELEM: Csomagvesztés történt ({percent}% siker).")
+                dc_msg =f">> FIGYELEM: Csomagvesztés történt ({percent}% siker)."
             else:
-                error_msg = f"⚠️ **Ping Failed!** Router success rate: {percent}%"
-                print(error_msg)
-                try:
-                    requests.post(webhook_url, json={"content": error_msg})
-                    print(">> Discord alert sent.")
-                except Exception as e:
-                    print(f"Failed to send alert: {e}")
+                dc_msg = f"⚠️ **Ping Failed!** Router success rate: {percent}%"
+            print(dc_msg)
+            try:
+                requests.post(webhook_url, json={"content": dc_msg})
+                print(">> Discord alert sent.")
+            except Exception as e:
+                print(f"Failed to send alert: {e}")
             # -----------------------
         else:
             print(">> Nem sikerült értelmezni a kimenetet.")
