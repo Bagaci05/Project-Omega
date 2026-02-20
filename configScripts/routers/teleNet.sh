@@ -36,7 +36,7 @@ int g1/0
 exit
 
 #DG
-ip route 0.0.0.0 0.0.0.0 192.168.1.1
+ip route 0.0.0.0 0.0.0.0 192.168.122.1
 
 #OSPF
 router ospf 1
