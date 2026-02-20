@@ -25,12 +25,14 @@ crypto ipsec transform-set VPN-TS esp-aes 256 esp-sha-hmac
 crypto map VPN-MAP 10 ipsec-isakmp
  set peer 9.6.11.10
  set transform-set VPN-TS
+ set pfs group2
  match address VPN-IPv4
 exit
 
 crypto map ipv6 VPN6-MAP 10 ipsec-isakmp
  set peer 2001:db8:a:3::2
  set transform-set VPN-TS
+ set pfs group2
  match address VPN-IPv6
 exit
 
@@ -39,8 +41,8 @@ interface G1/0
  ipv6 crypto map VPN6-MAP
 exit
 
-ip route 10.2.0.0 255.255.255.0 9.6.11.10
-ipv6 route 2001:db8:3000::/64 2001:db8:a:3::2
+ip route 10.2.0.0 255.255.255.0 g1/0
+ipv6 route 2001:db8:3000::/64 g1/0
 
 ------------------------------------------------------------------------------------------
 
@@ -69,12 +71,14 @@ crypto ipsec transform-set VPN-TS esp-aes 256 esp-sha-hmac
 crypto map VPN-MAP 10 ipsec-isakmp
  set peer 172.16.0.1
  set transform-set VPN-TS
+ set pfs group2
  match address VPN-IPv4
 exit
 
 crypto map ipv6 VPN6-MAP 10 ipsec-isakmp
  set peer 2001:db8:1000:15::1
  set transform-set VPN-TS
+ set pfs group2
  match address VPN-IPv6
 exit
 
@@ -83,5 +87,5 @@ interface s3/0
  ipv6 crypto map VPN6-MAP
 exit
 
-ip route 10.0.0.0 255.255.255.0 172.16.0.1
-ipv6 route 2001:db8:1000::/64 2001:db8:1000:15::1
+ip route 10.0.0.0 255.255.255.0 s3/0
+ipv6 route 2001:db8:1000::/64 s3/0
