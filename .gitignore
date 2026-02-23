@@ -1,0 +1,5 @@
+configScripts/Linux/haloprog/bin/
+configScripts/Linux/haloprog/lib/
+configScripts/Linux/haloprog/include/
+configScripts/Linux/haloprog/lib64/
+configScripts/Linux/haloprog/pyvenv.cfg
