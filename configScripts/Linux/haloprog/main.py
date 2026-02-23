@@ -14,19 +14,13 @@ device = {
     'secret': '5@T@N666?',
 }
 
-def run_ping():
+def run_ping(testIp):
     try:
         print(f"Csatlakozás ide: {device['host']} ...")
         net_connect = ConnectHandler(**device)
-        
-        # Ha kell enable mód (privilege exec), vedd ki a kommentet:
-        # net_connect.enable()
-
         print("Ping küldése...")
-        
-        # Parancs futtatása
-        # A Netmiko megvárja a kimenetet
-        output = net_connect.send_command("ping 8.8.8.8", read_timeout=35)
+        command = "ping " + testIp
+        output = net_connect.send_command(command, read_timeout=35)
         
         print("\n--- Router Válasza ---")
         print(output)
@@ -48,15 +42,11 @@ def run_ping():
                 print(">> Discord alert sent.")
             except Exception as e:
                 print(f"Failed to send alert: {e}")
-            # -----------------------
-        else:
-            print(">> Nem sikerült értelmezni a kimenetet.")
 
-        # Kapcsolat bontása
         net_connect.disconnect()
 
     except Exception as e:
         print(f"Hiba történt: {e}")
 
 if __name__ == "__main__":
-    run_ping()
+    run_ping("9.6.11.10")
