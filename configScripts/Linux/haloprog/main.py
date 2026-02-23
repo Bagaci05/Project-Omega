@@ -31,11 +31,11 @@ def run_ping(testIp):
         if match:
             percent = int(match.group(1))
             if percent == 100:
-                dc_msg = ">> SIKER: A Ping 100%-os volt."
+                dc_msg = f"✅ Success: Router success rate: {percent}%"
             elif percent > 0:
-                dc_msg =f">> FIGYELEM: Csomagvesztés történt ({percent}% siker)."
+                dc_msg =f"⚠️ Warning: Packet Loss Router success rate: {percent}%"
             else:
-                dc_msg = f"⚠️ **Ping Failed!** Router success rate: {percent}%"
+                dc_msg = f"❗**Ping Failed!** Router success rate: {percent}%"
             print(dc_msg)
             try:
                 requests.post(webhook_url, json={"content": dc_msg})
