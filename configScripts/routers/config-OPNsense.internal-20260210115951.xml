@@ -9,7 +9,7 @@
     <primaryconsole>serial</primaryconsole>
     <secondaryconsole>video</secondaryconsole>
     <optimization>normal</optimization>
-    <hostname>OPNsense</hostname>
+    <hostname>CaffeeRouter</hostname>
     <domain>internal</domain>
     <dnsallowoverride>1</dnsallowoverride>
     <dnsallowoverride_exclude/>
@@ -47,10 +47,15 @@
     <webgui>
       <protocol>https</protocol>
       <ssl-certref>69755cecbd2c8</ssl-certref>
+      <port/>
+      <ssl-ciphers/>
+      <interfaces/>
+      <compression/>
+      <authmode>Local Database</authmode>
     </webgui>
     <disablenatreflection>yes</disablenatreflection>
     <usevirtualterminal>1</usevirtualterminal>
-    <disableconsolemenu/>
+    <disableconsolemenu>1</disableconsolemenu>
     <disablevlanhwfilter>1</disablevlanhwfilter>
     <disablechecksumoffloading>1</disablechecksumoffloading>
     <disablesegmentationoffloading>1</disablesegmentationoffloading>
@@ -66,6 +71,17 @@
     <lb_use_sticky>1</lb_use_sticky>
     <ssh>
       <group>admins</group>
+      <noauto>1</noauto>
+      <interfaces/>
+      <kex/>
+      <ciphers/>
+      <macs/>
+      <keys/>
+      <keysig/>
+      <rekeylimit/>
+      <enabled>enabled</enabled>
+      <passwordauth>1</passwordauth>
+      <permitrootlogin>1</permitrootlogin>
     </ssh>
     <rrdbackup>-1</rrdbackup>
     <netflowbackup>-1</netflowbackup>
@@ -78,6 +94,16 @@
       <reboot>0</reboot>
     </firmware>
     <dnsserver>9.6.11.1</dnsserver>
+    <language>en_US</language>
+    <dns1gw>none</dns1gw>
+    <dns2gw>none</dns2gw>
+    <dns3gw>none</dns3gw>
+    <dns4gw>none</dns4gw>
+    <dns5gw>none</dns5gw>
+    <dns6gw>none</dns6gw>
+    <dns7gw>none</dns7gw>
+    <dns8gw>none</dns8gw>
+    <sudo_allow_wheel>1</sudo_allow_wheel>
   </system>
   <interfaces>
     <wan>
@@ -87,6 +113,35 @@
       <spoofmac/>
       <blockpriv>1</blockpriv>
       <blockbogons>1</blockbogons>
+      <ipaddrv6>dhcp6</ipaddrv6>
+      <dhcp6-ia-pd-len>8</dhcp6-ia-pd-len>
+      <adv_dhcp6_interface_statement_send_options/>
+      <adv_dhcp6_interface_statement_request_options/>
+      <adv_dhcp6_interface_statement_information_only_enable/>
+      <adv_dhcp6_interface_statement_script/>
+      <adv_dhcp6_id_assoc_statement_address_enable/>
+      <adv_dhcp6_id_assoc_statement_address/>
+      <adv_dhcp6_id_assoc_statement_address_id/>
+      <adv_dhcp6_id_assoc_statement_address_pltime/>
+      <adv_dhcp6_id_assoc_statement_address_vltime/>
+      <adv_dhcp6_id_assoc_statement_prefix_enable/>
+      <adv_dhcp6_id_assoc_statement_prefix/>
+      <adv_dhcp6_id_assoc_statement_prefix_id/>
+      <adv_dhcp6_id_assoc_statement_prefix_pltime/>
+      <adv_dhcp6_id_assoc_statement_prefix_vltime/>
+      <adv_dhcp6_prefix_interface_statement_sla_len/>
+      <adv_dhcp6_authentication_statement_authname/>
+      <adv_dhcp6_authentication_statement_protocol/>
+      <adv_dhcp6_authentication_statement_algorithm/>
+      <adv_dhcp6_authentication_statement_rdm/>
+      <adv_dhcp6_key_info_statement_keyname/>
+      <adv_dhcp6_key_info_statement_realm/>
+      <adv_dhcp6_key_info_statement_keyid/>
+      <adv_dhcp6_key_info_statement_secret/>
+      <adv_dhcp6_key_info_statement_expire/>
+      <adv_dhcp6_config_advanced/>
+      <adv_dhcp6_config_file_override/>
+      <adv_dhcp6_config_file_override_path/>
     </wan>
     <lo0>
       <internal_dynamic>1</internal_dynamic>
@@ -113,35 +168,9 @@
       <spoofmac/>
       <ipaddr>10.1.10.254</ipaddr>
       <subnet>24</subnet>
-      <ipaddrv6>dhcp6</ipaddrv6>
-      <dhcp6-ia-pd-len>0</dhcp6-ia-pd-len>
-      <adv_dhcp6_interface_statement_send_options/>
-      <adv_dhcp6_interface_statement_request_options/>
-      <adv_dhcp6_interface_statement_information_only_enable/>
-      <adv_dhcp6_interface_statement_script/>
-      <adv_dhcp6_id_assoc_statement_address_enable/>
-      <adv_dhcp6_id_assoc_statement_address/>
-      <adv_dhcp6_id_assoc_statement_address_id/>
-      <adv_dhcp6_id_assoc_statement_address_pltime/>
-      <adv_dhcp6_id_assoc_statement_address_vltime/>
-      <adv_dhcp6_id_assoc_statement_prefix_enable/>
-      <adv_dhcp6_id_assoc_statement_prefix/>
-      <adv_dhcp6_id_assoc_statement_prefix_id/>
-      <adv_dhcp6_id_assoc_statement_prefix_pltime/>
-      <adv_dhcp6_id_assoc_statement_prefix_vltime/>
-      <adv_dhcp6_prefix_interface_statement_sla_len/>
-      <adv_dhcp6_authentication_statement_authname/>
-      <adv_dhcp6_authentication_statement_protocol/>
-      <adv_dhcp6_authentication_statement_algorithm/>
-      <adv_dhcp6_authentication_statement_rdm/>
-      <adv_dhcp6_key_info_statement_keyname/>
-      <adv_dhcp6_key_info_statement_realm/>
-      <adv_dhcp6_key_info_statement_keyid/>
-      <adv_dhcp6_key_info_statement_secret/>
-      <adv_dhcp6_key_info_statement_expire/>
-      <adv_dhcp6_config_advanced/>
-      <adv_dhcp6_config_file_override/>
-      <adv_dhcp6_config_file_override_path/>
+      <ipaddrv6>track6</ipaddrv6>
+      <track6-interface>opt4</track6-interface>
+      <track6-prefix-id>1</track6-prefix-id>
     </opt1>
     <opt2>
       <if>em0_vlan20</if>
@@ -161,8 +190,18 @@
       <spoofmac/>
       <ipaddr>10.1.30.254</ipaddr>
       <subnet>24</subnet>
+      <ipaddrv6>track6</ipaddrv6>
+      <track6-interface>opt4</track6-interface>
+      <track6-prefix-id>2</track6-prefix-id>
+    </opt3>
+    <opt4>
+      <if>pppoe0</if>
+      <descr>Telenet</descr>
+      <enable>1</enable>
+      <spoofmac/>
+      <ipaddr>pppoe</ipaddr>
       <ipaddrv6>dhcp6</ipaddrv6>
-      <dhcp6-ia-pd-len>0</dhcp6-ia-pd-len>
+      <dhcp6-ia-pd-len>8</dhcp6-ia-pd-len>
       <adv_dhcp6_interface_statement_send_options/>
       <adv_dhcp6_interface_statement_request_options/>
       <adv_dhcp6_interface_statement_information_only_enable/>
@@ -190,14 +229,6 @@
       <adv_dhcp6_config_advanced/>
       <adv_dhcp6_config_file_override/>
       <adv_dhcp6_config_file_override_path/>
-    </opt3>
-    <opt4>
-      <if>pppoe0</if>
-      <descr>Telenet</descr>
-      <enable>1</enable>
-      <spoofmac/>
-      <ipaddr>pppoe</ipaddr>
-      <ipaddrv6>pppoev6</ipaddrv6>
     </opt4>
   </interfaces>
   <dnsmasq version="1.0.8" persisted_at="1769588498.52" description="Dnsmasq DNS and DHCP">
@@ -267,6 +298,7 @@
         <time>1769588080.29</time>
         <description>/firewall_rules_edit.php made changes</description>
       </created>
+      <disabled>1</disabled>
     </rule>
     <rule uuid="51f31d63-2e17-41fa-8066-50e1af7e5504">
       <type>pass</type>
@@ -316,14 +348,284 @@
         <any/>
       </destination>
     </rule>
+    <rule uuid="5d60d289-3666-4413-9a61-5416957462a3">
+      <type>reject</type>
+      <interface>opt1</interface>
+      <ipprotocol>inet</ipprotocol>
+      <statetype>keep state</statetype>
+      <direction>in</direction>
+      <quick>1</quick>
+      <source>
+        <any>1</any>
+      </source>
+      <destination>
+        <network>opt3</network>
+      </destination>
+      <updated>
+        <username>root@10.1.10.5</username>
+        <time>1771505691.18</time>
+        <description>/firewall_rules_edit.php made changes</description>
+      </updated>
+      <created>
+        <username>root@10.1.10.5</username>
+        <time>1771505691.18</time>
+        <description>/firewall_rules_edit.php made changes</description>
+      </created>
+    </rule>
+    <rule uuid="026f8b1b-777d-4490-abd4-815f8e5b50a3">
+      <type>pass</type>
+      <interface>opt1</interface>
+      <ipprotocol>inet</ipprotocol>
+      <statetype>keep state</statetype>
+      <direction>in</direction>
+      <quick>1</quick>
+      <source>
+        <any>1</any>
+      </source>
+      <destination>
+        <any>1</any>
+      </destination>
+      <updated>
+        <username>root@10.1.10.5</username>
+        <time>1771505720.94</time>
+        <description>/firewall_rules_edit.php made changes</description>
+      </updated>
+      <created>
+        <username>root@10.1.10.5</username>
+        <time>1771505720.94</time>
+        <description>/firewall_rules_edit.php made changes</description>
+      </created>
+    </rule>
+    <rule uuid="d15930e9-a72d-4e8d-9140-fa7f0e2b8e6e">
+      <type>pass</type>
+      <interface>opt3</interface>
+      <ipprotocol>inet</ipprotocol>
+      <statetype>keep state</statetype>
+      <direction>in</direction>
+      <quick>1</quick>
+      <source>
+        <any>1</any>
+      </source>
+      <destination>
+        <address>10.1.20.1/32</address>
+      </destination>
+      <updated>
+        <username>root@10.1.10.5</username>
+        <time>1771502351.41</time>
+        <description>/firewall_rules_edit.php made changes</description>
+      </updated>
+      <created>
+        <username>root@10.1.10.5</username>
+        <time>1771502351.41</time>
+        <description>/firewall_rules_edit.php made changes</description>
+      </created>
+    </rule>
+    <rule uuid="8807e97f-57ac-40c7-847b-8343b17e17d7">
+      <type>pass</type>
+      <interface>opt3</interface>
+      <ipprotocol>inet</ipprotocol>
+      <statetype>keep state</statetype>
+      <direction>in</direction>
+      <quick>1</quick>
+      <source>
+        <any>1</any>
+      </source>
+      <destination>
+        <address>10.1.20.253/32</address>
+      </destination>
+      <updated>
+        <username>root@10.1.10.5</username>
+        <time>1771502385.94</time>
+        <description>/firewall_rules_edit.php made changes</description>
+      </updated>
+      <created>
+        <username>root@10.1.10.5</username>
+        <time>1771502385.94</time>
+        <description>/firewall_rules_edit.php made changes</description>
+      </created>
+    </rule>
+    <rule uuid="8c803a84-433c-4a64-80c9-a023903adc5d">
+      <type>reject</type>
+      <interface>opt3</interface>
+      <ipprotocol>inet</ipprotocol>
+      <statetype>keep state</statetype>
+      <direction>in</direction>
+      <quick>1</quick>
+      <source>
+        <any>1</any>
+      </source>
+      <destination>
+        <network>opt2</network>
+      </destination>
+      <updated>
+        <username>root@10.1.10.5</username>
+        <time>1771502525.06</time>
+        <description>/firewall_rules_edit.php made changes</description>
+      </updated>
+      <created>
+        <username>root@10.1.10.5</username>
+        <time>1771502525.06</time>
+        <description>/firewall_rules_edit.php made changes</description>
+      </created>
+    </rule>
+    <rule uuid="52c59f3b-37dd-4632-b4a5-096978c985c5">
+      <type>reject</type>
+      <interface>opt3</interface>
+      <ipprotocol>inet</ipprotocol>
+      <statetype>keep state</statetype>
+      <direction>in</direction>
+      <quick>1</quick>
+      <source>
+        <any>1</any>
+      </source>
+      <destination>
+        <network>opt1</network>
+      </destination>
+      <updated>
+        <username>root@10.1.10.5</username>
+        <time>1771502637.04</time>
+        <description>/firewall_rules_edit.php made changes</description>
+      </updated>
+      <created>
+        <username>root@10.1.10.5</username>
+        <time>1771502637.04</time>
+        <description>/firewall_rules_edit.php made changes</description>
+      </created>
+    </rule>
+    <rule uuid="e4f6cae7-ec3b-4ea6-a8b9-1e4f8bf8d191">
+      <type>pass</type>
+      <interface>opt3</interface>
+      <ipprotocol>inet</ipprotocol>
+      <statetype>keep state</statetype>
+      <direction>in</direction>
+      <quick>1</quick>
+      <source>
+        <any>1</any>
+      </source>
+      <destination>
+        <any>1</any>
+      </destination>
+      <updated>
+        <username>root@10.1.10.5</username>
+        <time>1771502679.63</time>
+        <description>/firewall_rules_edit.php made changes</description>
+      </updated>
+      <created>
+        <username>root@10.1.10.5</username>
+        <time>1771502679.63</time>
+        <description>/firewall_rules_edit.php made changes</description>
+      </created>
+    </rule>
+    <rule uuid="ee4e802c-e826-4b21-b664-17aa9d8d58cd">
+      <type>pass</type>
+      <interface>opt4</interface>
+      <ipprotocol>inet</ipprotocol>
+      <statetype>keep state</statetype>
+      <direction>in</direction>
+      <quick>1</quick>
+      <protocol>tcp</protocol>
+      <source>
+        <any>1</any>
+      </source>
+      <destination>
+        <address>10.1.20.1/32</address>
+        <port>80</port>
+      </destination>
+      <updated>
+        <username>root@10.1.10.5</username>
+        <time>1771497509.19</time>
+        <description>/firewall_rules_edit.php made changes</description>
+      </updated>
+      <created>
+        <username>root@10.1.10.5</username>
+        <time>1771497461.26</time>
+        <description>/firewall_rules_edit.php made changes</description>
+      </created>
+    </rule>
+    <rule uuid="a176e6d9-60bf-473b-9679-0d9eaed2ed97">
+      <type>pass</type>
+      <interface>opt4</interface>
+      <ipprotocol>inet</ipprotocol>
+      <statetype>keep state</statetype>
+      <direction>in</direction>
+      <quick>1</quick>
+      <protocol>tcp</protocol>
+      <source>
+        <any>1</any>
+      </source>
+      <destination>
+        <address>10.1.20.1/32</address>
+        <port>443</port>
+      </destination>
+      <updated>
+        <username>root@10.1.10.5</username>
+        <time>1771497604.15</time>
+        <description>/firewall_rules_edit.php made changes</description>
+      </updated>
+      <created>
+        <username>root@10.1.10.5</username>
+        <time>1771497604.15</time>
+        <description>/firewall_rules_edit.php made changes</description>
+      </created>
+    </rule>
+    <rule uuid="db458aca-c427-4389-b6c5-1f3deca8abce">
+      <type>pass</type>
+      <interface>opt4</interface>
+      <ipprotocol>inet</ipprotocol>
+      <statetype>keep state</statetype>
+      <direction>in</direction>
+      <quick>1</quick>
+      <protocol>tcp/udp</protocol>
+      <source>
+        <any>1</any>
+      </source>
+      <destination>
+        <address>10.1.20.1/32</address>
+        <port>20-21</port>
+      </destination>
+      <updated>
+        <username>root@10.1.10.5</username>
+        <time>1771497736.10</time>
+        <description>/firewall_rules_edit.php made changes</description>
+      </updated>
+      <created>
+        <username>root@10.1.10.5</username>
+        <time>1771497689.97</time>
+        <description>/firewall_rules_edit.php made changes</description>
+      </created>
+    </rule>
+    <rule uuid="f8d61f19-2dbe-492c-a6a1-f6fea95ea171">
+      <type>block</type>
+      <interface>opt4</interface>
+      <ipprotocol>inet</ipprotocol>
+      <statetype>keep state</statetype>
+      <direction>in</direction>
+      <quick>1</quick>
+      <source>
+        <any>1</any>
+      </source>
+      <destination>
+        <any>1</any>
+      </destination>
+      <updated>
+        <username>root@10.1.10.5</username>
+        <time>1771505876.88</time>
+        <description>/firewall_rules_edit.php made changes</description>
+      </updated>
+      <created>
+        <username>root@10.1.10.5</username>
+        <time>1771505876.88</time>
+        <description>/firewall_rules_edit.php made changes</description>
+      </created>
+    </rule>
   </filter>
   <ntpd>
     <prefer>0.opnsense.pool.ntp.org</prefer>
   </ntpd>
   <revision>
-    <username>root@10.1.10.4</username>
-    <description>Updated NTP Server Settings</description>
-    <time>1770721193.70</time>
+    <username>root@10.1.10.5</username>
+    <description>/system_advanced_admin.php made changes</description>
+    <time>1771584120.49</time>
   </revision>
   <OPNsense>
     <captiveportal version="1.0.4" persisted_at="1769299126.16">
@@ -400,266 +702,266 @@
       <activeTimeout>1800</activeTimeout>
       <inactiveTimeout>15</inactiveTimeout>
     </Netflow>
-    <IDS version="1.1.1" persisted_at="1769588715.15" description="Intrusion detection">
+    <IDS version="1.1.1" persisted_at="1771509291.24" description="Intrusion detection">
       <rules/>
       <policies/>
       <userDefinedRules/>
       <files>
         <file uuid="1467ee67-b8e5-430d-8c85-96d927594b58">
           <filename>abuse.ch.feodotracker.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="211dc73f-43f0-47cf-9073-f214d2d3f394">
           <filename>abuse.ch.sslblacklist.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="0d5739f7-421f-44bf-8e70-2848c3997883">
           <filename>abuse.ch.sslipblacklist.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="a63497b2-0c02-4fde-a07e-8d79bb6acc4f">
           <filename>abuse.ch.threatfox.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="5d0a9af3-6c4c-4ce0-a4b2-20afd003b3d3">
           <filename>abuse.ch.urlhaus.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="8b59dfe8-101b-4df3-84c6-b13576c17d6d">
           <filename>3coresec.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="e9cde2be-7ec9-403c-b235-0ecc73bc3283">
           <filename>botcc.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="ade51e7d-f4c0-4395-9361-fe93213c168d">
           <filename>botcc.portgrouped.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="05e9c2fa-6baf-42a6-8358-838501c0da66">
           <filename>ciarmy.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="73e4b4cb-2d32-4671-a922-d9f25b97561c">
           <filename>compromised.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="18da652f-03f2-4e84-a34b-6ad164eef64e">
           <filename>drop.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="f230b766-2736-4673-a609-d532aa25e32a">
           <filename>dshield.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="4f5d0841-6051-4368-9db0-bd31162db60d">
           <filename>emerging-activex.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="1d995927-bca3-438e-8b37-bacf518f1623">
           <filename>emerging-adware_pup.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="16b1a34a-fea2-4a1b-9dff-bdc354f351e4">
           <filename>emerging-attack_response.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="1181b2e3-4908-474e-8cef-88c83d228427">
           <filename>emerging-chat.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="c177cf63-fdc7-475b-9248-9246f44c7256">
           <filename>emerging-coinminer.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="cd428ef3-bdf0-4849-8041-8c55912ceb21">
           <filename>emerging-current_events.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="0107b1fa-8c15-4635-a281-07e6eab863f2">
           <filename>emerging-deleted.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="bcfe4cd6-7e8a-4e82-ae1e-003df979294d">
           <filename>emerging-dns.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="eed98b65-3dda-4389-9596-ec24300a579d">
           <filename>emerging-dos.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="c00cc093-ad1a-425f-bb94-4eeadb3c064e">
           <filename>emerging-exploit.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="65bb3e25-0abb-41d4-a96a-a39c8cc1a454">
           <filename>emerging-exploit_kit.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="870f7d33-a169-4687-8a39-e3256e476e3c">
           <filename>emerging-ftp.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="a347a735-ed26-4750-9a79-a460b49466dc">
           <filename>emerging-games.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="384bd5b0-a0be-41cf-b159-98dd61781c99">
           <filename>emerging-hunting.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="2ac373a6-47c1-4e53-abd5-c89de4698512">
           <filename>emerging-icmp.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="c73d9d9b-2baf-452f-b5d1-a068fb902f84">
           <filename>emerging-icmp_info.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="2a5e1cc9-4da7-488e-a1d8-dbacf0c02cae">
           <filename>emerging-imap.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="eb8cf835-15a5-492d-b31f-8fb930e8f672">
           <filename>emerging-inappropriate.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="9a896e14-2be8-486f-8773-1e6fb8c90580">
           <filename>emerging-info.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="3e67f816-b1b2-496b-ae7f-ea9f91074c1a">
           <filename>emerging-ja3.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="a2a76003-286e-4535-bd8c-0e6636117585">
           <filename>emerging-malware.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="96bad4f1-2b9a-4c30-89fc-cc4ba7ec9e77">
           <filename>emerging-misc.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="0535b6b8-b6ce-4219-8cb2-9967fc6c9f45">
           <filename>emerging-mobile_malware.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="467026f5-b689-4c95-b919-057384fce5ee">
           <filename>emerging-netbios.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="7af23bbe-495e-46d6-afed-dc7099813e9c">
           <filename>emerging-p2p.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="4855b30e-cfa9-42fd-82e5-f05530ce5253">
           <filename>emerging-phishing.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="dc052c77-dbe8-4742-ba3b-d4206d4917a1">
           <filename>emerging-policy.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="173f256e-2296-4764-817c-7355668e70c5">
           <filename>emerging-pop3.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="3f8c68df-b64c-43ed-8cfe-818b6c2f7276">
           <filename>emerging-rpc.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="56564a37-af96-4614-abf4-3e49ecb1adef">
           <filename>emerging-scada.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="17259b7d-acb2-41dc-a50e-e658c2cc4dcc">
           <filename>emerging-scan.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="bbff8caf-4e8d-4200-a2fb-e64648b59a22">
           <filename>emerging-shellcode.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="4b51c887-d027-47a1-aef5-7030a870f8a1">
           <filename>emerging-smtp.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="8f130c27-3def-40ef-af9b-1008c6978f99">
           <filename>emerging-snmp.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="2f685aac-7004-4a64-8a5b-02affc1c9239">
           <filename>emerging-sql.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="6e68d6d9-542a-428c-912b-e00121b9c720">
           <filename>emerging-telnet.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="52007bc2-72a3-4820-be26-8d6a2ae9ba6c">
           <filename>emerging-tftp.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="f01da55a-1ebd-41cb-9734-151329231332">
           <filename>emerging-user_agents.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="98acea6a-aa17-4c0d-80c8-2013289fa567">
           <filename>emerging-voip.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="499165de-c935-47b2-9621-f9aa6b9d6d1f">
           <filename>emerging-web_client.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="815b7ac3-9ba7-443c-b4e9-bef7f220dd59">
           <filename>emerging-web_server.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="ae55cfc0-a6ed-44ab-bcca-05e33aafb4c9">
           <filename>emerging-web_specific_apps.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="49098c25-c91b-47e1-986c-78028118a31b">
           <filename>emerging-worm.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="063531a1-ddb2-4d3a-8f37-c489e5343788">
           <filename>threatview_CS_c2.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="c4ffb00c-809c-42f0-bee4-46df6c628113">
           <filename>tor.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="5b2d0905-fbde-4227-93fc-9f286206c33b">
           <filename>opnsense.file_transfer.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="df73b867-44ee-4eec-96aa-410370684f93">
           <filename>opnsense.mail.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="4cd6d63c-ad1d-479d-8f1b-3ceb70c25f8e">
           <filename>opnsense.media_streaming.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="54324b10-8cab-4244-858c-c9264504bf01">
           <filename>opnsense.messaging.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="69a7676f-56bd-4cb4-bbef-93eab39ff60c">
           <filename>opnsense.social_media.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="b815d17f-19d3-4f17-8075-b865fb4b1da1">
           <filename>opnsense.test.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
         <file uuid="ca2ab384-2cf7-4c96-a279-7a1aee1f7f4c">
           <filename>opnsense.uncategorized.rules</filename>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
         </file>
       </files>
       <fileTags/>
@@ -667,19 +969,19 @@
         <enabled>1</enabled>
         <ips>0</ips>
         <promisc>0</promisc>
-        <interfaces>wan</interfaces>
+        <interfaces>opt4</interfaces>
         <homenet>192.168.0.0/16,10.0.0.0/8,172.16.0.0/12</homenet>
         <defaultPacketSize/>
         <UpdateCron>2568f614-8624-4e90-a7e1-9b21b58edac3</UpdateCron>
         <AlertLogrotate>W0D23</AlertLogrotate>
         <AlertSaveLogs>4</AlertSaveLogs>
-        <MPMAlgo/>
+        <MPMAlgo>ac</MPMAlgo>
         <detect>
           <Profile/>
           <toclient_groups/>
           <toserver_groups/>
         </detect>
-        <syslog>0</syslog>
+        <syslog>1</syslog>
         <syslog_eve>0</syslog_eve>
         <LogPayload>0</LogPayload>
         <verbosity/>
@@ -1181,8 +1483,8 @@
         <sysloglevel>notifications</sysloglevel>
         <fwrules>1</fwrules>
       </general>
-      <ospf version="1.1.0" persisted_at="1770195278.20" description="OSPF Routing configuration">
-        <enabled>1</enabled>
+      <ospf version="1.1.0" persisted_at="1771508851.68" description="OSPF Routing configuration">
+        <enabled>0</enabled>
         <carp_demote>0</carp_demote>
         <routerid/>
         <costreference/>
@@ -1191,23 +1493,12 @@
         <originatealways>0</originatealways>
         <originatemetric/>
         <passiveinterfaces>opt2,lan,opt1,opt3</passiveinterfaces>
-        <areas>
-          <area uuid="643b72e5-3ee9-4aba-ba45-07fb2d0774e0">
-            <enabled>1</enabled>
-            <id>0.0.0.0</id>
-            <type>stub</type>
-          </area>
-          <area uuid="11dba1f9-9b75-422a-acb1-4bcdbeb7ab79">
-            <enabled>1</enabled>
-            <id>0.0.0.1</id>
-            <type>stub</type>
-          </area>
-        </areas>
+        <areas/>
         <networks>
           <network uuid="2aba55cd-ed2b-4ab0-b9ba-fc212f712e2b">
             <enabled>1</enabled>
             <ipaddr>10.1.10.0</ipaddr>
-            <area>0.0.0.1</area>
+            <area>0.0.0.2</area>
             <netmask>24</netmask>
             <arearange/>
             <linkedPrefixlistIn/>
@@ -1216,7 +1507,7 @@
           <network uuid="cf64037e-13fb-48e6-aa06-fe8c9fcc552d">
             <enabled>1</enabled>
             <ipaddr>10.1.20.0</ipaddr>
-            <area>0.0.0.1</area>
+            <area>0.0.0.2</area>
             <netmask>24</netmask>
             <arearange/>
             <linkedPrefixlistIn/>
@@ -1225,7 +1516,7 @@
           <network uuid="1bd3ba46-0d1c-4c49-b759-86043a24d415">
             <enabled>1</enabled>
             <ipaddr>10.1.30.0</ipaddr>
-            <area>0.0.0.1</area>
+            <area>0.0.0.2</area>
             <netmask>24</netmask>
             <arearange/>
             <linkedPrefixlistIn/>
@@ -1249,7 +1540,26 @@
             <authtype/>
             <authkey/>
             <authkey_id>1</authkey_id>
-            <area/>
+            <area>0.0.0.0</area>
+            <cost/>
+            <cost_demoted/>
+            <carp_depend_on/>
+            <hellointerval>10</hellointerval>
+            <deadinterval>40</deadinterval>
+            <retransmitinterval/>
+            <transmitdelay/>
+            <priority/>
+            <bfd>0</bfd>
+            <networktype>point-to-point</networktype>
+            <p2mpoptions/>
+          </interface>
+          <interface uuid="0c342780-f6b2-4dba-bebe-c681dfc8b83b">
+            <enabled>1</enabled>
+            <interfacename>opt1</interfacename>
+            <authtype/>
+            <authkey/>
+            <authkey_id>1</authkey_id>
+            <area>0.0.0.2</area>
             <cost/>
             <cost_demoted/>
             <carp_depend_on/>
@@ -1259,7 +1569,64 @@
             <transmitdelay/>
             <priority/>
             <bfd>0</bfd>
-            <networktype/>
+            <networktype>broadcast</networktype>
+            <p2mpoptions/>
+          </interface>
+          <interface uuid="022f07cc-8064-44b4-99e8-1713db431ec1">
+            <enabled>1</enabled>
+            <interfacename>opt2</interfacename>
+            <authtype/>
+            <authkey/>
+            <authkey_id>1</authkey_id>
+            <area>0.0.0.2</area>
+            <cost/>
+            <cost_demoted/>
+            <carp_depend_on/>
+            <hellointerval/>
+            <deadinterval/>
+            <retransmitinterval/>
+            <transmitdelay/>
+            <priority/>
+            <bfd>0</bfd>
+            <networktype>broadcast</networktype>
+            <p2mpoptions/>
+          </interface>
+          <interface uuid="def28d73-b400-4a16-bc46-70c65f97e384">
+            <enabled>1</enabled>
+            <interfacename>opt3</interfacename>
+            <authtype/>
+            <authkey/>
+            <authkey_id>1</authkey_id>
+            <area>0.0.0.2</area>
+            <cost/>
+            <cost_demoted/>
+            <carp_depend_on/>
+            <hellointerval/>
+            <deadinterval/>
+            <retransmitinterval/>
+            <transmitdelay/>
+            <priority/>
+            <bfd>0</bfd>
+            <networktype>broadcast</networktype>
+            <p2mpoptions/>
+          </interface>
+          <interface uuid="a0fec550-e36a-486f-9f00-0551f50eac03">
+            <enabled>1</enabled>
+            <interfacename>lan</interfacename>
+            <authtype/>
+            <authkey/>
+            <authkey_id>1</authkey_id>
+            <area>0.0.0.2</area>
+            <cost/>
+            <cost_demoted/>
+            <carp_depend_on/>
+            <hellointerval/>
+            <deadinterval/>
+            <retransmitinterval/>
+            <transmitdelay/>
+            <priority/>
+            <bfd>0</bfd>
+            <networktype>broadcast</networktype>
             <p2mpoptions/>
           </interface>
         </interfaces>
@@ -1363,7 +1730,17 @@
   </wireless>
   <ca/>
   <dhcpd/>
-  <dhcpdv6/>
+  <dhcpdv6>
+    <opt2>
+      <enable>-1</enable>
+    </opt2>
+    <opt1>
+      <enable>-1</enable>
+    </opt1>
+    <opt3>
+      <enable>-1</enable>
+    </opt3>
+  </dhcpdv6>
   <cert uuid="8fa1d9d2-6243-440d-9df7-c0dbc32f3059">
     <refid>69755cecbd2c8</refid>
     <descr>Web GUI TLS certificate</descr>
@@ -1374,8 +1751,37 @@
   </cert>
   <nat>
     <outbound>
-      <mode>automatic</mode>
-      <rule/>
+      <mode>hybrid</mode>
+      <rule>
+        <source>
+          <network>any</network>
+        </source>
+        <destination>
+          <any>1</any>
+        </destination>
+        <descr/>
+        <category/>
+        <interface>opt4</interface>
+        <tag/>
+        <tagged/>
+        <poolopts/>
+        <poolopts_sourcehashkey/>
+        <ipprotocol>inet</ipprotocol>
+        <target/>
+        <targetip_subnet>0</targetip_subnet>
+        <sourceport/>
+        <updated>
+          <username>root@10.1.10.4</username>
+          <time>1770900602.93</time>
+          <description>/firewall_nat_out_edit.php made changes</description>
+        </updated>
+        <created>
+          <username>root@10.1.10.4</username>
+          <time>1770900602.93</time>
+          <description>/firewall_nat_out_edit.php made changes</description>
+        </created>
+      </rule>
     </outbound>
   </nat>
+  <syslog/>
 </opnsense>
