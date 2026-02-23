@@ -1,5 +1,5 @@
 #!/home/debian/haloprog/bin/python
-from netmiko import ConnectHandler
+from netmiko import ConnectHandler # pyright: ignore[reportMissingImports]
 import re
 import requests  # <--- NEW
 import json      # <--- NEW
