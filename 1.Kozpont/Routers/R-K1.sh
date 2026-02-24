@@ -95,7 +95,7 @@ network 10.0.0.240 0.0.0.7 area 1
 network 10.0.0.248 0.0.0.7 area 1
 exit
 
-ipv6 router ospf 1
+ipv6 router ospf 10
 exit
 int g1/0
 ipv6 ospf 10 area 0
