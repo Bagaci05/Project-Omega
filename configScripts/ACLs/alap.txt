@@ -3,6 +3,9 @@ R-K1
 ------------------------
 ip access-list extended OUTSIDE-IN
 
+#Established
+permit tcp any any established
+
 #VPN engedélyezése
 permit udp host 9.6.11.10 host 172.16.0.1 eq isakmp
 permit esp host 9.6.11.10 host 172.16.0.1
@@ -35,6 +38,10 @@ exit
 R-R1
 ------------------------
 ip access-list extended OUTSIDE-IN
+
+#Established
+permit tcp any any established
+
 #VPN engedélyezése
 permit udp host 172.16.0.1 host 9.6.11.10 eq isakmp
 permit esp host 172.16.0.1 host 9.6.11.10
