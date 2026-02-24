@@ -64,7 +64,48 @@ network 10.2.0.0 0.0.0.127 area 3
 network 10.2.0.128 0.0.0.7 are 3
 exit
 
-# debug ppp negotiation
-# debug ppp authentication
-# debug pppoe events
+ip access-list extended VPN-IPv4
+ permit ip 10.2.0.0 0.0.0.255 10.0.0.0 0.0.0.255
+exit
+
+ipv6 access-list VPN-IPv6
+ permit ipv6 2001:db8:3000::/48 2001:db8:1000::/48
+exit
+
+crypto isakmp policy 10
+ encr aes 256
+ hash sha256
+ authentication pre-share
+ group 19
+ lifetime 86400
+exit
+
+crypto isakmp key CR1T1CALP3SS! address 172.16.0.1
+crypto isakmp key CR1T1CALP3SS! address ipv6 2001:db8:1000:15::1/64
+
+crypto ipsec transform-set VPN-TS esp-aes 256 esp-sha256-hmac
+mode tunnel
+exit
+
+crypto map VPN-MAP 10 ipsec-isakmp
+ set peer 172.16.0.1
+ set transform-set VPN-TS
+ set pfs group19
+ match address VPN-IPv4
+exit
+
+crypto map ipv6 VPN6-MAP 20 ipsec-isakmp
+ set peer 2001:db8:1000:15::1
+ set transform-set VPN-TS
+ set pfs group19
+ match address VPN-IPv6
+exit
+
+interface s3/0
+ crypto map VPN-MAP
+ ipv6 crypto map VPN6-MAP
+exit
+
+ip route 10.0.0.0 255.255.255.0 172.16.0.1
+ipv6 route 2001:db8:1000::/48 2001:db8:1000:15::1
 end
