@@ -1,0 +1,61 @@
+------------------------
+R-K1
+------------------------
+ip access-list extended OUTSIDE-IN
+
+#VPN engedélyezése
+permit udp host 9.6.11.10 host 172.16.0.1 eq isakmp
+permit esp host 9.6.11.10 host 172.16.0.1
+
+#WEB szerver
+permit tcp any host 10.0.0.250 eq 80
+permit tcp any host 10.0.0.250 eq 443
+
+#DNS ISP kommunikáció
+permit udp host 10.10.10.10 any eq 53
+permit udp any host 10.10.10.10 eq 53
+
+#OSPF
+permit ospf any any
+
+#ICMP
+permit icmp any host 172.16.0.1 echo
+permit icmp any host 172.16.0.1 echo-reply
+
+#Implicit deny
+deny ip any any 
+exit
+
+#Interface
+int g1/0
+ip access-group OUTSIDE-IN in
+exit
+
+------------------------
+R-R1
+------------------------
+ip access-list extended OUTSIDE-IN
+#VPN engedélyezése
+permit udp host 172.16.0.1 host 9.6.11.10 eq isakmp
+permit esp host 172.16.0.1 host 9.6.11.10
+
+#WEB
+permit tcp any host 10.2.0.130 eq 80
+permit tcp any host 10.2.0.130 eq 443
+permit tcp any host 10.2.0.2 eq 80
+permit tcp any host 10.2.0.2 eq 443
+
+#DNS
+permit udp host 10.10.10.10 any eq 53
+
+#OSPF
+permit ospf any any
+
+#ICMP
+permit icmp any host 9.6.11.10 echo
+permit icmp any host 9.6.11.10 echo-reply
+
+#Interface
+interface s3/0
+ip access-group OUTSIDE-IN in
+exit
