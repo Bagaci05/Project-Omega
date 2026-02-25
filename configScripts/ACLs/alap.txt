@@ -28,9 +28,36 @@ permit icmp any host 172.16.0.1 echo-reply
 deny ip any any 
 exit
 
-#Interface
+ip access-list extended SERVER-ACCESS
+
+permit tcp any host 10.0.0.250 eq 80
+permit tcp any host 10.0.0.250 eq 443
+
+#ADMIN PC access
+permit tcp host 10.0.0.251 host 10.0.0.250 eq 22
+deny tcp any host 10.0.0.250 eq 22
+
+#DHCP
+permit udp any host 10.0.0.250 eq 67
+permit udp any host 10.0.0.250 eq 68
+
+#SAMBA FILE SERVER
+permit udp any host 10.0.0.250 eq 137
+permit udp any host 10.0.0.250 eq 138
+permit tcp any host 10.0.0.250 eq 139
+permit tcp any host 10.0.0.250 eq 445
+
+#Enabling all other 
+permit ip any any
+exit
+
+#Interfaces
 int g1/0
 ip access-group OUTSIDE-IN in
+ip tcp adjust-mss 1360
+
+int g4/0.420
+ip access-group SERVER-ACCESS out
 exit
 
 ------------------------
@@ -59,7 +86,49 @@ permit ospf any any
 permit icmp any host 9.6.11.10 echo
 permit icmp any host 9.6.11.10 echo-reply
 
+#Implicit deny
+deny ip any any 
+exit
+
+ip access-list extended SERVER-ACCESS1
+
+permit tcp any host 10.2.0.130 eq 80
+permit tcp any host 10.2.0.130 eq 443
+
+#ADMIN PC access
+permit tcp host 10.2.0.131 host 10.2.0.130 eq 22
+deny tcp any host 10.2.0.130 eq 22
+
+#Enabling all other 
+permit ip any any
+exit
+
+ip access-list extended SERVER-ACCESS2
+
+permit tcp any host 10.2.0.2 eq 80
+permit tcp any host 10.2.0.2 eq 443
+
+#ADMIN PC access
+permit tcp host 10.2.0.130 host 10.2.0.2 eq 22
+deny tcp any host 10.2.0.2 eq 22
+
+#DHCP
+permit udp any host 10.2.0.2 eq 67
+permit udp any host 10.2.0.2 eq 68
+
+#Enabling all other 
+permit ip any any
+exit
+
+
 #Interface
 interface s3/0
 ip access-group OUTSIDE-IN in
+ip tcp adjust-mss 1360
+
+int g1/0
+ip access-group SERVER-ACCESS2 out
+
+int g2/0
+ip access-group SERVER-ACCESS1 out
 exit
