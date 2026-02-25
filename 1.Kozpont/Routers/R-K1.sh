@@ -28,9 +28,12 @@ exit
 #enable secret 5@T@N666?
 #service password-encryption
 
+ip nat inside source static 10.0.0.250 172.16.0.10 
+
 int g1/0
 ip address 172.16.0.1 255.255.255.248
 ipv6 address 2001:db8:1000:15::1/64
+ip nat outside
 no sh
 exit
 
@@ -67,6 +70,7 @@ ipv6 address 2001:db8:1000:420::1/64
 ipv6 address fe80::1 link-local
 ipv6 enable
 ipv6 ospf 10 area 1
+ip nat inside
 int g4/0.666
 encapsulation dot1Q 666
 ip address 10.0.0.241 255.255.255.248

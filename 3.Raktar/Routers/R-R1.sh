@@ -30,8 +30,11 @@ exit
 
 aaa new-model
 
+ip nat inside source static 10.2.0.130 9.6.11.10
+
 interface s3/0
 ip address 9.6.11.10 255.255.255.252
+ip nat outside
 ipv6 address 2001:db8:a:3::2/64 
 ipv6 ospf 10 area 0
 encapsulation ppp
@@ -50,6 +53,7 @@ no sh
 
 int g2/0
 ip address 10.2.0.129 255.255.255.248
+ip nat inside
 ipv6 address 2001:db8:3000:2::1/64
 ipv6 address fe80::1 link-local
 ipv6 enable
