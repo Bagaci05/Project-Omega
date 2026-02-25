@@ -1,0 +1,21 @@
+#/etc/network/interfaces
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+source /etc/network/interfaces.d/*
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# Static config for ens4
+auto ens4
+iface ens4 inet static
+	address 10.0.0.250
+	netmask 255.255.255.248
+	gateway 10.0.0.249
+	dns-nameservers 1.1.1.1
+
+iface ens4 inet6 static
+        address 2001:db8:1000:420::2/64
+	gateway 2001:db8:1000:420::1
