@@ -38,6 +38,8 @@ exit
 #DG
 ip route 0.0.0.0 0.0.0.0 192.168.122.1
 
+ip route 100.100.100.0 255.255.255.240 9.6.11.10
+
 #OSPF
 router ospf 1
 router-id 1.1.1.1

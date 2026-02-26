@@ -28,7 +28,7 @@ exit
 #enable secret 5@T@N666?
 #service password-encryption
 
-ip nat inside source static 10.0.0.250 172.16.0.10 
+ip nat inside source static 10.0.0.250 172.16.0.4 
 
 int g1/0
 ip address 172.16.0.1 255.255.255.248

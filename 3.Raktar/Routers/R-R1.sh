@@ -30,7 +30,14 @@ exit
 
 aaa new-model
 
-ip nat inside source static 10.2.0.130 9.6.11.10
+ip nat pool RAKTAR-POOL 100.100.100.1 100.100.100.30 netmask 255.255.255.224
+
+ip access-list extended ACL-NAT-DYNAMIC
+deny ip 10.2.0.0 0.0.0.255 10.0.0.0 0.0.0.255
+permit ip 10.2.0.0 0.0.0.255 any
+exit
+
+ip nat inside source list ACL-NAT-DYNAMIC pool RAKTAR-POOL
 
 interface s3/0
 ip address 9.6.11.10 255.255.255.252
@@ -45,6 +52,7 @@ exit
 
 int g1/0
 ip address 10.2.0.1 255.255.255.128
+ip nat inside
 ipv6 address 2001:db8:3000:1::1/64
 ipv6 address fe80::1 link-local
 ipv6 enable
