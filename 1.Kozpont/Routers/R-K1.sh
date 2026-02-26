@@ -1,7 +1,9 @@
 en
 conf t
 hostname R-K1
-no ip domain-lookup
+ip domain-lookup
+ip name-server 10.10.10.10
+ip name-server 8.8.8.8
 ip domain-name evil-inc.com
 ip ssh version 2
 username admin secret 3v1lD3vil!
@@ -28,7 +30,87 @@ exit
 #enable secret 5@T@N666?
 #service password-encryption
 
-ip nat inside source static 10.0.0.250 172.16.0.4 
+ip access-list extended NAT-DYNAMIC
+deny ip 10.0.0.0 0.0.0.255 10.2.0.0 0.0.0.255
+permit ip 10.0.0.0 0.0.0.255 any
+exit
+
+#NAT examption
+ip access-list extended NAT-STATIC
+deny ip 10.0.0.0 0.0.0.255 10.2.0.0 0.0.0.255
+permit ip 10.0.0.0 0.0.0.255 any
+exit
+
+route-map STATIC-NAT-MAP permit 10
+match ip address NAT-STATIC
+exit
+
+ip nat inside source list NAT-DYNAMIC interface g1/0 overload
+ip nat inside source static 10.0.0.250 172.16.0.4 route-map STATIC-NAT-MAP
+
+ip access-list extended OUTSIDE-IN
+
+#Established
+permit tcp any any established
+
+#VPN engedélyezése
+permit udp any any eq 500
+permit udp any any eq 4500
+permit esp host 9.6.11.10 host 172.16.0.1
+
+#WEB szerver
+permit tcp any host 172.16.0.4 eq 80
+permit tcp any host 172.16.0.4 eq 443
+
+#DNS ISP kommunikáció
+permit udp host 10.10.10.10 eq 53 any
+permit tcp host 10.10.10.10 eq 53 any established
+
+#OSPF
+permit ospf any any
+
+#ICMP
+permit icmp any host 172.16.0.1 echo
+permit icmp any host 172.16.0.1 echo-reply
+
+#Implicit deny
+deny ip any any 
+exit
+
+ip access-list extended SERVER-ACCESS
+
+permit tcp any host 10.0.0.250 eq 80
+permit tcp any host 10.0.0.250 eq 443
+
+#ADMIN PC access
+permit tcp host 10.0.0.253 host 10.0.0.250 eq 22
+deny tcp any host 10.0.0.250 eq 22
+
+#DHCP
+permit udp any host 10.0.0.250 eq 67
+permit udp any host 10.0.0.250 eq 68
+
+#SAMBA FILE SERVER
+permit udp any host 10.0.0.250 eq 137
+permit udp any host 10.0.0.250 eq 138
+permit tcp any host 10.0.0.250 eq 139
+permit tcp any host 10.0.0.250 eq 445
+
+permit udp any any eq
+
+#Enabling all other 
+permit ip any any
+exit
+
+#Interfaces
+int g1/0
+ip access-group OUTSIDE-IN in
+ip tcp adjust-mss 1360
+exit
+
+int g4/0.420
+ip access-group SERVER-ACCESS out
+exit
 
 int g1/0
 ip address 172.16.0.1 255.255.255.248

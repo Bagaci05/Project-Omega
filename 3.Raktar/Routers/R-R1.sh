@@ -1,7 +1,9 @@
 en
 conf t
 hostname R-R1
-no ip domain-lookup
+ip domain-lookup
+ip name-server 10.10.10.10
+ip name-server 8.8.8.8
 ip domain-name evil-inc.com
 ip ssh version 2
 username admin secret 3v1lD3vil!
@@ -30,14 +32,97 @@ exit
 
 aaa new-model
 
-ip nat pool RAKTAR-POOL 100.100.100.1 100.100.100.30 netmask 255.255.255.224
+ip nat pool RAKTAR-POOL 100.100.100.1 100.100.100.29 netmask 255.255.255.224
 
-ip access-list extended ACL-NAT-DYNAMIC
+ip access-list extended NAT-DYNAMIC
 deny ip 10.2.0.0 0.0.0.255 10.0.0.0 0.0.0.255
+deny ip host 10.2.0.130 any
 permit ip 10.2.0.0 0.0.0.255 any
 exit
 
-ip nat inside source list ACL-NAT-DYNAMIC pool RAKTAR-POOL
+#NAT examption
+ip access-list extended NAT-STATIC
+deny ip host 10.2.0.130 10.0.0.0 0.0.0.255
+permit ip host 10.2.0.130 any
+exit
+
+route-map RM-STATIC-NAT permit 10
+match ip address NAT-STATIC
+exit
+
+ip nat inside source list NAT-DYNAMIC pool RAKTAR-POOL
+ip nat inside source static 10.2.0.130 100.100.100.30 route-map RM-STATIC-NAT
+
+ip access-list extended OUTSIDE-IN
+
+#Established
+permit tcp any any established
+
+#VPN engedélyezése
+permit udp any any eq 500
+permit udp any any eq 4500
+permit esp host 172.16.0.1 host 9.6.11.10
+
+#WEB
+permit tcp any host 100.100.100.30 eq 80
+permit tcp any host 100.100.100.30 eq 443
+
+#DNS
+permit udp host 10.10.10.10 eq 53 any
+permit tcp host 10.10.10.10 eq 53 any established
+
+#OSPF
+permit ospf any any
+
+#ICMP
+permit icmp any host 9.6.11.10 echo
+permit icmp any host 9.6.11.10 echo-reply
+
+#Implicit deny
+deny ip any any 
+exit
+
+ip access-list extended SERVER-ACCESS1
+
+permit tcp any host 10.2.0.130 eq 80
+permit tcp any host 10.2.0.130 eq 443
+
+#ADMIN PC access
+permit tcp host 10.2.0.131 host 10.2.0.130 eq 22
+deny tcp any host 10.2.0.130 eq 22
+
+#Enabling all other 
+permit ip any any
+exit
+
+ip access-list extended SERVER-ACCESS2
+
+permit tcp any host 10.2.0.2 eq 80
+permit tcp any host 10.2.0.2 eq 443
+
+#ADMIN PC access
+permit tcp host 10.2.0.131 host 10.2.0.2 eq 22
+deny tcp any host 10.2.0.2 eq 22
+
+#DHCP
+permit udp any host 10.2.0.2 eq 67
+permit udp any host 10.2.0.2 eq 68
+
+#Enabling all other 
+permit ip any any
+exit
+
+#Interface
+interface s3/0
+ip access-group OUTSIDE-IN in
+ip tcp adjust-mss 1360
+
+int g1/0
+ip access-group SERVER-ACCESS2 out
+
+int g2/0
+ip access-group SERVER-ACCESS1 out
+exit
 
 interface s3/0
 ip address 9.6.11.10 255.255.255.252
