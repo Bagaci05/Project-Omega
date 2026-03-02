@@ -186,8 +186,6 @@ exit
 int g1/0
 ipv6 ospf 10 area 0
 
-ip route 0.0.0.0 0.0.0.0 172.16.0.6
-
 ip access-list extended VPN-IPv4
  permit ip 10.0.0.0 0.0.0.255 10.2.0.0 0.0.0.255
 exit
@@ -230,7 +228,9 @@ interface G1/0
  ipv6 crypto map VPN6-MAP
 exit
 
+ip route 0.0.0.0 0.0.0.0 172.16.0.6
 ip route 10.2.0.0 255.255.255.0 9.6.11.10
 ipv6 route 2001:db8:3000::/48 2001:db8:a:3::2
-
+ipv6 route ::/0 2001:db8:1000:15::2
+ipv6 route ::/0 2001:db8:1000:15::3 1
 end

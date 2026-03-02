@@ -67,4 +67,6 @@ network 172.16.0.0 0.0.0.7 area 1
 # debug ppp negotiation
 # debug ppp authentication
 # debug pppoe events
+
+ipv6 route ::/0 2001:DB8:A:2::1
 end

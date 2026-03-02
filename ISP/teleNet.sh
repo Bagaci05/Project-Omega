@@ -128,5 +128,11 @@ no sh
 int g1/0
 pppoe enable group PPPoEvils
 no shutdown
+exit
 
+int g6/0
+no ip dhcp client request dns-nameserver
+exit
+
+no ip name-server 192.168.122.1
 end
