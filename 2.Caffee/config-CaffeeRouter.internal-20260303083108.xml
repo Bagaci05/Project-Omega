@@ -396,6 +396,30 @@
         <description>/firewall_rules_edit.php made changes</description>
       </created>
     </rule>
+    <rule uuid="2fdf44c4-2872-4dee-af60-4da60eea3524">
+      <type>pass</type>
+      <interface>opt2</interface>
+      <ipprotocol>inet</ipprotocol>
+      <statetype>keep state</statetype>
+      <direction>in</direction>
+      <quick>1</quick>
+      <source>
+        <any>1</any>
+      </source>
+      <destination>
+        <any>1</any>
+      </destination>
+      <updated>
+        <username>root@10.1.20.253</username>
+        <time>1772457828.93</time>
+        <description>/firewall_rules_edit.php made changes</description>
+      </updated>
+      <created>
+        <username>root@10.1.20.253</username>
+        <time>1772457828.93</time>
+        <description>/firewall_rules_edit.php made changes</description>
+      </created>
+    </rule>
     <rule uuid="d15930e9-a72d-4e8d-9140-fa7f0e2b8e6e">
       <type>pass</type>
       <interface>opt3</interface>
@@ -623,9 +647,9 @@
     <prefer>0.opnsense.pool.ntp.org</prefer>
   </ntpd>
   <revision>
-    <username>root@10.1.10.5</username>
-    <description>/system_advanced_admin.php made changes</description>
-    <time>1771584120.49</time>
+    <username>root@10.1.20.253</username>
+    <description>/firewall_rules_edit.php made changes</description>
+    <time>1772457828.98</time>
   </revision>
   <OPNsense>
     <captiveportal version="1.0.4" persisted_at="1769299126.16">
