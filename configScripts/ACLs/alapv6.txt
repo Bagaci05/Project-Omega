@@ -138,7 +138,7 @@ exit
 
 interface s3/0
 ipv6 traffic-filter OUTSIDE-IN-V6 in
-ipv6 tcp adjust-mss 1280s
+ipv6 tcp adjust-mss 1280
 exit
 
 interface g1/0

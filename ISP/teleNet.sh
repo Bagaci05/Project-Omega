@@ -1,6 +1,8 @@
 en
 conf t
 hostname teleRouter
+ip domain-lookup
+ip name-server 10.10.10.10
 ip domain name tele.net
 
 ipv6 unicast-routing
@@ -39,7 +41,7 @@ exit
 ip route 0.0.0.0 0.0.0.0 192.168.122.1
 
 ip route 100.100.100.0 255.255.255.224 9.6.11.10
-ip route 172.16.0.4 255.255.255.255 172.16.0.1
+ip route 172.16.0.4 255.255.255.248 172.16.0.1
 
 #OSPF
 router ospf 1

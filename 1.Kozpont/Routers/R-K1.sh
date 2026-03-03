@@ -63,7 +63,7 @@ permit tcp any host 172.16.0.4 eq 443
 
 #DNS ISP kommunikáció
 permit udp host 10.10.10.10 eq 53 any
-permit tcp host 10.10.10.10 eq 53 any established
+permit tcp host 10.10.10.10 eq 53 any
 
 #OSPF
 permit ospf any any
@@ -71,6 +71,7 @@ permit ospf any any
 #ICMP
 permit icmp any host 172.16.0.1 echo
 permit icmp any host 172.16.0.1 echo-reply
+permit icmp any host 172.16.0.4 echo
 
 #Implicit deny
 deny ip any any 
@@ -95,7 +96,7 @@ permit udp any host 10.0.0.250 eq 138
 permit tcp any host 10.0.0.250 eq 139
 permit tcp any host 10.0.0.250 eq 445
 
-permit udp any any eq
+permit udp any any eq 53
 
 #Enabling all other 
 permit ip any any

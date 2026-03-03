@@ -68,7 +68,7 @@ permit tcp any host 100.100.100.30 eq 443
 
 #DNS
 permit udp host 10.10.10.10 eq 53 any
-permit tcp host 10.10.10.10 eq 53 any established
+permit tcp host 10.10.10.10 eq 53 any
 
 #OSPF
 permit ospf any any
