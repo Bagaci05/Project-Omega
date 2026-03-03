@@ -22,11 +22,14 @@ permit udp host 2001:db8:faaa::1 eq 53 any
 permit 89 any any
  
 #ICMPv6
-permit icmpv6 any any echo-request
-permit icmpv6 any any echo-reply
-permit icmpv6 any any nd-na
-permit icmpv6 any any nd-ns
-permit icmpv6 any any router-advertisement
+permit icmp any any echo-request
+permit icmp any any echo-reply
+permit icmp any any nd-na
+permit icmp any any nd-ns
+permit icmp any any router-advertisement
+permit icmp any any time-exceeded
+permit icmp any any unreachable
+permit udp any any range 33434 33534
  
 #Implicit deny
 deny ipv6 any any
@@ -58,7 +61,7 @@ exit
 
 interface g1/0
 ipv6 traffic-filter OUTSIDE-IN-V6 in
-ipv6 tcp adjust-mss 1320  
+ipv6 tcp adjust-mss 1280
 exit
 
 interface g4/0.420
@@ -88,10 +91,14 @@ permit udp host 2001:db8:faaa::1 eq 53 any
 #OSPFv3
 permit 89 any any
  
-permit icmpv6 any any echo-request
-permit icmpv6 any any echo-reply
-permit icmpv6 any any nd-na
-permit icmpv6 any any nd-ns
+permit icmp any any echo-request
+permit icmp any any echo-reply
+permit icmp any any nd-na
+permit icmp any any nd-ns
+permit icmp any any router-advertisement
+permit icmp any any time-exceeded
+permit icmp any any unreachable
+permit udp any any range 33434 33534
 
 #Implicit deny
 deny ipv6 any any
@@ -131,7 +138,7 @@ exit
 
 interface s3/0
 ipv6 traffic-filter OUTSIDE-IN-V6 in
-ipv6 tcp adjust-mss 1320
+ipv6 tcp adjust-mss 1280s
 exit
 
 interface g1/0

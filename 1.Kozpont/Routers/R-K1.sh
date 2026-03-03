@@ -3,7 +3,6 @@ conf t
 hostname R-K1
 ip domain-lookup
 ip name-server 10.10.10.10
-ip name-server 8.8.8.8
 ip domain-name evil-inc.com
 ip ssh version 2
 username admin secret 3v1lD3vil!
