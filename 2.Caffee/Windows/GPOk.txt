@@ -1,0 +1,29 @@
+No CLI
+User Configuration → Administrative Templates → System → Prevent access to the command prompt ===== Enabled
+User Configuration → Administrative Templates → System → Don't run specified Windows applications ===== powershell.exe, pwsh.exe, cmd.exe, wt.exe
+
+No Regedit
+User Configuration → Administrative Templates → System → Prevent access to registry editing tools ===== Enabled
+
+No Task manager
+User Configuration → Administrative Templates → System → Ctrl+Alt+Del Options → Remove Task Manager ===== Enabled
+
+No NetworkSettings
+User Configuration → Administrative Templates → Network → Network Connections → Prohibit access to properties of a LAN connection ===== Enabled
+User Configuration → Administrative Templates → Network → Network Connections → Prohibit access to properties of components of a LAN connection ===== Enabled
+User Configuration → Administrative Templates → Network → Network Connections → Ability to enable/disable a LAN connection ===== Disabled
+
+AdminTools mount
+User Configuration → Preferences → Windows Settings → Drive Maps → New Mapped Drive ===== \server\AdminTools Drive letter: P://
+
+Public Folder Mount
+User Configuration → Preferences → Windows Settings → Drive Maps → New Mapped Drive ===== \\CaffeeServer\public Drive letter: M://
+
+Install 7z
+Computer Configuration → Policies → Software Settings → Software installation → New Package ===== \\CaffeeServer\public\7zip.msi (Assigned)
+
+Install NPP
+Computer Configuration → Policies → Software Settings → Software installation → New Package ===== \\CaffeeServer\public\Notepad++.msi (Assigned)
+
+Set Background
+User Configuration → Administrative Templates → Desktop → Desktop → Desktop Wallpaper ===== \\CaffeeServer\public\evilbg.jpg (Style: Center)
