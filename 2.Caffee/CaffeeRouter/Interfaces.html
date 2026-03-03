@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.5; color: #333; }
+        .table-container { overflow-x: auto; margin: 20px 0; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        table { width: 100%; border-collapse: collapse; background-color: white; text-align: left; }
+        th { background-color: #004a7c; color: white; padding: 12px 15px; font-weight: 600; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.05em; }
+        td { padding: 12px 15px; border-bottom: 1px solid #edf2f7; font-size: 0.9rem; }
+        tr:last-child td { border-bottom: none; }
+        tr:nth-child(even) { background-color: #f8fafc; }
+        tr:hover { background-color: #f1f5f9; }
+        
+        /* Status Badges */
+        .badge { padding: 4px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: bold; text-transform: uppercase; }
+        .status-up { background-color: #c6f6d5; color: #22543d; }
+        .status-down { background-color: #fed7d7; color: #822727; }
+        
+        /* Utility Classes */
+        .device-name { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; font-weight: bold; color: #2d3748; }
+        .vlan-tag { color: #718096; font-style: italic; }
+        .stats { font-size: 0.8rem; color: #4a5568; line-height: 1.2; }
+        .stats b { color: #2d3748; }
+    </style>
+</head>
+<body>
+
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>Device</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>MAC / VLAN</th>
+                <th>IPv4 Address</th>
+                <th>IPv6 Address</th>
+                <th>Traffic (In/Out)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- em0 (LAN) -->
+            <tr>
+                <td><span class="device-name">em0</span></td>
+                <td>LAN</td>
+                <td><span class="badge status-up">up</span></td>
+                <td>0c:08:39:a6:00:00</td>
+                <td>—</td>
+                <td>—</td>
+                <td class="stats">
+                    <b>Rx:</b> 20.5 MB<br>
+                    <b>Tx:</b> 305.6 MB
+                </td>
+            </tr>
+            <!-- em1 (WAN) -->
+            <tr>
+                <td><span class="device-name">em1</span></td>
+                <td>WAN</td>
+                <td><span class="badge status-up">up</span></td>
+                <td>0c:08:39:a6:00:01</td>
+                <td>—</td>
+                <td>fe80::e08:39ff:fea6:1</td>
+                <td class="stats">
+                    <b>Rx:</b> 300.6 MB<br>
+                    <b>Tx:</b> 16.9 MB
+                </td>
+            </tr>
+            <!-- em0_vlan10 (WindowsKliens) -->
+            <tr>
+                <td><span class="device-name">em0_vlan10</span></td>
+                <td>WindowsKliens</td>
+                <td><span class="badge status-up">up</span></td>
+                <td><span class="vlan-tag">Tag: 10</span></td>
+                <td>10.1.10.254/24</td>
+                <td>2001:db8:b:1...</td>
+                <td class="stats">
+                    <b>Rx:</b> 16.5 MB<br>
+                    <b>Tx:</b> 301.0 MB
+                </td>
+            </tr>
+            <!-- em0_vlan20 (Administration) -->
+            <tr>
+                <td><span class="device-name">em0_vlan20</span></td>
+                <td>Administration</td>
+                <td><span class="badge status-up">up</span></td>
+                <td><span class="vlan-tag">Tag: 20</span></td>
+                <td>10.1.20.254/24</td>
+                <td>2001:db8:b:0...</td>
+                <td class="stats">
+                    <b>Rx:</b> 2.9 MB<br>
+                    <b>Tx:</b> 3.6 MB
+                </td>
+            </tr>
+            <!-- em0_vlan30 (WLAN) -->
+            <tr>
+                <td><span class="device-name">em0_vlan30</span></td>
+                <td>WLAN</td>
+                <td><span class="badge status-up">up</span></td>
+                <td><span class="vlan-tag">Tag: 30</span></td>
+                <td>10.1.30.254/24</td>
+                <td>2001:db8:b:2...</td>
+                <td class="stats">
+                    <b>Rx:</b> 0.36 MB<br>
+                    <b>Tx:</b> 0.08 MB
+                </td>
+            </tr>
+            <!-- pppoe0 (Telenet) -->
+            <tr>
+                <td><span class="device-name">pppoe0</span></td>
+                <td>Telenet</td>
+                <td><span class="badge status-up">up</span></td>
+                <td>Virtual (PPPoE)</td>
+                <td>9.6.11.14/32</td>
+                <td>fe80::e08...</td>
+                <td class="stats">
+                    <b>Rx:</b> 295.9 MB<br>
+                    <b>Tx:</b> 13.6 MB
+                </td>
+            </tr>
+            <!-- em2 (Unassigned) -->
+            <tr>
+                <td><span class="device-name">em2</span></td>
+                <td>Unassigned</td>
+                <td><span class="badge status-down">no carrier</span></td>
+                <td>0c:08:39:a6:00:02</td>
+                <td>—</td>
+                <td>—</td>
+                <td class="stats">0 / 0</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
