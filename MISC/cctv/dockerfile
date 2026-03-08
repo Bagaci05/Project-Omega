@@ -1,0 +1,21 @@
+FROM alpine:3.18
+
+# Install dependencies
+RUN apk add --no-cache ffmpeg curl
+
+# Download MediaMTX
+RUN curl -L https://github.com/bluenviron/mediamtx/releases/download/v1.9.0/mediamtx_v1.9.0_linux_amd64.tar.gz | tar -xz -C /usr/local/bin
+
+# Set up files
+COPY ./image.jpg /image.jpg
+COPY ./entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh && touch /var/log/ffmpeg.log /var/log/mediamtx.log
+
+# MediaMTX configuration via Environment Variables
+ENV MTX_PATHS_ALL_SOURCE=publisher
+# Optional: Set a default IMAGE_URL (leave empty to use local image.jpg)
+ENV IMAGE_URL=""
+
+EXPOSE 8554
+
+ENTRYPOINT ["/entrypoint.sh"]

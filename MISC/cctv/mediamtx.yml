@@ -1,0 +1,4 @@
+# mediamtx.yml
+paths:
+  all:
+    allowPublishing: yes
