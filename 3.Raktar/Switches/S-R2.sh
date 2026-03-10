@@ -34,7 +34,16 @@ spanning-tree portfast
 spanning-tree bpduguard enable
 exit
 
-int range g1/0-3,g2/0-3,g3/0-3
+int range g1/2-3
+switchport port-security
+switchport port-security maximum 2
+switchport port-security mac-address sticky
+switchport port-security aging time 10
+spanning-tree portfast
+spanning-tree bpduguard enable
+exit
+
+int range g1/0-1,g2/0-3,g3/0-3
 sh
 switchport mode access
 switchport access vlan 369
