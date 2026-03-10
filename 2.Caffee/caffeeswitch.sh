@@ -41,11 +41,6 @@ exit
 int g3/3
 switchport mode access
 switchport access vlan 30
-switchport port-security maximum 1
-switchport port-security violation shutdown
-switchport port-security mac-address sticky
-spanning-tree portfast
-spanning-tree bpduguard enable
 exit
 
 int g0/2
