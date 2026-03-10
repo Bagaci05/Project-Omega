@@ -53,6 +53,7 @@ ipv6 address 2001:db8:1000:15::3/64
 standby version 2
 standby 2 ipv6 autoconfig
 standby 2 priority 100
+standby 2 preempt
 ipv6 ospf 10 area 0
 no sh
 exit
