@@ -136,8 +136,11 @@ permit udp any host 10.2.0.2 eq 68
 permit ip any any
 exit
 
-ip access-list extended ACL-NAT-DYNAMIC
+ip access-list extended NAT-DYNAMIC
 deny ip 10.2.0.0 0.0.0.255 10.0.0.0 0.0.0.255
+deny ip host 10.2.0.130 any
+deny ip host 10.2.0.1 any
+deny ip host 10.2.0.129 any
 permit ip 10.2.0.0 0.0.0.255 any
 exit
 

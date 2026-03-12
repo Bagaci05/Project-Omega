@@ -36,6 +36,8 @@ ip nat pool RAKTAR-POOL 100.100.100.1 100.100.100.29 netmask 255.255.255.224
 ip access-list extended NAT-DYNAMIC
 deny ip 10.2.0.0 0.0.0.255 10.0.0.0 0.0.0.255
 deny ip host 10.2.0.130 any
+deny ip host 10.2.0.1 any
+deny ip host 10.2.0.129 any
 permit ip 10.2.0.0 0.0.0.255 any
 exit
 
