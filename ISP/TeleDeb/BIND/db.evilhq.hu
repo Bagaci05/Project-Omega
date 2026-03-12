@@ -1,0 +1,15 @@
+$TTL    3600
+@       IN      SOA     ns1.evilhq.hu. admin.evilhq.hu. (
+                        2026031001 ; Serial
+                        3600       ; Refresh
+                        1800       ; Retry
+                        604800     ; Expire
+                        3600 )     ; Negative Cache TTL
+
+        IN      NS      ns1.evilcaffee.hu.
+
+ns1     IN      A       172.16.0.4
+
+@       IN      A       172.16.0.4
+www     IN      A       172.16.0.4
+mail    IN      A       172.16.0.4

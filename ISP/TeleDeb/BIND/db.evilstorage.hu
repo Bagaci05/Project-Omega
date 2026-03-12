@@ -1,0 +1,15 @@
+$TTL    3600
+@       IN      SOA     ns1.evilstorage.hu. admin.evilstorage.hu. (
+                        2026031001 ; Serial
+                        3600       ; Refresh
+                        1800       ; Retry
+                        604800     ; Expire
+                        3600 )     ; Negative Cache TTL
+
+        IN      NS      ns1.evilstorage.hu.
+
+ns1     IN      A       9.6.11.10
+
+@       IN      A       9.6.11.10
+www     IN      A       9.6.11.10
+mail    IN      A       9.6.11.10
