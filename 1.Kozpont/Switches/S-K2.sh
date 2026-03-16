@@ -9,9 +9,6 @@ banner motd "Unauthorized access will result in sacrificing you! :)"
 crypto key generate rsa
 1024
 ip default-gateway 10.0.0.1
-snmp-server community public RO
-snmp-server location SzerverSzoba
-snmp-server enable traps
 
 
 line vty 0 15

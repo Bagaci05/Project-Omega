@@ -9,9 +9,6 @@ username admin secret 3v1lD3vil!
 banner motd "Unauthorized access will result in sacrificing you! :)"
 #crypto key generate rsa
 #1024
-snmp-server community public RO
-snmp-server location SzerverSzoba
-snmp-server enable traps
 
 ipv6 unicast-routing
 
