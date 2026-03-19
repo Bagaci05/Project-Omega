@@ -9,6 +9,10 @@ banner motd "Unauthorized access will result in sacrificing you! :)"
 crypto key generate rsa
 1024
 
+no banner login
+no banner incoming
+no banner exec
+
 line vty 0 15
 transport input ssh
 login local

@@ -10,6 +10,9 @@ crypto key generate rsa
 1024
 ip default-gateway 10.0.0.1
 
+no banner login
+no banner incoming
+no banner exec
 
 line vty 0 15
 transport input ssh
@@ -47,7 +50,7 @@ exit
 #service password-encryption
 
 int vlan 80
-ip address dhcp
+ip address dhcp hostname S-K2
 no sh
 
 int g0/0

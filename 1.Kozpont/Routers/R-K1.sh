@@ -59,6 +59,7 @@ permit tcp any host 172.16.0.4 eq 80
 permit tcp any host 172.16.0.4 eq 443
 
 #DNS ISP kommunikáció
+
 permit udp host 10.10.10.10 eq 53 any
 permit tcp host 10.10.10.10 eq 53 any
 

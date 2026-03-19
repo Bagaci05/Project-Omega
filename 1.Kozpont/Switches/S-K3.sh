@@ -10,6 +10,9 @@ crypto key generate rsa
 1024
 ip default-gateway 10.0.0.225
 
+no banner login
+no banner incoming
+no banner exec
 
 line vty 0 15
 transport input ssh
@@ -40,7 +43,7 @@ exit
 # ip arp inspection vlan 444,666,888
 
 int vlan 444
-ip address dhcp
+ip address dhcp hostname S-K3
 no sh
 
 int g0/0
