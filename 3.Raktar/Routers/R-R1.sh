@@ -157,9 +157,9 @@ exit
 
 router ospf 1
 router-id 4.4.4.4
-network 9.6.11.0 0.0.0.255 area 0
+network 9.6.11.8 0.0.0.255 area 0
 network 10.2.0.0 0.0.0.127 area 3
-network 10.2.0.128 0.0.0.7 are 3
+network 10.2.0.128 0.0.0.7 area 3
 exit
 
 ip access-list extended VPN-IPv4

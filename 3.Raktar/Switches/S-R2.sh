@@ -1,6 +1,6 @@
 en
 conf t
-hostname S-K1
+hostname S-R2
 no ip domain-lookup
 ip domain-name evil-inc.com
 ip ssh version 2
@@ -24,6 +24,9 @@ exit
 #service password-encryption
 
 vlan 369
+exit
+
+ip dhcp snooping
 
 int range g0/1-3
 switchport port-security
@@ -32,6 +35,12 @@ switchport port-security mac-address sticky
 switchport port-security aging time 10
 spanning-tree portfast
 spanning-tree bpduguard enable
+switchport mode access
+switchport nonegotiate
+exit
+
+int g0/3
+ip dhcp snooping trust
 exit
 
 int range g1/2-3
@@ -41,6 +50,8 @@ switchport port-security mac-address sticky
 switchport port-security aging time 10
 spanning-tree portfast
 spanning-tree bpduguard enable
+switchport mode access
+switchport nonegotiate
 exit
 
 int range g1/0-1,g2/0-3,g3/0-3
