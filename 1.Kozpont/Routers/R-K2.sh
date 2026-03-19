@@ -6,16 +6,24 @@ ip name-server 10.10.10.10
 ip domain-name evil-inc.com
 ip ssh version 2
 username admin secret 3v1lD3vil!
+aaa new-model
+aaa authentication login default local
 banner motd "Unauthorized access will result in sacrificing you! :)"
 #crypto key generate rsa
 #1024
 
 ipv6 unicast-routing
 
+ip access-list standard ADMIN-SSH
+ permit 10.0.0.253
+ deny any
+ exit
+
 line vty 0 15
-transport input ssh
-login local
-exit
+ access-class ADMIN-SSH in
+ transport input ssh
+ login authentication default
+ exit
 
 line con 0
 logging synchronous

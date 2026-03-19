@@ -5,6 +5,8 @@ no ip domain-lookup
 ip domain-name evil-inc.com
 ip ssh version 2
 username admin secret 3v1lD3vil!
+aaa new-model
+aaa authentication login default local
 banner motd "Unauthorized access will result in sacrificing you! :)"
 crypto key generate rsa
 1024
@@ -15,9 +17,9 @@ no banner incoming
 no banner exec
 
 line vty 0 15
-transport input ssh
-login local
-exit
+ transport input ssh
+ login authentication default
+ exit
 
 vlan 51
 name Experimental
