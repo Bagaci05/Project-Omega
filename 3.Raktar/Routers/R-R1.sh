@@ -80,6 +80,8 @@ permit ospf any any
 #ICMP
 permit icmp any host 9.6.11.10 echo
 permit icmp any host 9.6.11.10 echo-reply
+permit icmp any host 9.6.11.10 time-exceeded
+permit icmp any host 9.6.11.10 unreachable
 
 #Implicit deny
 deny ip any any 

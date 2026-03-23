@@ -72,6 +72,8 @@ permit ospf any any
 permit icmp any host 172.16.0.1 echo
 permit icmp any host 172.16.0.1 echo-reply
 permit icmp any host 172.16.0.4 echo
+permit icmp any host 172.16.0.1 time-exceeded
+permit icmp any host 172.16.0.1 unreachable
 
 #Implicit deny
 deny ip any any 
@@ -185,6 +187,7 @@ ipv6 router ospf 10
 exit
 int g1/0
 ipv6 ospf 10 area 0
+exit
 
 ip access-list extended VPN-IPv4
  permit ip 10.0.0.0 0.0.0.255 10.2.0.0 0.0.0.255
