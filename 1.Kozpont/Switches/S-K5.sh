@@ -17,9 +17,9 @@ no banner incoming
 no banner exec
 
 line vty 0 15
- transport input ssh
- login authentication default
- exit
+transport input ssh
+login authentication default
+exit
 
 vlan 51
 name Experimental
@@ -42,9 +42,9 @@ int vlan 51
 ip address dhcp hostname S-K5
 no sh
 
-# ip dhcp snooping
-# ip dhcp snooping vlan 51,888
-# ip arp inspection vlan 51,888
+ip dhcp snooping
+ip dhcp snooping vlan 51,888
+ip arp inspection vlan 51,888
 
 int range g2/0-3
 switchport trunk encapsulation dot1q
@@ -53,12 +53,12 @@ switchport trunk allowed vlan 51,888
 switchport trunk native vlan 888
 switchport nonegotiate
 channel-group 2 mode auto
-# ip dhcp snooping trust
-# ip arp inspection trust
+ip dhcp snooping trust
+ip arp inspection trust
 exit
 
 int g0/0
-#ip verify source
+ip verify source
 switchport mode access
 switchport access vlan 51
 switchport port-security

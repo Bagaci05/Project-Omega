@@ -40,9 +40,9 @@ exit
 #enable secret 5@T@N666
 #service password-encryption
 
-# ip dhcp snooping
-# ip dhcp snooping vlan 444,666,888
-# ip arp inspection vlan 444,666,888
+ip dhcp snooping
+ip dhcp snooping vlan 444,666,888
+ip arp inspection vlan 444,666,888
 
 int vlan 444
 ip address dhcp hostname S-K3
@@ -54,12 +54,12 @@ switchport mode trunk
 switchport trunk allowed vlan 444,666,888
 switchport trunk native vlan 888
 switchport nonegotiate
-# ip dhcp snooping trust
-# ip arp inspection trust
+ip dhcp snooping trust
+ip arp inspection trust
 exit
 
 int g0/1
-#ip verify source
+ip verify source
 switchport mode access
 switchport access vlan 666
 switchport port-security
@@ -71,15 +71,15 @@ spanning-tree bpduguard enable
 exit
 
 int g0/2
-#ip verify source
+ip verify source
 switchport mode access
 switchport access vlan 444
-# switchport port-security
-# switchport port-security maximum 2
-# switchport port-security mac-address sticky
-# switchport port-security aging time 10
-# spanning-tree portfast
-# spanning-tree bpduguard enable
+switchport port-security
+switchport port-security maximum 2
+switchport port-security mac-address sticky
+switchport port-security aging time 10
+spanning-tree portfast
+spanning-tree bpduguard enable
 exit
 
 int range g0/3,g1/0-3,g2/0-3,g3/0-3

@@ -44,9 +44,9 @@ int vlan 80
 ip address dhcp hostname S-K4
 no sh
 
-# ip dhcp snooping
-# ip dhcp snooping vlan 80,333,888
-# ip arp inspection vlan 80,333,888
+ip dhcp snooping
+ip dhcp snooping vlan 80,333,888
+ip arp inspection vlan 80,333,888
 
 int range g1/0-3
 switchport trunk encapsulation dot1q
@@ -55,24 +55,24 @@ switchport trunk allowed vlan 80,333,888
 switchport trunk native vlan 888
 switchport nonegotiate
 channel-group 1 mode auto
-# ip dhcp snooping trust
-# ip arp inspection trust
+ip dhcp snooping trust
+ip arp inspection trust
 exit
 
 int g0/0
-#ip verify source
+ip verify source
 switchport mode access
 switchport access vlan 80
-# switchport port-security
-# switchport port-security maximum 2
-# switchport port-security mac-address sticky
-# switchport port-security aging time 10
-# spanning-tree portfast
-# spanning-tree bpduguard enable
+switchport port-security
+switchport port-security maximum 2
+switchport port-security mac-address sticky
+switchport port-security aging time 10
+spanning-tree portfast
+spanning-tree bpduguard enable
 exit
 
 int g0/1
-#ip verify source
+ip verify source
 switchport mode access
 switchport access vlan 333
 switchport port-security
