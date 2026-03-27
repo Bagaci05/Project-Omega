@@ -20,4 +20,4 @@ zone "evilhq.hu" {
 zone "evilStorage.hu" {
 	type master;
 	file "/etc/bind/db.evilstorage.hu";
-}
+};
