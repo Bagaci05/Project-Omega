@@ -29,15 +29,16 @@ exit
 #service password-encryption
 
 ip access-list extended NAT-DYNAMIC
-deny ip 10.0.0.0 0.0.0.255 10.2.0.0 0.0.0.255
+deny ip 10.0.0.0 0.0.255.255 10.2.0.0 0.0.255.255
 permit ip 10.0.0.0 0.0.0.255 any
 exit
 
 #NAT examption
+
 ip access-list extended NAT-STATIC
-deny ip 10.0.0.0 0.0.0.255 10.2.0.0 0.0.0.255
+deny ip 10.0.0.0 0.0.255.255 10.2.0.0 0.0.255.255
 permit ip 10.0.0.0 0.0.0.255 any
-exit
+
 
 route-map STATIC-NAT-MAP permit 10
 match ip address NAT-STATIC
@@ -49,14 +50,17 @@ ip nat inside source static 10.0.0.250 172.16.0.4 route-map STATIC-NAT-MAP
 ip access-list extended OUTSIDE-IN
 
 #Established
+
 permit tcp any any established
 
 #VPN engedélyezése
-permit udp any any eq 500
-permit udp any any eq 4500
+
+permit udp host 9.6.11.10 host 172.16.0.1 eq 500
+permit udp host 9.6.11.10 host 172.16.0.1 eq 4500
 permit esp host 9.6.11.10 host 172.16.0.1
 
 #WEB szerver
+
 permit tcp any host 172.16.0.4 eq 80
 permit tcp any host 172.16.0.4 eq 443
 
@@ -66,14 +70,19 @@ permit udp host 10.10.10.10 eq 53 any
 permit tcp host 10.10.10.10 eq 53 any
 
 #OSPF
+
 permit ospf any any
 
 #ICMP
+
 permit icmp any host 172.16.0.1 echo
 permit icmp any host 172.16.0.1 echo-reply
 permit icmp any host 172.16.0.4 echo
+permit icmp any host 172.16.0.1 time-exceeded
+permit icmp any host 172.16.0.1 unreachable
 
 #Implicit deny
+
 deny ip any any 
 exit
 
@@ -112,6 +121,81 @@ int g4/0.420
 ip access-group SERVER-ACCESS out
 exit
 
+ipv6 access-list OUTSIDE-IN-V6
+
+permit tcp any any established
+ 
+#VPN
+
+permit udp any any eq 500
+permit udp any any eq 4500
+permit 50 host 2001:db8:a:3::2 host 2001:db8:1000:15::1
+ 
+#WEB
+
+permit tcp any host 2001:db8:1000:420::2 eq 80
+permit tcp any host 2001:DB8:1000:420::2 eq 443
+ 
+#DNS
+
+permit udp host 2001:db8:faaa::1 eq 53 any
+ 
+#OSPFv3
+
+permit 89 any any
+ 
+#ICMPv6
+
+permit icmp any any echo-request
+permit icmp any any echo-reply
+permit icmp any any nd-na
+permit icmp any any nd-ns
+permit icmp any any router-advertisement
+permit icmp any any time-exceeded
+permit icmp any any unreachable
+permit udp any any range 33434 33534
+ 
+#Implicit deny
+
+deny ipv6 any any
+exit
+
+ipv6 access-list SERVER-ACCESS-V6
+
+permit tcp any host 2001:db8:1000:420::2 eq 80
+permit tcp any host 2001:DB8:1000:420::2 eq 443
+ 
+#ADMIN PC access (SSH)
+
+permit tcp host 2001:DB8:1000:420::3 host 2001:DB8:1000:420::2 eq 22
+deny tcp any host 2001:DB8:1000:420::2 eq 22
+ 
+#DHCPv6
+
+permit udp any host 2001:DB8:1000:420::2 eq 546
+permit udp any host 2001:DB8:1000:420::2 eq 547
+ 
+#SAMBA
+
+permit udp any host 2001:DB8:1000:420::2 eq 137
+permit udp any host 2001:DB8:1000:420::2 eq 138
+permit tcp any host 2001:DB8:1000:420::2 eq 139
+permit tcp any host 2001:DB8:1000:420::2 eq 445
+ 
+permit ipv6 any any
+exit
+
+#Interfaces
+
+interface g1/0
+ipv6 traffic-filter OUTSIDE-IN-V6 in
+ipv6 tcp adjust-mss 1280
+exit
+
+interface g4/0.420
+ ipv6 traffic-filter SERVER-ACCESS-V6 out
+exit
+
 int g1/0
 ip address 172.16.0.1 255.255.255.248
 ipv6 address 2001:db8:1000:15::1/64
@@ -129,6 +213,8 @@ ipv6 address 2001:db8:1000:80::1/64
 ipv6 address fe80::1 link-local
 ipv6 enable
 ipv6 ospf 10 area 1
+ip nat inside
+
 int g4/0.333
 encapsulation dot1Q 333
 ip address 10.0.0.193 255.255.255.224
@@ -137,6 +223,8 @@ ipv6 address 2001:db8:1000:333::1/64
 ipv6 address fe80::1 link-local
 ipv6 enable
 ipv6 ospf 10 area 1
+ip nat inside
+
 int g4/0.51
 encapsulation dot1Q 51
 ip address 10.0.0.129 255.255.255.192
@@ -145,6 +233,8 @@ ipv6 address 2001:db8:1000:51::1/64
 ipv6 address fe80::1 link-local
 ipv6 enable
 ipv6 ospf 10 area 1
+ip nat inside
+
 int g4/0.420
 encapsulation dot1Q 420
 ip address 10.0.0.249 255.255.255.248
@@ -153,6 +243,7 @@ ipv6 address fe80::1 link-local
 ipv6 enable
 ipv6 ospf 10 area 1
 ip nat inside
+
 int g4/0.666
 encapsulation dot1Q 666
 ip address 10.0.0.241 255.255.255.248
@@ -161,6 +252,8 @@ ipv6 address 2001:db8:1000:666::1/64
 ipv6 address fe80::1 link-local
 ipv6 enable
 ipv6 ospf 10 area 1
+ip nat inside
+
 int g4/0.444
 encapsulation dot1Q 444
 ip address 10.0.0.225 255.255.255.240
@@ -169,6 +262,7 @@ ipv6 address 2001:db8:1000:444::1/64
 ipv6 address fe80::1 link-local
 ipv6 enable
 ipv6 ospf 10 area 1
+ip nat inside
 exit
 
 router ospf 1
@@ -185,9 +279,10 @@ ipv6 router ospf 10
 exit
 int g1/0
 ipv6 ospf 10 area 0
+exit
 
 ip access-list extended VPN-IPv4
- permit ip 10.0.0.0 0.0.0.255 10.2.0.0 0.0.0.255
+permit ip 10.0.0.0 0.0.255.255 10.2.0.0 0.0.255.255
 exit
 
 ipv6 access-list VPN-IPv6
@@ -229,7 +324,7 @@ interface G1/0
 exit
 
 ip route 0.0.0.0 0.0.0.0 172.16.0.6
-ip route 10.2.0.0 255.255.255.0 9.6.11.10
+ip route 10.2.0.0 255.255.0.0 GigabitEthernet1/0
 ipv6 route 2001:db8:3000::/48 2001:db8:a:3::2
 ipv6 route ::/0 2001:db8:1000:15::2
 ipv6 route ::/0 2001:db8:1000:15::3 1

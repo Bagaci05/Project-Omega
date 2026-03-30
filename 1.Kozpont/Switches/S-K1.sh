@@ -30,7 +30,8 @@ name Native
 exit
 
 ip dhcp snooping
-ip dhcp snooping vlan 80,51,420,333,444,666
+ip dhcp snooping vlan 80,51,420,333,444,666,888
+ip arp inspection vlan 51,80,333,420,444,666,888
 
 line con 0
 logging synchronous
@@ -46,7 +47,6 @@ ip address dhcp hostname S-K1
 no sh
 
 int range g0/1-2
-#ip verify source
 switchport mode access
 switchport access vlan 420
 switchport port-security
@@ -59,9 +59,12 @@ exit
 
 int g0/1
 ip dhcp snooping trust
+ip arp inspection trust
 
 int g0/2
 ip dhcp snooping limit rate 10
+ip dhcp snooping trust
+ip arp inspection trust
 
 int g0/0
 switchport trunk encapsulation dot1q
@@ -70,6 +73,7 @@ switchport trunk allowed vlan 420,888
 switchport trunk native vlan 888
 switchport nonegotiate
 ip dhcp snooping trust
+ip arp inspection trust
 exit
 
 int range g0/3,g1/0-3,g2/0-3,g3/0-3

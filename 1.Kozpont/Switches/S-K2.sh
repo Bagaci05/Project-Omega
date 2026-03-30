@@ -40,7 +40,8 @@ name Native
 exit
 
 ip dhcp snooping
-ip dhcp snooping vlan 80,51,420,333,444,666
+ip dhcp snooping vlan 80,51,420,333,444,666,888
+ip arp inspection vlan 51,80,333,420,444,666,888
 
 line con 0
 logging synchronous
@@ -62,7 +63,7 @@ switchport trunk allowed vlan 51,80,333,420,444,666,888
 switchport trunk native vlan 888
 switchport nonegotiate
 ip dhcp snooping trust
-# ip arp inspection trust
+ip arp inspection trust
 exit
 
 int g0/1
@@ -72,7 +73,7 @@ switchport trunk allowed vlan 420,888
 switchport trunk native vlan 888
 switchport nonegotiate
 ip dhcp snooping trust
-# ip arp inspection trust
+ip arp inspection trust
 exit
 
 int g0/2
@@ -82,7 +83,7 @@ switchport trunk allowed vlan 666,444,888
 switchport trunk native vlan 888
 switchport nonegotiate
 ip dhcp snooping trust
-# ip arp inspection trust
+ip arp inspection trust
 exit
 
 int range g1/0-3
@@ -93,7 +94,7 @@ switchport trunk native vlan 888
 switchport nonegotiate
 channel-group 1 mode desirable
 ip dhcp snooping trust
-# ip arp inspection trust
+ip arp inspection trust
 exit
 
 int range g2/0-3
@@ -104,7 +105,7 @@ switchport trunk native vlan 888
 switchport nonegotiate
 channel-group 2 mode desirable
 ip dhcp snooping trust
-# ip arp inspection trust
+ip arp inspection trust
 exit
 
 int range g0/3,g3/0-3
