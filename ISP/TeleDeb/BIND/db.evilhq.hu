@@ -6,7 +6,7 @@ $TTL    3600
                         604800     ; Expire
                         3600 )     ; Negative Cache TTL
 
-        IN      NS      ns1.evilcaffee.hu.
+        IN      NS      ns1.evilhq.hu.
 
 ns1     IN      A       172.16.0.4
 

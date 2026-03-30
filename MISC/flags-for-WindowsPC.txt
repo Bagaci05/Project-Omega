@@ -1,0 +1,7 @@
+Use The following flags for SPICE windows 10 client
+
+-cpu host,hv_relaxed,hv_vapic,hv_time,hv_vpindex,hv_synic,hv_stimer,hv_reset,hv_frequencies,hv_spinlocks=0x1fff,topoext -machine hpet=off,accel=kvm,kernel-irqchip=on, -vga qxl -device qemu-xhci -device usb-tablet -device virtio-serial-pci -chardev spicevmc,id=spicechannel0,name=vdagent -device virtserialport,chardev=spicechannel0,name=com.redhat.spice.0
+
+Use These for non Spice clients
+
+-cpu host,hv_relaxed,hv_vapic,hv_time,hv_vpindex,hv_synic,hv_stimer,hv_reset,hv_frequencies,hv_spinlocks=0x1fff,topoext -machine hpet=off,accel=kvm,kernel-irqchip=on, -vga qxl -device qemu-xhci -device usb-tablet -device virtio-serial-pci 
