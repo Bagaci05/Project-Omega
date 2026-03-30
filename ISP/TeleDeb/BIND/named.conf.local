@@ -17,7 +17,7 @@ zone "evilhq.hu" {
 	file "/etc/bind/db.evilhq.hu";
 };
 
-zone "evilStorage.hu" {
+zone "evilstorage.hu" {
 	type master;
 	file "/etc/bind/db.evilstorage.hu";
 }

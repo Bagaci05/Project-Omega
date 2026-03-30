@@ -1,5 +1,7 @@
 modprobe jool
 
+sleep 5
+
 jool instance remove "default" 2>/dev/null
 
 jool instance add --netfilter --pool6 2001:db8:ffff::/96
