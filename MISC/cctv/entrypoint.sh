@@ -10,6 +10,7 @@ if [ -n "$IMAGE_URL" ]; then
         mv /tmp/downloaded_image.jpg /image.jpg
         echo "Download successful. Using new image."
     else
+        isDownloadFailed=true
         echo "Download failed or URL invalid. Falling back to default image."
     fi
 else
@@ -31,6 +32,13 @@ done
     -c:v libx264 -preset ultrafast -tune zerolatency \
     -pix_fmt yuv420p \
     -f rtsp -rtsp_transport tcp rtsp://127.0.0.1:8554/mystream
+  if isDownloadFailed; then
+    if curl -L -s -f -o /tmp/downloaded_image.jpg "$IMAGE_URL"; then
+        mv /tmp/downloaded_image.jpg /image.jpg
+        echo "Download successful. Using new image."
+        unset isDownloadFailed
+    fi
+  fi
   sleep 2
 done) > /var/log/ffmpeg.log 2>&1 &
 
