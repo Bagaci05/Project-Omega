@@ -44,7 +44,11 @@ route-map STATIC-NAT-MAP permit 10
 match ip address NAT-STATIC
 exit
 
-ip nat inside source list NAT-DYNAMIC interface g1/0 overload
+route-map DYNAMIC-NAT-MAP permit 10
+match ip address NAT-DYNAMIC
+exit
+
+ip nat inside source route-map DYNAMIC-NAT-MAP interface g1/0 overload
 ip nat inside source static 10.0.0.250 172.16.0.4 route-map STATIC-NAT-MAP
 
 ip access-list extended OUTSIDE-IN

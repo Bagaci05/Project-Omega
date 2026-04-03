@@ -51,6 +51,7 @@ network 9.6.11.4 0.0.0.3 area 0
 network 9.6.11.8 0.0.0.3 area 0
 network 9.6.11.12 0.0.0.3 area 0
 network 10.10.10.0 0.0.0.255 area 0
+network 69.69.69.0 0.0.0.255 area 0
 default-information originate   
 exit
 
@@ -135,6 +136,14 @@ exit
 int g6/0
 no ip dhcp client request dns-nameserver
 exit
+
+int f0/0
+ip address 69.69.69.1 255.255.255.0
+ipv6 address 2001:69::1/64
+ipv6 enable
+ipv6 ospf 10 area 0
+ip nat inside
+no sh
 
 no ip name-server 192.168.122.1
 end
