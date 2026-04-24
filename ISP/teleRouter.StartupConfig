@@ -1,0 +1,153 @@
+Cisco IOS Software, 7200 Software (C7200-ADVENTERPRISEK9-M), Version 15.3(3)XB12, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2013 by Cisco Systems, Inc.
+Compiled Tue 19-Nov-13 04:39 by prod_rel_team
+7200 Software (C7200-ADVENTERPRISEK9-M), Version 15.3(3)XB12, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Compiled Tue 19-Nov-13 04:39 by prod_rel_team
+Image text-base: 0x60008978, data-base: 0x6524E000
+! Last configuration change at 20:41:16 UTC Fri Apr 3 2026
+upgrade fpd auto
+version 15.3
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+hostname teleRouter
+boot-start-marker
+boot-end-marker
+aqm-register-fnf
+aaa new-model
+aaa session-id common
+ip domain name tele.net
+ip name-server 10.10.10.10
+ip cef
+ipv6 unicast-routing
+ipv6 cef
+ipv6 dhcp pool CustomersPoolv6_DHCP
+ prefix-delegation pool CustomersPoolv6_PD
+multilink bundle-name authenticated
+username iroda@evil.inc password 7 15371D050803392B2C326D7A4B
+username kavezo@evil.inc password 7 072A374542221813120804545C72
+username raktar@evil.inc password 7 072A3745423B180E031319545C72
+redundancy
+bba-group pppoe PPPoEvils
+ virtual-template 1
+interface FastEthernet0/0
+ ip address 69.69.69.1 255.255.255.0
+ ip nat inside
+ ip virtual-reassembly in
+ duplex half
+ ipv6 address 2001:69::1/64
+ ipv6 enable
+ ipv6 ospf 10 area 0
+interface GigabitEthernet1/0
+ no ip address
+ ip nat inside
+ ip virtual-reassembly in
+ negotiation auto
+ pppoe enable group PPPoEvils
+interface Serial2/0
+ ip address 9.6.11.1 255.255.255.252
+ ip nat inside
+ ip virtual-reassembly in
+ encapsulation ppp
+ ipv6 address 2001:DB8:A:1::1/64
+ ipv6 ospf 10 area 0
+ ppp authentication chap
+ serial restart-delay 0
+interface Serial2/1
+ ip address 9.6.11.5 255.255.255.252
+ ip nat inside
+ ip virtual-reassembly in
+ encapsulation ppp
+ ipv6 address 2001:DB8:A:2::1/64
+ ipv6 ospf 10 area 0
+ ppp authentication chap
+ serial restart-delay 0
+interface Serial2/2
+ ip address 9.6.11.9 255.255.255.252
+ ip nat inside
+ ip virtual-reassembly in
+ encapsulation ppp
+ ipv6 address 2001:DB8:A:3::1/64
+ ipv6 ospf 10 area 0
+ ppp authentication chap
+ serial restart-delay 0
+interface Serial2/3
+ no ip address
+ shutdown
+ serial restart-delay 0
+interface GigabitEthernet3/0
+ ip address 10.10.10.1 255.255.255.0
+ ip nat inside
+ ip virtual-reassembly in
+ negotiation auto
+ ipv6 address FE80::10 link-local
+ ipv6 address 2001:DB8:FAAA::10/64
+interface GigabitEthernet6/0
+ no ip dhcp client request dns-nameserver
+ ip address dhcp
+ ip nat outside
+ ip virtual-reassembly in
+ negotiation auto
+interface Virtual-Template1
+ mtu 1492
+ ip address 9.6.11.13 255.255.255.252
+ ip nat inside
+ ip virtual-reassembly in
+ ip ospf network point-to-point
+ ip ospf 1 area 0
+ peer default ip address pool CustomerPool
+ ipv6 enable
+ ipv6 nd managed-config-flag
+ ipv6 nd other-config-flag
+ no ipv6 nd ra suppress
+ ipv6 nd ra interval 30
+ ipv6 dhcp server CustomersPoolv6_DHCP
+ ipv6 ospf 10 area 0
+ ppp authentication chap
+ ppp ipcp dns 10.10.10.10
+router ospf 1
+ router-id 1.1.1.1
+ network 9.6.11.0 0.0.0.3 area 0
+ network 9.6.11.4 0.0.0.3 area 0
+ network 9.6.11.8 0.0.0.3 area 0
+ network 9.6.11.12 0.0.0.3 area 0
+ network 69.69.69.0 0.0.0.255 area 0
+ default-information originate
+ip local pool CustomerPool 9.6.11.14
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+ip nat inside source list 1 interface GigabitEthernet6/0 overload
+ip route 0.0.0.0 0.0.0.0 192.168.1.1
+ip route 100.100.100.0 255.255.255.224 9.6.11.10
+ip route 172.16.0.4 255.255.255.255 9.6.11.2
+ipv6 route 2001:DB8:FFFF::/96 2001:DB8:FAAA::1
+ipv6 local pool CustomersPoolv6_PD 2001:DB8:B::/48 56
+ipv6 router ospf 10
+ipv6 router ospf 1
+access-list 1 permit any
+control-plane
+mgcp behavior rsip-range tgcp-only
+mgcp behavior comedia-role none
+mgcp behavior comedia-check-media-src disable
+mgcp behavior comedia-sdp-force disable
+mgcp profile default
+gatekeeper
+ shutdown
+line con 0
+ logging synchronous
+ stopbits 1
+line aux 0
+ stopbits 1
+line vty 0 4
+ transport input all
+persistent-data
+ReloadReason
+12ab34Unknown reason
+prst-fls
+prst-ver
+rf_reload_data0
+02-15-26 16:20:12 Unknown User: Unknown Reason
+rf_reload_data_index

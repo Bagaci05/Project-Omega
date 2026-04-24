@@ -1,0 +1,298 @@
+Cisco IOS Software, 7200 Software (C7200-ADVENTERPRISEK9-M), Version 15.3(3)XB12, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2013 by Cisco Systems, Inc.
+Compiled Tue 19-Nov-13 04:39 by prod_rel_team
+7200 Software (C7200-ADVENTERPRISEK9-M), Version 15.3(3)XB12, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Compiled Tue 19-Nov-13 04:39 by prod_rel_team
+Image text-base: 0x60008978, data-base: 0x6524E000
+! Last configuration change at 20:16:03 UTC Mon Mar 30 2026 by admin
+upgrade fpd auto
+version 15.3
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+hostname R-K1
+boot-start-marker
+boot-end-marker
+aqm-register-fnf
+aaa new-model
+aaa authentication login default local
+aaa session-id common
+ip domain name evil-inc.com
+ip name-server 10.10.10.10
+ip cef
+ipv6 unicast-routing
+ipv6 cef
+multilink bundle-name authenticated
+username admin secret 5 $1$X9OE$o30AiLD.hvy3UAIAnZ3rK.
+redundancy
+ip ssh version 2
+crypto isakmp policy 10
+ encr aes 256
+ hash sha256
+ authentication pre-share
+ group 19
+crypto isakmp key CR1T1CALP3SS! address 9.6.11.10      
+crypto isakmp key CR1T1CALP3SS! address ipv6 2001:DB8:A:3::2/64
+crypto ipsec transform-set VPN-TS esp-aes 256 esp-sha256-hmac 
+ mode tunnel
+crypto map VPN-MAP 10 ipsec-isakmp 
+ set peer 9.6.11.10
+ set transform-set VPN-TS 
+ set pfs group19
+ match address VPN-IPv4
+crypto map ipv6 VPN6-MAP 10 ipsec-isakmp 
+ set peer 2001:DB8:A:3::2
+ set transform-set VPN-TS 
+ set pfs group19
+ match address VPN-IPv6
+interface Ethernet0/0
+ no ip address
+ shutdown
+ duplex auto
+interface GigabitEthernet0/0
+ no ip address
+ shutdown
+ duplex full
+ speed 1000
+ media-type gbic
+ negotiation auto
+interface GigabitEthernet1/0
+ ip address 172.16.0.1 255.255.255.248
+ ip access-group OUTSIDE-IN in
+ ip nat outside
+ ip virtual-reassembly in
+ ip tcp adjust-mss 1360
+ negotiation auto
+ ipv6 address 2001:DB8:1000:15::1/64
+ ipv6 tcp adjust-mss 1280
+ ipv6 traffic-filter OUTSIDE-IN-V6 in
+ ipv6 crypto map VPN6-MAP
+ ipv6 ospf 10 area 0
+ crypto map VPN-MAP
+interface GigabitEthernet2/0
+ no ip address
+ shutdown
+ negotiation auto
+interface GigabitEthernet3/0
+ no ip address
+ shutdown
+ negotiation auto
+interface GigabitEthernet4/0
+ no ip address
+ negotiation auto
+interface GigabitEthernet4/0.51
+ encapsulation dot1Q 51
+ ip address 10.0.0.129 255.255.255.192
+ ip helper-address 10.0.0.250
+ ip nat inside
+ ip virtual-reassembly in
+ ipv6 address FE80::1 link-local
+ ipv6 address 2001:DB8:1000:51::1/64
+ ipv6 enable
+ ipv6 ospf 10 area 1
+interface GigabitEthernet4/0.80
+ encapsulation dot1Q 80
+ ip address 10.0.0.1 255.255.255.128
+ ip helper-address 10.0.0.250
+ ip nat inside
+ ip virtual-reassembly in
+ ipv6 address FE80::1 link-local
+ ipv6 address 2001:DB8:1000:80::1/64
+ ipv6 enable
+ ipv6 ospf 10 area 1
+interface GigabitEthernet4/0.333
+ encapsulation dot1Q 333
+ ip address 10.0.0.193 255.255.255.224
+ ip helper-address 10.0.0.250
+ ip nat inside
+ ip virtual-reassembly in
+ ipv6 address FE80::1 link-local
+ ipv6 address 2001:DB8:1000:333::1/64
+ ipv6 enable
+ ipv6 ospf 10 area 1
+interface GigabitEthernet4/0.420
+ encapsulation dot1Q 420
+ ip address 10.0.0.249 255.255.255.248
+ ip access-group SERVER-ACCESS out
+ ip nat inside
+ ip virtual-reassembly in
+ ipv6 address FE80::1 link-local
+ ipv6 address 2001:DB8:1000:420::1/64
+ ipv6 enable
+ ipv6 traffic-filter SERVER-ACCESS-V6 out
+ ipv6 ospf 10 area 1
+interface GigabitEthernet4/0.444
+ encapsulation dot1Q 444
+ ip address 10.0.0.225 255.255.255.240
+ ip helper-address 10.0.0.250
+ ip nat inside
+ ip virtual-reassembly in
+ ipv6 address FE80::1 link-local
+ ipv6 address 2001:DB8:1000:444::1/64
+ ipv6 enable
+ ipv6 ospf 10 area 1
+interface GigabitEthernet4/0.666
+ encapsulation dot1Q 666
+ ip address 10.0.0.241 255.255.255.248
+ ip helper-address 10.0.0.250
+ ip nat inside
+ ip virtual-reassembly in
+ ipv6 address FE80::1 link-local
+ ipv6 address 2001:DB8:1000:666::1/64
+ ipv6 enable
+ ipv6 ospf 10 area 1
+interface GigabitEthernet5/0
+ no ip address
+ shutdown
+ negotiation auto
+interface GigabitEthernet6/0
+ no ip address
+ shutdown
+ negotiation auto
+router ospf 1
+ network 10.0.0.0 0.0.0.127 area 1
+ network 10.0.0.128 0.0.0.63 area 1
+ network 10.0.0.192 0.0.0.31 area 1
+ network 10.0.0.224 0.0.0.15 area 1
+ network 10.0.0.240 0.0.0.7 area 1
+ network 10.0.0.248 0.0.0.7 area 1
+ network 172.16.0.0 0.0.0.7 area 1
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+ip nat inside source route-map DYNAMIC-NAT-MAP interface GigabitEthernet1/0 overload
+ip nat inside source static 10.0.0.250 172.16.0.4 route-map STATIC-NAT-MAP
+ip route 0.0.0.0 0.0.0.0 172.16.0.6
+ip route 10.2.0.0 255.255.0.0 GigabitEthernet1/0
+ip access-list extended NAT-DYNAMIC
+ deny   ip 10.0.0.0 0.0.255.255 10.2.0.0 0.0.255.255
+ permit ip 10.0.0.0 0.0.0.255 any
+ip access-list extended NAT-STATIC
+ deny   ip 10.0.0.0 0.0.255.255 10.2.0.0 0.0.255.255
+ permit ip 10.0.0.0 0.0.0.255 any
+ip access-list extended OUTSIDE-IN
+ permit tcp any any established
+ permit udp host 9.6.11.10 host 172.16.0.1 eq isakmp
+ permit udp host 9.6.11.10 host 172.16.0.1 eq non500-isakmp
+ permit esp host 9.6.11.10 host 172.16.0.1
+ permit tcp any host 172.16.0.4 eq www
+ permit tcp any host 172.16.0.4 eq 443
+ permit udp host 10.10.10.10 eq domain any
+ permit tcp host 10.10.10.10 eq domain any
+ permit ospf any any
+ permit icmp any host 172.16.0.1 echo
+ permit icmp any host 172.16.0.1 echo-reply
+ permit icmp any host 172.16.0.4 echo
+ permit icmp any host 172.16.0.1 time-exceeded
+ permit icmp any host 172.16.0.1 unreachable
+ deny   ip any any
+ip access-list extended SERVER-ACCESS
+ permit tcp any host 10.0.0.250 eq www
+ permit tcp any host 10.0.0.250 eq 443
+ permit tcp host 10.0.0.253 host 10.0.0.250 eq 22
+ deny   tcp any host 10.0.0.250 eq 22
+ permit udp any host 10.0.0.250 eq bootps
+ permit udp any host 10.0.0.250 eq bootpc
+ permit udp any host 10.0.0.250 eq netbios-ns
+ permit udp any host 10.0.0.250 eq netbios-dgm
+ permit tcp any host 10.0.0.250 eq 139
+ permit tcp any host 10.0.0.250 eq 445
+ permit udp any any eq domain
+ permit ip any any
+ip access-list extended VPN-IPv4
+ permit ip 10.0.0.0 0.0.255.255 10.2.0.0 0.0.255.255
+ipv6 route 2001:DB8:3000::/48 2001:DB8:A:3::2
+ipv6 route ::/0 2001:DB8:1000:15::3
+ipv6 route ::/0 2001:DB8:1000:15::2
+ipv6 router ospf 10
+route-map STATIC-NAT-MAP permit 10
+ match ip address NAT-STATIC
+route-map DYNAMIC-NAT-MAP permit 10
+ match ip address NAT-DYNAMIC
+ipv6 access-list OUTSIDE-IN-V6
+ permit tcp any any established
+ permit udp any any eq isakmp
+ permit udp any any eq non500-isakmp
+ permit esp host 2001:DB8:A:3::2 host 2001:DB8:1000:15::1
+ permit tcp any host 2001:DB8:1000:420::2 eq www
+ permit tcp any host 2001:DB8:1000:420::2 eq 443
+ permit udp host 2001:DB8:FAAA::1 eq domain any
+ permit 89 any any
+ permit icmp any any echo-request
+ permit icmp any any echo-reply
+ permit icmp any any nd-na
+ permit icmp any any nd-ns
+ permit icmp any any router-advertisement
+ permit icmp any any time-exceeded
+ permit icmp any any unreachable
+ permit udp any any range 33434 33534
+ deny ipv6 any any
+ipv6 access-list SERVER-ACCESS-V6
+ permit tcp any host 2001:DB8:1000:420::2 eq www
+ permit tcp any host 2001:DB8:1000:420::2 eq 443
+ permit tcp host 2001:DB8:1000:420::3 host 2001:DB8:1000:420::2 eq 22
+ deny tcp any host 2001:DB8:1000:420::2 eq 22
+ permit udp any host 2001:DB8:1000:420::2 eq 546
+ permit udp any host 2001:DB8:1000:420::2 eq 547
+ permit udp any host 2001:DB8:1000:420::2 eq netbios-ns
+ permit udp any host 2001:DB8:1000:420::2 eq netbios-dgm
+ permit tcp any host 2001:DB8:1000:420::2 eq 139
+ permit tcp any host 2001:DB8:1000:420::2 eq 445
+ permit ipv6 any any
+ipv6 access-list VPN-IPv6
+ permit ipv6 2001:DB8:1000::/48 2001:DB8:3000::/48
+control-plane
+mgcp behavior rsip-range tgcp-only
+mgcp behavior comedia-role none
+mgcp behavior comedia-check-media-src disable
+mgcp behavior comedia-sdp-force disable
+mgcp profile default
+gatekeeper
+ shutdown
+banner motd 
+Unauthorized access will result in sacrificing you! :)
+line con 0
+ logging synchronous
+ stopbits 1
+line aux 0
+ stopbits 1
+line vty 0 4
+ transport input ssh
+line vty 5 15
+ transport input ssh
+crypto RSA-key-pair R-K1.evil-inc.com 0 1763916818
+ 30820276 02010030 0D06092A 864886F7 0D010101 05000482 02603082 025C0201 
+ 00028181 00C046F7 DB976BFE 5992910D 850CB495 9C36BB3C 958BFFE5 9EA77B1C 
+ A15CB00C C365D768 D74FAEB3 005CB511 4AD9B29E 37CF6130 B9CBC957 3A4EEFF8 
+ 2672D2A8 CF54E480 B4E88508 F80D4DB4 6603667A 7616A6E8 F6D2AE04 0E595A7D 
+ 3CD0C47A E2C51AF6 AC6BD752 E575AFE6 FDDC41E9 8EE04E81 63D37566 3A21A258 
+ A3DAEBF7 43020301 00010281 8006408F E5D9F286 4CD0F338 4AD2C30E 7D46EE2C 
+ 63931C1A 57113DA4 DB56D792 D0D3980D FA420B8C 41107DBE 033E91CC 464462D8 
+ 6492DB79 5E9A82BB 28D8E671 3EA9002A DDB6737F 4C60BF6B 653395FC 7B697678 
+ 17D21E0F B6345D25 3338EC0D 50718879 C4E6680F CF4B5F62 88418422 DE192F3C 
+ 7F118B77 EB120E15 0D78C59A C1024100 DE2C9D66 AC0CC230 C190C3C7 C8277F46 
+ 35317C1A CC623920 C1EDB1A9 6D260E0E 10E07FA9 08525047 C78696C5 6452F48B 
+ B76FEA11 EE93EE69 FEF25C41 4C0F7041 024100DD 8D18A979 2467D1DD C65B84C0 
+ 9F524059 82820BC2 89F29F38 A0F38B39 623189D4 BE068950 FCBF9B10 FF383111 
+ F28AE69B DCBD5D3E F6C6E3ED 7D229B79 64068302 4003E1B1 AA4E8D36 83558E6A 
+ ED3DA0FB 0745FCA4 576F84B3 CCCFB690 690E6020 D4BC14C0 063AFFFD 2913E255 
+ 1603C7B3 4011A761 E6884D8B 57CCBD7D 4122CC0E 41024036 EC7EBBAC DB989D4F 
+ 8498359D E72165F0 8AC9208F 36D19E25 54C96BAF 6B276ACB 01DCEEF7 D3E0D059 
+ 735C03D6 3631B71F D6A65F52 77AD30DE 34527B06 AA046F02 410088E5 06510238 
+ E2858E9B 209D2304 2FFECACA 41F1EB04 6637BBD7 A422C355 09481CE8 652909F4 
+ F55A6EC1 9EC2DA7B 9362D26D 1BAFAF74 12F1BDB0 354C0C34 358D
+ quit
+ 30819F30 0D06092A 864886F7 0D010101 05000381 8D003081 89028181 00C046F7 
+ DB976BFE 5992910D 850CB495 9C36BB3C 958BFFE5 9EA77B1C A15CB00C C365D768 
+ D74FAEB3 005CB511 4AD9B29E 37CF6130 B9CBC957 3A4EEFF8 2672D2A8 CF54E480 
+ B4E88508 F80D4DB4 6603667A 7616A6E8 F6D2AE04 0E595A7D 3CD0C47A E2C51AF6 
+ AC6BD752 E575AFE6 FDDC41E9 8EE04E81 63D37566 3A21A258 A3DAEBF7 43020301 0001
+ quit
+ifIndex-table
+9persistent-data
+ReloadReason
+12ab34Unknown reason
+prst-fls
+prst-ver

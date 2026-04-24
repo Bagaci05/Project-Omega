@@ -1,0 +1,264 @@
+Cisco IOS Software, 7200 Software (C7200-ADVENTERPRISEK9-M), Version 15.3(3)XB12, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2013 by Cisco Systems, Inc.
+Compiled Tue 19-Nov-13 04:39 by prod_rel_team
+7200 Software (C7200-ADVENTERPRISEK9-M), Version 15.3(3)XB12, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Compiled Tue 19-Nov-13 04:39 by prod_rel_team
+Image text-base: 0x60008978, data-base: 0x6524E000
+! Last configuration change at 16:49:26 UTC Mon Mar 30 2026
+upgrade fpd auto
+version 15.3
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+hostname R-R1
+boot-start-marker
+boot-end-marker
+aqm-register-fnf
+aaa new-model
+aaa session-id common
+no ip icmp rate-limit unreachable
+ip domain name evil-inc.com
+ip name-server 10.10.10.10
+ip cef
+ipv6 unicast-routing
+ipv6 cef
+multilink bundle-name authenticated
+username admin secret 5 $1$VWx4$RBOfShsM/lCJsg1gnWgEQ.
+redundancy
+ip tcp synwait-time 5
+ip ssh version 2
+crypto isakmp policy 10
+ encr aes 256
+ hash sha256
+ authentication pre-share
+ group 19
+crypto isakmp key CR1T1CALP3SS! address 172.16.0.1     
+crypto isakmp key CR1T1CALP3SS! address ipv6 2001:DB8:1000:15::1/64
+crypto ipsec transform-set VPN-TS esp-aes 256 esp-sha256-hmac 
+ mode tunnel
+crypto map VPN-MAP 10 ipsec-isakmp 
+ set peer 172.16.0.1
+ set transform-set VPN-TS 
+ set pfs group19
+ match address VPN-IPv4
+crypto map ipv6 VPN6-MAP 20 ipsec-isakmp 
+ set peer 2001:DB8:1000:15::1
+ set transform-set VPN-TS 
+ set pfs group19
+ match address VPN-IPv6
+interface Ethernet0/0
+ no ip address
+ shutdown
+ duplex auto
+interface GigabitEthernet0/0
+ no ip address
+ duplex full
+ speed 1000
+ media-type gbic
+ negotiation auto
+interface GigabitEthernet1/0
+ ip address 10.2.0.1 255.255.255.128
+ ip access-group SERVER-ACCESS2 out
+ ip nat inside
+ ip virtual-reassembly in
+ negotiation auto
+ ipv6 address FE80::1 link-local
+ ipv6 address 2001:DB8:3000:1::1/64
+ ipv6 enable
+ ipv6 traffic-filter SERVER-ACCESS2-V6 out
+ ipv6 ospf 10 area 3
+interface GigabitEthernet2/0
+ ip address 10.2.0.129 255.255.255.248
+ ip access-group SERVER-ACCESS1 out
+ ip nat inside
+ ip virtual-reassembly in
+ negotiation auto
+ ipv6 address FE80::1 link-local
+ ipv6 address 2001:DB8:3000:2::1/64
+ ipv6 enable
+ ipv6 traffic-filter SERVER-ACCESS1-V6 out
+ ipv6 ospf 10 area 3
+interface Serial3/0
+ ip address 9.6.11.10 255.255.255.252
+ ip access-group OUTSIDE-IN in
+ ip nat outside
+ ip virtual-reassembly in
+ encapsulation ppp
+ ip tcp adjust-mss 1360
+ ipv6 address 2001:DB8:A:3::2/64
+ ipv6 tcp adjust-mss 1280
+ ipv6 traffic-filter OUTSIDE-IN-V6 in
+ ipv6 crypto map VPN6-MAP
+ ipv6 ospf 10 area 0
+ ppp chap hostname raktar@evil.inc
+ ppp chap password 0 EvilRaktar888
+ serial restart-delay 0
+ crypto map VPN-MAP
+interface Serial3/1
+ no ip address
+ shutdown
+ serial restart-delay 0
+interface Serial3/2
+ no ip address
+ shutdown
+ serial restart-delay 0
+interface Serial3/3
+ no ip address
+ shutdown
+ serial restart-delay 0
+router ospf 1
+ router-id 4.4.4.4
+ network 9.6.11.8 0.0.0.3 area 0
+ network 10.2.0.0 0.0.0.127 area 3
+ network 10.2.0.128 0.0.0.7 area 3
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+ip nat pool RAKTAR-POOL 100.100.100.1 100.100.100.29 netmask 255.255.255.224
+ip nat inside source route-map RM-DYNAMIC-NAT pool RAKTAR-POOL
+ip nat inside source static 10.2.0.130 100.100.100.30 route-map RM-STATIC-NAT
+ip route 10.0.0.0 255.0.0.0 Serial3/0
+ip access-list extended NAT-DYNAMIC
+ deny   ip 10.0.0.0 0.255.255.255 10.0.0.0 0.255.255.255
+ deny   ip 10.0.0.0 0.255.255.255 172.16.0.0 0.0.255.255
+ permit ip 10.2.0.0 0.0.0.255 any
+ip access-list extended NAT-STATIC
+ deny   ip 10.0.0.0 0.255.255.255 10.0.0.0 0.255.255.255
+ deny   ip 10.0.0.0 0.255.255.255 172.16.0.0 0.0.255.255
+ permit ip host 10.2.0.130 any
+ip access-list extended OUTSIDE-IN
+ permit tcp any any established
+ permit udp any any eq isakmp
+ permit udp any any eq non500-isakmp
+ permit esp host 172.16.0.1 host 9.6.11.10
+ permit tcp any host 100.100.100.30 eq www
+ permit tcp any host 100.100.100.30 eq 443
+ permit udp host 10.10.10.10 eq domain any
+ permit tcp host 10.10.10.10 eq domain any
+ permit ospf any any
+ permit icmp any host 9.6.11.10 echo
+ permit icmp any host 9.6.11.10 echo-reply
+ permit icmp any host 9.6.11.10 time-exceeded
+ permit icmp any host 9.6.11.10 unreachable
+ deny   ip any any
+ip access-list extended SERVER-ACCESS1
+ permit tcp any host 10.2.0.130 eq www
+ permit tcp any host 10.2.0.130 eq 443
+ permit tcp host 10.2.0.131 host 10.2.0.130 eq 22
+ deny   tcp any host 10.2.0.130 eq 22
+ permit ip any any
+ip access-list extended SERVER-ACCESS2
+ permit tcp any host 10.2.0.2 eq www
+ permit tcp any host 10.2.0.2 eq 443
+ permit tcp host 10.2.0.131 host 10.2.0.2 eq 22
+ deny   tcp any host 10.2.0.2 eq 22
+ permit udp any host 10.2.0.2 eq bootps
+ permit udp any host 10.2.0.2 eq bootpc
+ permit ip any any
+ip access-list extended VPN-IPv4
+ permit ip 10.2.0.0 0.0.0.255 10.0.0.0 0.0.0.255
+no cdp log mismatch duplex
+ipv6 route 2001:DB8:1000::/48 2001:DB8:1000:15::1
+ipv6 route ::/0 2001:DB8:A:3::1
+ipv6 router ospf 10
+ipv6 router ospf 1
+route-map RM-DYNAMIC-NAT permit 10
+ match ip address NAT-DYNAMIC
+route-map RM-STATIC-NAT permit 10
+ match ip address NAT-STATIC
+ipv6 access-list OUTSIDE-IN-V6
+ permit tcp any any established
+ permit udp any any eq isakmp
+ permit udp any any eq non500-isakmp
+ permit esp host 2001:DB8:1000:15::1 host 2001:DB8:A:3::2
+ permit tcp any host 2001:DB8:3000:2::2 eq www
+ permit tcp any host 2001:DB8:3000:2::2 eq 443
+ permit udp host 2001:DB8:FAAA::1 eq domain any
+ permit 89 any any
+ permit icmp any any echo-request
+ permit icmp any any echo-reply
+ permit icmp any any nd-na
+ permit icmp any any nd-ns
+ permit icmp any any router-advertisement
+ permit icmp any any time-exceeded
+ permit icmp any any unreachable
+ permit udp any any range 33434 33534
+ deny ipv6 any any
+ipv6 access-list SERVER-ACCESS1-V6
+ permit tcp any host 2001:DB8:3000:2::2 eq www
+ permit tcp any host 2001:DB8:3000:2::2 eq 443
+ permit tcp host 2001:DB8:3000:2::3 host 2001:DB8:3000:2::2 eq 22
+ deny tcp any host 2001:DB8:3000:2::2 eq 22
+ permit ipv6 any any
+ipv6 access-list SERVER-ACCESS2-V6
+ permit tcp any host 2001:DB8:3000:1::2 eq www
+ permit tcp any host 2001:DB8:3000:1::2 eq 443
+ permit tcp host 2001:DB8:3000:1::3 host 2001:DB8:3000:1::2 eq 22
+ deny tcp any host 2001:DB8:3000:1::2 eq 22
+ permit udp any host 2001:DB8:3000:1::2 eq 546
+ permit udp any host 2001:DB8:3000:1::2 eq 547
+ permit ipv6 any any
+ipv6 access-list VPN-IPv6
+ permit ipv6 2001:DB8:3000::/48 2001:DB8:1000::/48
+control-plane
+mgcp behavior rsip-range tgcp-only
+mgcp behavior comedia-role none
+mgcp behavior comedia-check-media-src disable
+mgcp behavior comedia-sdp-force disable
+mgcp profile default
+gatekeeper
+ shutdown
+banner motd 
+Unauthorized access will result in sacrificing you! :)
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line aux 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line vty 0 4
+ transport input ssh
+line vty 5 15
+ transport input ssh
+crypto RSA-key-pair R-R1.evil-inc.com 0 1763465217
+ 30820276 02010030 0D06092A 864886F7 0D010101 05000482 02603082 025C0201 
+ 00028181 008B7476 8BB8ECC5 7EE53598 C346B422 393B0E0E 88A98879 7692F1B9 
+ BDB51852 79C16A43 6E7494D4 6549183B 39466F57 AFE39B06 2E29347E 37783867 
+ D8AA5890 EDE3A170 61FC1EDB 1E69AF35 6CE1FD74 F0077C1E F6327997 2B1581D8 
+ 050C3C36 5D9A867E 24665720 45013569 AF741716 D2096886 60E3EE2F ABE7ACA0 
+ 01693EB2 4B020301 00010281 8010B95D 54214FC7 D9917C6D 7F11B61D 9A9671F7 
+ 9D3D13A0 596F82EC BF0AFE49 39CFCFC2 197782B7 BC13D983 94B95536 03627CDF 
+ 6F5EC2AC 5653A514 13204EB1 C6A060ED D2BCEBF4 6589FD78 1C9219F7 C7407D9C 
+ 1AC85975 FDD17E8A 37E7DAFB EB3229A3 2B0A39B1 D3A5A726 C05C5DDD D24E2773 
+ 800C2239 B70AD5DB BCBCEC99 11024100 BF20B6D2 DA7A0A78 8C5A86D7 62E5B144 
+ 01B219D9 A36A2D72 52626F1E 5ECB9908 B97E8581 F81CEE1B 5E7E6C99 D7476E7A 
+ D0F7BB28 E481C004 5F6B3EDA A7309B31 024100BA C9D7AECC BD0DF709 AD67A833 
+ C09F2AF6 A1A0A586 998E6385 889821DF F24A8F64 5DF7899D 389D5044 4759DD91 
+ 88A92214 790363A7 FDC70D83 80CB7EF9 624E3B02 403D383D 574CA3CA B6D23E2C 
+ F2D0BAC2 0D067E05 C9B08E52 004C633B 347F28B7 DC138E73 352E4416 00AE43D0 
+ 85766F6A F3EBFB6D F7AB39E4 478248D7 D931B460 01024100 8128B2E8 5F105748 
+ BC3B58D2 F93E3791 98CAF86F 9CDC2F96 67AEA52B BF5425F4 733D7ABE 80A5B639 
+ DB8CCEFA 23F930A2 AD2F6485 93932B02 102D8E09 35DEA123 02407831 16A49FD1 
+ 71C11D00 F8B3B919 E2F3F4E4 71327440 5F7864B0 F5545090 CFEF2E4D 50C87C11 
+ 5B1209F3 EA736029 6DBB5873 C0EA8AF6 1ED61FD9 C5888BE3 E667
+ quit
+ 30819F30 0D06092A 864886F7 0D010101 05000381 8D003081 89028181 008B7476 
+ 8BB8ECC5 7EE53598 C346B422 393B0E0E 88A98879 7692F1B9 BDB51852 79C16A43 
+ 6E7494D4 6549183B 39466F57 AFE39B06 2E29347E 37783867 D8AA5890 EDE3A170 
+ 61FC1EDB 1E69AF35 6CE1FD74 F0077C1E F6327997 2B1581D8 050C3C36 5D9A867E 
+ 24665720 45013569 AF741716 D2096886 60E3EE2F ABE7ACA0 01693EB2 4B020301 0001
+ quit
+persistent-data
+ReloadReason
+12ab34Unknown reason
+prst-fls
+prst-ver
+rf_reload_data0
+02-04-26 08:09:42 Unknown User: Unknown Reason
+rf_reload_data_index

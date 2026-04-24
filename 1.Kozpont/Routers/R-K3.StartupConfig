@@ -1,0 +1,258 @@
+Cisco IOS Software, 7200 Software (C7200-ADVENTERPRISEK9-M), Version 15.3(3)XB12, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2013 by Cisco Systems, Inc.
+Compiled Tue 19-Nov-13 04:39 by prod_rel_team
+7200 Software (C7200-ADVENTERPRISEK9-M), Version 15.3(3)XB12, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Compiled Tue 19-Nov-13 04:39 by prod_rel_team
+Image text-base: 0x60008978, data-base: 0x6524E000
+! Last configuration change at 06:21:00 UTC Tue Mar 3 2026
+upgrade fpd auto
+version 15.3
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+hostname R-K3
+boot-start-marker
+boot-end-marker
+aqm-register-fnf
+aaa new-model
+aaa session-id common
+no ip icmp rate-limit unreachable
+ip domain name evil-inc.com
+ip name-server 10.10.10.10
+ip cef
+ipv6 unicast-routing
+ipv6 cef
+multilink bundle-name authenticated
+username admin secret 5 $1$sjgv$FjOkb/n.5bmQAjygskaFv.
+redundancy
+ip tcp synwait-time 5
+ip ssh version 2
+interface Ethernet0/0
+ no ip address
+ shutdown
+ duplex auto
+interface GigabitEthernet0/0
+ ip address 172.16.0.3 255.255.255.248
+ standby version 2
+ standby 1 ip 172.16.0.6
+ standby 1 preempt
+ standby 2 ipv6 autoconfig
+ standby 2 ipv6 2001:DB8:1000:15::FE/64
+ duplex full
+ speed 1000
+ media-type gbic
+ negotiation auto
+ ipv6 address 2001:DB8:1000:15::3/64
+ ipv6 ospf 10 area 0
+interface GigabitEthernet1/0
+ no ip address
+ shutdown
+ negotiation auto
+interface Serial2/0
+ ip address 9.6.11.6 255.255.255.252
+ encapsulation ppp
+ ipv6 address 2001:DB8:A:2::2/64
+ ipv6 ospf 10 area 0
+ ppp chap hostname iroda@evil.inc
+ ppp chap password 0 EvilIroda888
+ serial restart-delay 0
+interface Serial2/1
+ no ip address
+ shutdown
+ serial restart-delay 0
+interface Serial2/2
+ no ip address
+ shutdown
+ serial restart-delay 0
+interface Serial2/3
+ no ip address
+ shutdown
+ serial restart-delay 0
+router ospf 1
+ router-id 3.3.3.3
+ network 9.6.11.4 0.0.0.3 area 0
+ network 172.16.0.0 0.0.0.7 area 1
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+no cdp log mismatch duplex
+ipv6 route ::/0 2001:DB8:A:2::1
+ipv6 router ospf 10
+ipv6 router ospf 1
+snmp-server community public RO
+snmp-server location SzerverSzoba
+snmp-server enable traps snmp authentication linkdown linkup coldstart warmstart
+snmp-server enable traps vrrp
+snmp-server enable traps flowmon
+snmp-server enable traps ds1
+snmp-server enable traps call-home message-send-fail server-fail
+snmp-server enable traps tty
+snmp-server enable traps gatekeeper
+snmp-server enable traps eigrp
+snmp-server enable traps ospf state-change
+snmp-server enable traps ospf errors
+snmp-server enable traps ospf retransmit
+snmp-server enable traps ospf lsa
+snmp-server enable traps ospf cisco-specific state-change nssa-trans-change
+snmp-server enable traps ospf cisco-specific state-change shamlink interface
+snmp-server enable traps ospf cisco-specific state-change shamlink neighbor
+snmp-server enable traps ospf cisco-specific errors
+snmp-server enable traps ospf cisco-specific retransmit
+snmp-server enable traps ospf cisco-specific lsa
+snmp-server enable traps xgcp
+snmp-server enable traps ethernet cfm cc mep-up mep-down cross-connect loop config
+snmp-server enable traps ethernet cfm crosscheck mep-missing mep-unknown service-up
+snmp-server enable traps flash insertion removal
+snmp-server enable traps srp
+snmp-server enable traps ds3
+snmp-server enable traps envmon
+snmp-server enable traps isdn call-information
+snmp-server enable traps isdn layer2
+snmp-server enable traps isdn chan-not-avail
+snmp-server enable traps isdn ietf
+snmp-server enable traps ima
+snmp-server enable traps diameter
+snmp-server enable traps channel
+snmp-server enable traps ip local pool
+snmp-server enable traps aaa_server
+snmp-server enable traps atm subif
+snmp-server enable traps bfd
+snmp-server enable traps bgp cbgp2
+snmp-server enable traps bstun
+snmp-server enable traps cef resource-failure peer-state-change peer-fib-state-change inconsistency
+snmp-server enable traps memory bufferpeak
+snmp-server enable traps cnpd
+snmp-server enable traps config-copy
+snmp-server enable traps config
+snmp-server enable traps config-ctid
+snmp-server enable traps dial
+snmp-server enable traps dlsw
+snmp-server enable traps dsp card-status
+snmp-server enable traps dsp oper-state
+snmp-server enable traps dsp video-usage
+snmp-server enable traps dsp video-out-of-resource
+snmp-server enable traps entity
+snmp-server enable traps fru-ctrl
+snmp-server enable traps resource-policy
+snmp-server enable traps frame-relay multilink bundle-mismatch
+snmp-server enable traps frame-relay
+snmp-server enable traps frame-relay subif
+snmp-server enable traps hsrp
+snmp-server enable traps ipmobile
+snmp-server enable traps ipmulticast
+snmp-server enable traps isis
+snmp-server enable traps mpls traffic-eng
+snmp-server enable traps mpls fast-reroute protected
+snmp-server enable traps mpls rfc ldp
+snmp-server enable traps mpls ldp
+snmp-server enable traps msdp
+snmp-server enable traps mvpn
+snmp-server enable traps pim neighbor-change rp-mapping-change invalid-pim-message
+snmp-server enable traps pppoe
+snmp-server enable traps cpu threshold
+snmp-server enable traps nhrp nhs
+snmp-server enable traps nhrp nhc
+snmp-server enable traps nhrp nhp
+snmp-server enable traps nhrp quota-exceeded
+snmp-server enable traps rsvp
+snmp-server enable traps ipsla
+snmp-server enable traps stun
+snmp-server enable traps syslog
+snmp-server enable traps l2tun session
+snmp-server enable traps l2tun pseudowire status
+snmp-server enable traps event-manager
+snmp-server enable traps firewall serverstatus
+snmp-server enable traps ospfv3 state-change
+snmp-server enable traps ospfv3 errors
+snmp-server enable traps gdoi gm-start-registration
+snmp-server enable traps gdoi gm-registration-complete
+snmp-server enable traps gdoi gm-re-register
+snmp-server enable traps gdoi gm-rekey-rcvd
+snmp-server enable traps gdoi gm-rekey-fail
+snmp-server enable traps gdoi ks-rekey-pushed
+snmp-server enable traps gdoi gm-incomplete-cfg
+snmp-server enable traps gdoi ks-no-rsa-keys
+snmp-server enable traps gdoi ks-new-registration
+snmp-server enable traps gdoi ks-reg-complete
+snmp-server enable traps ike policy add
+snmp-server enable traps ike policy delete
+snmp-server enable traps ike tunnel start
+snmp-server enable traps ike tunnel stop
+snmp-server enable traps ipsec cryptomap add
+snmp-server enable traps ipsec cryptomap delete
+snmp-server enable traps ipsec cryptomap attach
+snmp-server enable traps ipsec cryptomap detach
+snmp-server enable traps ipsec tunnel start
+snmp-server enable traps ipsec tunnel stop
+snmp-server enable traps ipsec too-many-sas
+snmp-server enable traps alarms informational
+snmp-server enable traps rf
+snmp-server enable traps bulkstat collection transfer
+snmp-server enable traps mpls vpn
+snmp-server enable traps voice
+snmp-server enable traps dnis
+snmp-server enable traps vrfmib vrf-up vrf-down vnet-trunk-up vnet-trunk-down
+control-plane
+mgcp behavior rsip-range tgcp-only
+mgcp behavior comedia-role none
+mgcp behavior comedia-check-media-src disable
+mgcp behavior comedia-sdp-force disable
+mgcp profile default
+gatekeeper
+ shutdown
+banner motd 
+Unauthorized access will result in sacrificing you! :)
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line aux 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line vty 0 4
+ transport input ssh
+line vty 5 15
+ transport input ssh
+crypto RSA-key-pair R-K3.evil-inc.com 0 1769162725
+ 30820277 02010030 0D06092A 864886F7 0D010101 05000482 02613082 025D0201 
+ 00028181 009894FA 59DACB26 04CA103A 1FC67213 6E314473 9FE04BAB FB3131E5 
+ C39EAC23 F355F594 90C4289B CF923669 A047990C 8673F47F 552E38CA 4055B05E 
+ 53144ED5 C1FAD7C0 5B2EEA85 9CBC99EC 7B1981C6 62A01A28 47882922 0513ABAC 
+ B83397BA 2F78CC5B 04A42124 75A17C27 C1B6C03E F87E2FF2 E4B6C51D 03704E21 
+ 9C8E7C10 05020301 00010281 8012BECE C9063FCA 02719EAF BD62A076 31A5FCDE 
+ 65A86533 924F376D 9E6C5A82 AA2D07D8 4236CF34 613A79D3 DD3C9E99 72D54116 
+ F9AC8D8E 8F7BD788 A7154A20 299D817B 34A1CD8D B31C91B0 357A4122 B7EB61C4 
+ 3924A3E7 D2C9C81B 470F99E7 B3A2CF91 48D9151F D247193B 809E0C44 204F24CF 
+ 90291A63 2933E3D2 B728E8CD 91024100 D684E1FB A5357DB6 9B958CAC 8E4F28AC 
+ 92140AF6 CDE46887 3A97ECBE 2C262408 9FA70102 CFD76B12 C980F7FD 2B6DEF4B 
+ F318DBD0 EAC72329 5B328EC8 D5086D5D 024100B6 1615CE02 AEB418DD A21E2D0E 
+ 7609F4E1 0F3462BE 76C1733D AA3C3A3A 4915E76E 9BF60378 8F333274 28D357F2 
+ 1A855382 0241F448 4B5B7E10 AFF57D0B E1DAC902 4062DF30 4109EE53 98DCB0DA 
+ FB9543CA DD6F1EA9 C70332A9 32DAC0B7 2F17AE24 A18CE42E 451B8290 2942929C 
+ BA255030 20F3549B CBF8C9FB DCCDD9C9 91AB0E8D 49024100 81E721A9 366AB2DB 
+ A68AB922 85D59A66 D4854767 46E06C44 ADF29C43 223FEFDB 8B22C311 58DA38B9 
+ 3EFBBD43 59DAA7D1 9AC7C78B E263B8A3 287E9011 A4FF7D59 024100B8 D5071070 
+ 595CA85A 5A2615BD 67221B16 39AEC4C1 9E971928 FE13E9CD A6373C83 78B60F81 
+ A0A41013 C9521126 EC0BF9DC 7114E845 FD6EACA5 620EA81E BF79
+ quit
+ 30819F30 0D06092A 864886F7 0D010101 05000381 8D003081 89028181 009894FA 
+ 59DACB26 04CA103A 1FC67213 6E314473 9FE04BAB FB3131E5 C39EAC23 F355F594 
+ 90C4289B CF923669 A047990C 8673F47F 552E38CA 4055B05E 53144ED5 C1FAD7C0 
+ 5B2EEA85 9CBC99EC 7B1981C6 62A01A28 47882922 0513ABAC B83397BA 2F78CC5B 
+ 04A42124 75A17C27 C1B6C03E F87E2FF2 E4B6C51D 03704E21 9C8E7C10 05020301 0001
+ quit
+ifIndex-table
+persistent-data
+ReloadReason
+12ab34Unknown reason
+prst-fls
+prst-ver
+rf_reload_data0
+02-04-26 08:10:01 Unknown User: Unknown Reason
+rf_reload_data_index
+snmpboots
